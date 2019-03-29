@@ -1,0 +1,290 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Marketing Cloud REST API",
+    "description": "Marketing Cloud's REST API is our newest API. It supports multi-channel use cases, is much more lightweight and easy to use than our SOAP API, and is getting more comprehensive with every release.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "MC SDK Team",
+      "email": "mc_sdk@salesforce.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "www.exacttargetapis.com"
+    }
+  ],
+  "paths": {
+    "/asset/v1/content/assets/{id}": {
+      "get": {
+        "tags": [
+          "asset"
+        ],
+        "summary": "getObjectById",
+        "description": "Gets an asset by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the asset",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single asset",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetError"
+                }
+              }
+            }
+          }
+        },
+        "x-published": true
+      },
+      "patch": {
+        "tags": [
+          "asset"
+        ],
+        "summary": "patchAsset",
+        "description": "Updates part of an asset.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the asset to update",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Asset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A single asset",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetError"
+                }
+              }
+            }
+          }
+        },
+        "x-published": true
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AssetError": {
+        "type": "object",
+        "properties": {
+          "Message": {
+            "description": "The error message",
+            "type": "string"
+          },
+          "ErrorCode": {
+            "description": "The specific error code",
+            "type": "number"
+          },
+          "Documentation": {
+            "description": "Any specific documentation for the error",
+            "type": "string"
+          }
+        }
+      },
+      "Asset": {
+        "type": "object",
+        "required": [
+          "CustomerKey",
+          "Name",
+          "Description",
+          "AssetType"
+        ],
+        "properties": {
+          "CustomerKey": {
+            "description": "Reference to customer's private ID/name for the asset",
+            "type": "string"
+          },
+          "ContentType": {
+            "description": "The type that the content attribute will be in",
+            "type": "string"
+          },
+          "Data": {
+            "description": "Property bag containing the asset data",
+            "type": "object"
+          },
+          "AssetType": {
+            "description": "The type of the asset saved as a name/ID pair",
+            "type": "object"
+          },
+          "Version": {
+            "description": "The version of the asset",
+            "type": "number"
+          },
+          "Locked": {
+            "description": "Specifies if the asset can be modified or not",
+            "type": "boolean"
+          },
+          "FileProperties": {
+            "description": "Stores the different properties that this asset refers to if it is a file type",
+            "type": "object"
+          },
+          "Name": {
+            "description": "Name of the asset, set by the client",
+            "type": "string"
+          },
+          "Description": {
+            "description": "Description of the asset, set by the client",
+            "type": "string"
+          },
+          "Category": {
+            "description": "ID of the category the asset belongs to",
+            "type": "object"
+          },
+          "Tags": {
+            "description": "List of tags associated with the asset",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Content": {
+            "description": "The actual content of the asset",
+            "type": "string"
+          },
+          "Design": {
+            "description": "Fallback for display when neither content nor supercontent are provided",
+            "type": "string"
+          },
+          "SuperContent": {
+            "description": "Content that supersedes content in terms of display",
+            "type": "string"
+          },
+          "CustomFields": {
+            "description": "Custom fields within an asset",
+            "type": "object"
+          },
+          "Views": {
+            "description": "Views within an asset",
+            "type": "object"
+          },
+          "Blocks": {
+            "description": "Blocks within the asset",
+            "type": "object"
+          },
+          "MinBlocks": {
+            "description": "Minimum number of blocks within an asset",
+            "type": "number"
+          },
+          "MaxBlocks": {
+            "description": "Maximum number of blocks within an asset",
+            "type": "number"
+          },
+          "Channels": {
+            "description": "List of channels that are allowed to use this asset",
+            "type": "object"
+          },
+          "AllowedBlocks": {
+            "description": "List of blocks that are allowed in the asset",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Slots": {
+            "description": "Slots within the asset",
+            "type": "object"
+          },
+          "BusinessUnitAvailability": {
+            "description": "A dictionary of member IDs that have been granted access to the asset",
+            "type": "object"
+          },
+          "sharingProperties": {
+            "description": "Allows you to share content with one or more business units that have Content Builder Sharing enabled. See <a href=\"sharing.htm\">Sharing</a> for additional information.",
+            "type": "object"
+          },
+          "sharingProperties.sharedWith": {
+            "description": "List of MID IDs the asset is shared with",
+            "type": "object"
+          },
+          "sharingProperties.sharingType": {
+            "description": "Indicates the permission that you are granting to the list of MIDs in sharedWith. Possible values are view, edit, or local.",
+            "type": "string"
+          },
+          "Template": {
+            "description": "Template the asset follows",
+            "type": "object"
+          },
+          "File": {
+            "description": "Base64-encoded string of a file associated with an asset",
+            "type": "string"
+          },
+          "GenerateFrom": {
+            "description": "Tells the sending compiler what view to use for generating this view's content",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
