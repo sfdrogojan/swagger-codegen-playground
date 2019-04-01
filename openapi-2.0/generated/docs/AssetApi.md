@@ -4,13 +4,13 @@ All URIs are relative to *https://www.exacttargetapis.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AssetV1ContentAssetsIdGet**](AssetApi.md#assetv1contentassetsidget) | **GET** /asset/v1/content/assets/{id} | getObjectById
-[**AssetV1ContentAssetsIdPatch**](AssetApi.md#assetv1contentassetsidpatch) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
+[**GetAssetById**](AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getObjectById
+[**PartiallyUpdateAsset**](AssetApi.md#partiallyupdateasset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
 
 
-<a name="assetv1contentassetsidget"></a>
-# **AssetV1ContentAssetsIdGet**
-> Asset AssetV1ContentAssetsIdGet (decimal? id)
+<a name="getassetbyid"></a>
+# **GetAssetById**
+> Asset GetAssetById (decimal? id)
 
 getObjectById
 
@@ -26,22 +26,25 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class AssetV1ContentAssetsIdGetExample
+    public class GetAssetByIdExample
     {
         public void main()
         {
+            // Configure OAuth2 access token for authorization: SFMC_OAuth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new AssetApi();
             var id = 8.14;  // decimal? | The ID of the asset
 
             try
             {
                 // getObjectById
-                Asset result = apiInstance.AssetV1ContentAssetsIdGet(id);
+                Asset result = apiInstance.GetAssetById(id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AssetApi.AssetV1ContentAssetsIdGet: " + e.Message );
+                Debug.Print("Exception when calling AssetApi.GetAssetById: " + e.Message );
             }
         }
     }
@@ -60,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[SFMC_OAuth2](../README.md#SFMC_OAuth2)
 
 ### HTTP request headers
 
@@ -69,9 +72,9 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="assetv1contentassetsidpatch"></a>
-# **AssetV1ContentAssetsIdPatch**
-> Asset AssetV1ContentAssetsIdPatch (decimal? id, Asset body = null)
+<a name="partiallyupdateasset"></a>
+# **PartiallyUpdateAsset**
+> Asset PartiallyUpdateAsset (decimal? id, Asset body = null)
 
 patchAsset
 
@@ -87,10 +90,13 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class AssetV1ContentAssetsIdPatchExample
+    public class PartiallyUpdateAssetExample
     {
         public void main()
         {
+            // Configure OAuth2 access token for authorization: SFMC_OAuth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new AssetApi();
             var id = 8.14;  // decimal? | The ID of the asset to update
             var body = new Asset(); // Asset | JSON Parameters (optional) 
@@ -98,12 +104,12 @@ namespace Example
             try
             {
                 // patchAsset
-                Asset result = apiInstance.AssetV1ContentAssetsIdPatch(id, body);
+                Asset result = apiInstance.PartiallyUpdateAsset(id, body);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AssetApi.AssetV1ContentAssetsIdPatch: " + e.Message );
+                Debug.Print("Exception when calling AssetApi.PartiallyUpdateAsset: " + e.Message );
             }
         }
     }
@@ -123,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[SFMC_OAuth2](../README.md#SFMC_OAuth2)
 
 ### HTTP request headers
 

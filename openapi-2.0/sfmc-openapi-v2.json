@@ -51,7 +51,15 @@
             }
           }
         },
-        "x-published": true
+        "x-published": true,
+        "operationId": "getAssetById",
+        "security": [
+          {
+              "SFMC_OAuth2": [
+                  "documents_and_images_read"
+              ]
+          }
+        ]
       },
       "patch": {
         "tags": [
@@ -96,7 +104,15 @@
             }
           }
         },
-        "x-published": true
+        "x-published": true,
+        "operationId": "partiallyUpdateAsset",
+        "security": [
+          {
+              "SFMC_OAuth2": [
+                  "documents_and_images_write"
+              ]
+          }
+        ]
       }
     }
   },
@@ -251,5 +267,17 @@
         }
       }
     }
-  }
+  },
+  "securityDefinitions": {
+    "SFMC_OAuth2": {
+        "type": "oauth2",
+        "flow": "application",
+        "scopes": {
+            "documents_and_images_read": "read assets",
+            "documents_and_images_write": "write assets"
+        },
+        "tokenUrl": "v2/token",
+        "authorizationUrl": "v2/token"
+    }
+}
 }

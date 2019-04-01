@@ -70,18 +70,21 @@ namespace Example
         public void main()
         {
 
+            // Configure OAuth2 access token for authorization: SFMC_OAuth2
+            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
+
             var apiInstance = new AssetApi();
             var id = 8.14;  // decimal? | The ID of the asset
 
             try
             {
                 // getObjectById
-                Asset result = apiInstance.AssetV1ContentAssetsIdGet(id);
+                Asset result = apiInstance.GetAssetById(id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling AssetApi.AssetV1ContentAssetsIdGet: " + e.Message );
+                Debug.Print("Exception when calling AssetApi.GetAssetById: " + e.Message );
             }
 
         }
@@ -96,8 +99,8 @@ All URIs are relative to *https://www.exacttargetapis.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssetApi* | [**AssetV1ContentAssetsIdGet**](docs/AssetApi.md#assetv1contentassetsidget) | **GET** /asset/v1/content/assets/{id} | getObjectById
-*AssetApi* | [**AssetV1ContentAssetsIdPatch**](docs/AssetApi.md#assetv1contentassetsidpatch) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
+*AssetApi* | [**GetAssetById**](docs/AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getObjectById
+*AssetApi* | [**PartiallyUpdateAsset**](docs/AssetApi.md#partiallyupdateasset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
 
 
 <a name="documentation-for-models"></a>
@@ -110,4 +113,13 @@ Class | Method | HTTP request | Description
 <a name="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
+<a name="SFMC_OAuth2"></a>
+### SFMC_OAuth2
+
+- **Type**: OAuth
+- **Flow**: application
+- **Authorization URL**: v2/token
+- **Scopes**: 
+  - documents_and_images_read: read assets
+  - documents_and_images_write: write assets
+
