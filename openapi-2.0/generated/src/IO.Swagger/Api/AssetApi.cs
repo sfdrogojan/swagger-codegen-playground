@@ -12,9 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using IO.Swagger.Authenticators;
 using RestSharp;
 using IO.Swagger.Client;
 using IO.Swagger.Model;
+using OAuth2Authenticator = IO.Swagger.Authenticators.OAuth2Authenticator;
 
 namespace IO.Swagger.Api
 {
@@ -25,7 +27,7 @@ namespace IO.Swagger.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// getObjectById
+        /// getAssetById
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -36,7 +38,7 @@ namespace IO.Swagger.Api
         Asset GetAssetById (decimal? id);
 
         /// <summary>
-        /// getObjectById
+        /// getAssetById
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -71,7 +73,7 @@ namespace IO.Swagger.Api
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
-        /// getObjectById
+        /// getAssetById
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -82,7 +84,7 @@ namespace IO.Swagger.Api
         System.Threading.Tasks.Task<Asset> GetAssetByIdAsync (decimal? id);
 
         /// <summary>
-        /// getObjectById
+        /// getAssetById
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -128,9 +130,16 @@ namespace IO.Swagger.Api
         /// Initializes a new instance of the <see cref="AssetApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public AssetApi(String basePath)
+        public AssetApi(String authBasePath, string clientId, string clientSecret, int accountId)
         {
-            this.Configuration = new IO.Swagger.Client.Configuration { BasePath = basePath };
+            this.Configuration = new IO.Swagger.Client.Configuration
+            {
+                AuthenticationInstanceUrl = authBasePath,
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                AccountId = accountId
+            };
+            this.Configuration.ApiClient.RestClient.Authenticator = new OAuth2Authenticator(this.Configuration);
 
             ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
         }
@@ -215,7 +224,7 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getObjectById Gets an asset by ID.
+        /// getAssetById Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
@@ -227,7 +236,7 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getObjectById Gets an asset by ID.
+        /// getAssetById Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
@@ -260,13 +269,6 @@ namespace IO.Swagger.Api
 
             if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
 
-            // authentication (SFMC_OAuth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            }
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -286,7 +288,7 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getObjectById Gets an asset by ID.
+        /// getAssetById Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
@@ -299,7 +301,7 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getObjectById Gets an asset by ID.
+        /// getAssetById Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
@@ -331,13 +333,6 @@ namespace IO.Swagger.Api
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
-
-            // authentication (SFMC_OAuth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            }
 
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
@@ -413,13 +408,6 @@ namespace IO.Swagger.Api
                 localVarPostBody = body; // byte array
             }
 
-            // authentication (SFMC_OAuth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
-            }
-
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -493,13 +481,6 @@ namespace IO.Swagger.Api
             else
             {
                 localVarPostBody = body; // byte array
-            }
-
-            // authentication (SFMC_OAuth2) required
-            // oauth required
-            if (!String.IsNullOrEmpty(this.Configuration.AccessToken))
-            {
-                localVarHeaderParams["Authorization"] = "Bearer " + this.Configuration.AccessToken;
             }
 
             // make the HTTP request

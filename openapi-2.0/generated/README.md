@@ -78,7 +78,7 @@ namespace Example
 
             try
             {
-                // getObjectById
+                // getAssetById
                 Asset result = apiInstance.GetAssetById(id);
                 Debug.WriteLine(result);
             }
@@ -99,7 +99,7 @@ All URIs are relative to *https://www.exacttargetapis.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AssetApi* | [**GetAssetById**](docs/AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getObjectById
+*AssetApi* | [**GetAssetById**](docs/AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getAssetById
 *AssetApi* | [**PartiallyUpdateAsset**](docs/AssetApi.md#partiallyupdateasset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
 
 

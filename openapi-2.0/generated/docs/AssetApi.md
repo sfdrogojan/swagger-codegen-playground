@@ -4,7 +4,7 @@ All URIs are relative to *https://www.exacttargetapis.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAssetById**](AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getObjectById
+[**GetAssetById**](AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getAssetById
 [**PartiallyUpdateAsset**](AssetApi.md#partiallyupdateasset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 # **GetAssetById**
 > Asset GetAssetById (decimal? id)
 
-getObjectById
+getAssetById
 
 Gets an asset by ID.
 
@@ -38,7 +38,7 @@ namespace Example
 
             try
             {
-                // getObjectById
+                // getAssetById
                 Asset result = apiInstance.GetAssetById(id);
                 Debug.WriteLine(result);
             }

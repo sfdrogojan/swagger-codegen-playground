@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using {{packageName}}.Authenticators;
 {{#netStandard}}
 using RestSharp.Portable;
 {{/netStandard}}
@@ -86,9 +87,16 @@ namespace {{packageName}}.{{apiPackage}}
         /// Initializes a new instance of the <see cref="{{classname}}"/> class.
         /// </summary>
         /// <returns></returns>
-        public {{classname}}(String basePath)
+        public {{classname}}(String authBasePath, string clientId, string clientSecret, int accountId)
         {
-            this.Configuration = new {{packageName}}.Client.Configuration { BasePath = basePath };
+            this.Configuration = new {{packageName}}.Client.Configuration
+            {
+                AuthenticationInstanceUrl = authBasePath,
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                AccountId = accountId
+            };
+            this.Configuration.ApiClient.RestClient.Authenticator = new Oauth2Authenticator(this.Configuration);
 
             ExceptionFactory = {{packageName}}.Client.Configuration.DefaultExceptionFactory;
         }
