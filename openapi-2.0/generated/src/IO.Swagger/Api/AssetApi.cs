@@ -139,9 +139,19 @@ namespace IO.Swagger.Api
                 ClientSecret = clientSecret,
                 AccountId = accountId
             };
-            this.Configuration.ApiClient.RestClient.Authenticator = new OAuth2Authenticator(this.Configuration);
+            this.Configuration.ApiClient.RestClient.Authenticator = new OAuth2Authenticator(this.Configuration, new ApiClient(authBasePath));
 
             ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssetApi"/> class.
+        /// </summary>
+        /// <returns></returns>
+        internal AssetApi(String authBasePath, string clientId, string clientSecret, int accountId, IAuthenticator authenticator) 
+            : this(authBasePath, clientId, clientSecret, accountId)
+        {
+            this.Configuration.ApiClient.RestClient.Authenticator = authenticator;
         }
 
         /// <summary>

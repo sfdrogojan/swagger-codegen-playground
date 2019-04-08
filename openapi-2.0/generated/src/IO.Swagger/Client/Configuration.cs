@@ -210,11 +210,11 @@ namespace IO.Swagger.Client
 
         #region Properties
 
-        private ApiClient _apiClient = null;
+        private IApiClient _apiClient = null;
         /// <summary>
         /// Gets an instance of an ApiClient for this configuration
         /// </summary>
-        public virtual ApiClient ApiClient
+        public virtual IApiClient ApiClient
         {
             get
             {
