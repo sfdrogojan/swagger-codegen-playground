@@ -34,10 +34,10 @@ namespace IO.Swagger.Test
     public class AssetApiTests
     {
         private AssetApi instance;
-        private readonly string authBasePath = "";
-        private readonly string clientId = "";
-        private readonly string clientSecret = "";
-        private readonly int accountId = 0;
+        private readonly string authBasePath = "https://mckj14f85yy452nmp3c0ccp4m-7m.auth.marketingcloudapis.com";
+        private readonly string clientId = "137aiqiravqvoik8fazlkzpp";
+        private readonly string clientSecret = "brigY6IHTFxO44qQ4cIlSeYy";
+        private readonly int accountId = 10982856;
 
         /// <summary>
         /// Setup before each unit test

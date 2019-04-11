@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using {{packageName}}.Authenticators;
 {{#netStandard}}
 using RestSharp.Portable;
 {{/netStandard}}
@@ -96,7 +95,7 @@ namespace {{packageName}}.{{apiPackage}}
                 ClientSecret = clientSecret,
                 AccountId = accountId
             };
-            this.Configuration.ApiClient.RestClient.Authenticator = new Oauth2Authenticator(this.Configuration);
+            this.Configuration.ApiClient.RestClient.Authenticator = new Authenticators.OAuth2Authenticator(this.Configuration);
 
             ExceptionFactory = {{packageName}}.Client.Configuration.DefaultExceptionFactory;
         }
