@@ -99,6 +99,75 @@
         },
         "x-published": true,
         "operationId": "partiallyUpdateAsset"
+      },
+      "delete": {
+        "tags": [
+          "asset"
+        ],
+        "summary": "deleteAsset",
+        "description": "Deletes an asset.",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "The ID of the asset to delete",
+          "required": true,
+          "type": "number"
+        }],
+        "responses": {
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/AssetError"
+            }
+          },
+          "403": {
+            "description": "Permission error",
+            "schema": {
+              "$ref": "#/definitions/AssetError"
+            }
+          }
+        },
+        "x-published": true,
+        "operationId": "deleteAssetById"
+      }
+    },
+    "/asset/v1/content/assets": {
+      "post": {
+        "tags": [
+          "asset"
+        ],
+        "summary": "createAsset",
+        "description": "Creates a new asset.",
+        "parameters": [{
+          "name": "body",
+          "in": "body",
+          "description": "JSON Parameters",
+          "schema": {
+            "$ref": "#/definitions/Asset"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "A single asset",
+            "schema": {
+              "$ref": "#/definitions/Asset"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/AssetError"
+            }
+          },
+          "403": {
+            "description": "Permission error",
+            "schema": {
+              "$ref": "#/definitions/AssetError"
+            }
+          }
+        },
+        "x-published": true,
+        "operationId": "createAsset"
       }
     }
   },
