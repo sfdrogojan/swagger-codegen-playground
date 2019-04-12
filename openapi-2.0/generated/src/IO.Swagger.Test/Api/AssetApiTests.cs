@@ -9,15 +9,7 @@
  */
 
 using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using RestSharp;
 using NUnit.Framework;
-
-using IO.Swagger.Client;
 using IO.Swagger.Api;
 using IO.Swagger.Model;
 
@@ -34,10 +26,10 @@ namespace IO.Swagger.Test
     public class AssetApiTests
     {
         private AssetApi instance;
-        private readonly string authBasePath = "https://mckj14f85yy452nmp3c0ccp4m-7m.auth.marketingcloudapis.com";
-        private readonly string clientId = "137aiqiravqvoik8fazlkzpp";
-        private readonly string clientSecret = "brigY6IHTFxO44qQ4cIlSeYy";
-        private readonly int accountId = 10982856;
+        private readonly string authBasePath = "";
+        private readonly string clientId = "";
+        private readonly string clientSecret = "";
+        private readonly int accountId = 0;
 
         /// <summary>
         /// Setup before each unit test

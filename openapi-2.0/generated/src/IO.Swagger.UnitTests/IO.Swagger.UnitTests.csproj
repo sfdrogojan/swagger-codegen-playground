@@ -60,6 +60,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultDateTimeProvider.cs" />
+    <Compile Include="IDatetimeProvider.cs" />
+    <Compile Include="MyCacheService.cs" />
+    <Compile Include="MyCacheServiceTests.cs" />
     <Compile Include="OAuth2AuthenticatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

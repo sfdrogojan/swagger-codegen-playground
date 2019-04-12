@@ -139,7 +139,7 @@ namespace IO.Swagger.Api
                 ClientSecret = clientSecret,
                 AccountId = accountId
             };
-            this.Configuration.ApiClient.RestClient.Authenticator = new OAuth2Authenticator(this.Configuration, new ApiClient(authBasePath));
+            this.Configuration.ApiClient.RestClient.Authenticator = new OAuth2Authenticator(new AuthService(this.Configuration, new ApiClient(authBasePath)), Configuration);
 
             ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
         }

@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.Design;
 using System.Net;
 using IO.Swagger.Client;
-using IO.Swagger.Model;
 using RestSharp;
 
 namespace IO.Swagger.Authenticators
 {
     internal class OAuth2Authenticator : IAuthenticator
     {
-        private readonly Configuration configuration;
-        private readonly IApiClient apiClient;
+        private readonly IAuthService authService;
+        private Configuration configuration;
 
-        public OAuth2Authenticator(Configuration configuration, IApiClient apiClient)
+        public OAuth2Authenticator(IAuthService authService, Configuration configuration)
         {
-            this.apiClient = apiClient;
+            this.authService = authService;
             this.configuration = configuration;
         }
 
@@ -23,43 +21,19 @@ namespace IO.Swagger.Authenticators
             // workaround to support TLS 1.2 in .NET 4.5 (source: https://blogs.perficient.com/2016/04/28/tsl-1-2-and-net-support/)
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 
-            var accessTokenResponse = this.Authenticate();
+            if (IsAccessTokenExpired() == true)
+            {
+                authService.Authenticate();
+            } 
 
-            configuration.RestInstanceUrl = accessTokenResponse.RestInstanceUrl;
-            configuration.SoapInstanceUrl = accessTokenResponse.SoapInstanceUrl;
-            configuration.BasePath = accessTokenResponse.RestInstanceUrl;
-
-            request.AddHeader("Authorization", $"{accessTokenResponse.TokenType} {accessTokenResponse.AccessToken}");
+            request.AddHeader("Authorization", $"{configuration.TokenType} {configuration.AccessToken}");
         }
 
-        private AccessTokenResponse Authenticate()
+        public bool IsAccessTokenExpired()
         {
-            apiClient.Configuration = configuration;
-
-            var authApiClient = apiClient;
-
-            var serializedAuthRequestBody =
-                authApiClient.Serialize(new AccessTokenRequest(configuration.ClientId,
-                    configuration.ClientSecret, configuration.AccountId));
-
-            IRestResponse authRequestResponse = (IRestResponse)authApiClient.CallApi("/v2/token",
-                Method.POST,
-                new List<KeyValuePair<string, string>>(),
-                serializedAuthRequestBody,
-                new Dictionary<string, string>(),
-                new Dictionary<string, string>(),
-                new Dictionary<string, FileParameter>(),
-                new Dictionary<string, string>(),
-                "application/json");
-
-            var exceptionFactory = Configuration.DefaultExceptionFactory;
-            if (exceptionFactory != null)
-            {
-                Exception exception = exceptionFactory("Authenticate", authRequestResponse);
-                if (exception != null) throw exception;
-            }
-            
-            return (AccessTokenResponse)configuration.ApiClient.Deserialize(authRequestResponse, typeof(AccessTokenResponse));
+            var cacheKey = configuration.ClientId + "-" + configuration.AccountId;
+            //var cacheValue  = dict.GetOrAdd(key)
+            return false;
         }
     }
 }

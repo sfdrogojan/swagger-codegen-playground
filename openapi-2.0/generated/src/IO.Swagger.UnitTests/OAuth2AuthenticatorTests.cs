@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using IO.Swagger.Authenticators;
 using IO.Swagger.Client;
 using NSubstitute;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace IO.Swagger.UnitTests
 
             var configuration = new Configuration();
 
-            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(configuration, apiClient);
+            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient),configuration);
 
             IRestClient restClient = new RestClient("https://auth.com");
             IRestRequest request = new RestRequest();
@@ -41,7 +42,7 @@ namespace IO.Swagger.UnitTests
 
             var configuration = new Configuration();
 
-            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(configuration, apiClient);
+            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient), configuration);
 
             IRestClient restClient = new RestClient("https://auth.com");
             IRestRequest request = new RestRequest();
@@ -61,7 +62,7 @@ namespace IO.Swagger.UnitTests
 
             var configuration = new Configuration();
 
-            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(configuration, apiClient);
+            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient), configuration);
 
             IRestClient restClient = new RestClient("https://auth.com");
             IRestRequest request = new RestRequest();

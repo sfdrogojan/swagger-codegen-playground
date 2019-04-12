@@ -399,6 +399,11 @@ namespace IO.Swagger.Client
         public string ClientSecret { get; set; }
 
         /// <summary>
+        /// Gets or sets the token type.
+        /// </summary>
+        public string TokenType { get; set; }
+
+        /// <summary>
         /// Gets or sets the account id.
         /// </summary>
         public int AccountId { get; set; }
