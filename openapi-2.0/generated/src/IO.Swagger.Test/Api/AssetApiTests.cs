@@ -93,7 +93,7 @@ namespace IO.Swagger.Test
             // TODO uncomment below to test the method and replace null with proper value
             decimal? id = 273724;
             Asset asset = instance.GetAssetById(id);
-            asset.Description = asset.Description + Guid.NewGuid().ToString();
+            asset.Description = Guid.NewGuid().ToString();
             var response = instance.PartiallyUpdateAsset(id, asset);
             Assert.IsInstanceOf<Asset>(response, "response is Asset");
         }

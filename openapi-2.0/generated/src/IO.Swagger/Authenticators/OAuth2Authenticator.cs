@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using IO.Swagger.Client;
 using IO.Swagger.Model;
@@ -8,12 +7,14 @@ using RestSharp;
 
 namespace IO.Swagger.Authenticators
 {
-    class OAuth2Authenticator : IAuthenticator
+    internal class OAuth2Authenticator : IAuthenticator
     {
         private readonly Configuration configuration;
+        private readonly IApiClient apiClient;
 
-        public OAuth2Authenticator(Configuration configuration)
+        public OAuth2Authenticator(Configuration configuration, IApiClient apiClient)
         {
+            this.apiClient = apiClient;
             this.configuration = configuration;
         }
 
@@ -33,7 +34,9 @@ namespace IO.Swagger.Authenticators
 
         private AccessTokenResponse Authenticate()
         {
-            var authApiClient = new ApiClient(configuration.AuthenticationInstanceUrl) { Configuration = configuration };
+            apiClient.Configuration = configuration;
+
+            var authApiClient = apiClient;
 
             var serializedAuthRequestBody =
                 authApiClient.Serialize(new AccessTokenRequest(configuration.ClientId,
@@ -55,13 +58,8 @@ namespace IO.Swagger.Authenticators
                 Exception exception = exceptionFactory("Authenticate", authRequestResponse);
                 if (exception != null) throw exception;
             }
-
-            var accessTokenApiResponse = new ApiResponse<AccessTokenResponse>(
-                (int)authRequestResponse.StatusCode,
-                authRequestResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (AccessTokenResponse)configuration.ApiClient.Deserialize(authRequestResponse, typeof(AccessTokenResponse)));
-
-            return accessTokenApiResponse.Data;
+            
+            return (AccessTokenResponse)configuration.ApiClient.Deserialize(authRequestResponse, typeof(AccessTokenResponse));
         }
     }
 }
