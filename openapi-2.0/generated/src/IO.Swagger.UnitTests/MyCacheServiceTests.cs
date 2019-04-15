@@ -10,7 +10,7 @@ namespace IO.Swagger.UnitTests
         //[Test]
         //public void Get_WhenCacheIsNotExpired_ReturnsTrue()
         //{
-        //    IDatetimeProvider datetimeProvider = Substitute.For<IDatetimeProvider>();
+        //    IDateTimeProvider datetimeProvider = Substitute.For<IDateTimeProvider>();
         //    datetimeProvider.Now.Returns(DateTime.Now);
 
         //    MyCacheService cs = new MyCacheService(datetimeProvider);
@@ -26,7 +26,7 @@ namespace IO.Swagger.UnitTests
             MyCacheService cs = new MyCacheService(sdtp);
             cs.Add();
 
-            // simulate time passing .... wwwwaaaa
+            // simulate time passing ....
             sdtp.Now = DateTime.Now.AddMinutes(6);
 
             var result = cs.Get();

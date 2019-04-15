@@ -25,7 +25,8 @@ namespace IO.Swagger.Test
     [TestFixture]
     public class AssetApiTests
     {
-        private AssetApi instance;
+        private AssetApi instance1;
+        private AssetApi instance2;
         private readonly string authBasePath = "";
         private readonly string clientId = "";
         private readonly string clientSecret = "";
@@ -37,10 +38,16 @@ namespace IO.Swagger.Test
         [SetUp]
         public void Init()
         {
-            instance = new AssetApi(
+            instance1 = new AssetApi(
                 authBasePath, 
                 clientId, 
                 clientSecret, 
+                accountId);
+
+            instance2 = new AssetApi(
+                authBasePath,
+                clientId,
+                clientSecret,
                 accountId);
         }
 
@@ -52,18 +59,7 @@ namespace IO.Swagger.Test
         {
 
         }
-
-        /// <summary>
-        /// Test an instance of AssetApi
-        /// </summary>
-        [Test]
-        public void InstanceTest()
-        {
-            // TODO uncomment below to test 'IsInstanceOfType' AssetApi
-            //Assert.IsInstanceOfType(typeof(AssetApi), instance, "instance is a AssetApi");
-        }
-
-        
+   
         /// <summary>
         /// Test GetAssetById
         /// </summary>
@@ -72,10 +68,10 @@ namespace IO.Swagger.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             decimal? id = 273724;
-            var response = instance.GetAssetById(id);
+            var response = instance1.GetAssetById(id);
             Assert.IsInstanceOf<Asset> (response, "response is Asset");
         }
-        
+
         /// <summary>
         /// Test PartiallyUpdateAsset
         /// </summary>
@@ -84,12 +80,10 @@ namespace IO.Swagger.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             decimal? id = 273724;
-            Asset asset = instance.GetAssetById(id);
+            Asset asset = instance1.GetAssetById(id);
             asset.Description = Guid.NewGuid().ToString();
-            var response = instance.PartiallyUpdateAsset(id, asset);
+            var response = instance1.PartiallyUpdateAsset(id, asset);
             Assert.IsInstanceOf<Asset>(response, "response is Asset");
         }
-        
     }
-
 }

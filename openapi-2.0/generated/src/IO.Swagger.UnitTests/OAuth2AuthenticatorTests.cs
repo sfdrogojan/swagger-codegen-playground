@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using IO.Swagger.Authenticators;
 using IO.Swagger.Client;
+using IO.Swagger.Model;
 using NSubstitute;
 using NUnit.Framework;
 using RestSharp;
@@ -21,7 +22,9 @@ namespace IO.Swagger.UnitTests
 
             var configuration = new Configuration();
 
-            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient),configuration);
+            var cacheService = CreateCacheService();
+
+            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient, cacheService));
 
             IRestClient restClient = new RestClient("https://auth.com");
             IRestRequest request = new RestRequest();
@@ -42,7 +45,9 @@ namespace IO.Swagger.UnitTests
 
             var configuration = new Configuration();
 
-            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient), configuration);
+            var cacheService = CreateCacheService();
+
+            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient, cacheService));
 
             IRestClient restClient = new RestClient("https://auth.com");
             IRestRequest request = new RestRequest();
@@ -62,11 +67,29 @@ namespace IO.Swagger.UnitTests
 
             var configuration = new Configuration();
 
-            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient), configuration);
+            ICacheService cacheService = Substitute.For<ICacheService>();
+
+            IAuthenticator oAuth2Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(configuration, apiClient, cacheService));
 
             IRestClient restClient = new RestClient("https://auth.com");
             IRestRequest request = new RestRequest();
             Assert.Throws<ApiException>(() => oAuth2Authenticator.Authenticate(restClient, request));
+        }
+
+        private ICacheService CreateCacheService()
+        {
+            ICacheService cacheService = Substitute.For<ICacheService>();
+
+            cacheService.Get(Arg.Any<string>()).Returns(new AccessTokenResponse()
+            {
+                AccessToken = "access_token",
+                TokenType = "token_type",
+                RestInstanceUrl = "https://rest.com",
+                SoapInstanceUrl = "https://soap.com",
+                ExpiresIn = 1000
+            });
+
+            return cacheService;
         }
 
         private IApiClient CreateApiClient(IRestResponse authRequestResponse)

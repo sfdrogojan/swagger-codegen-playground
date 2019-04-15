@@ -4,6 +4,6 @@ namespace IO.Swagger.Authenticators
 {
     public interface IAuthService
     {
-        void Authenticate();
+        AuthorizationHeaderValue GetAuthorizationHeaderValue();
     }
 }

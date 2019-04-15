@@ -423,6 +423,11 @@ namespace IO.Swagger.Client
         /// </summary>
         public string SoapInstanceUrl { get; set; }
 
+        /// <summary>
+        /// Gets the number of seconds until access token exires.
+        /// </summary>
+        public int ExpiresIn { get; set; }
+
         #endregion Properties
 
         #region Methods

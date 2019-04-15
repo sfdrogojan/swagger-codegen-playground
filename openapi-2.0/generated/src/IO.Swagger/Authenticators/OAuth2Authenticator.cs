@@ -2,6 +2,7 @@
 using System.Net;
 using IO.Swagger.Client;
 using RestSharp;
+using System;
 
 namespace IO.Swagger.Authenticators
 {
@@ -10,10 +11,9 @@ namespace IO.Swagger.Authenticators
         private readonly IAuthService authService;
         private Configuration configuration;
 
-        public OAuth2Authenticator(IAuthService authService, Configuration configuration)
+        public OAuth2Authenticator(IAuthService authService)
         {
             this.authService = authService;
-            this.configuration = configuration;
         }
 
         public void Authenticate(IRestClient client, IRestRequest request)
@@ -21,19 +21,9 @@ namespace IO.Swagger.Authenticators
             // workaround to support TLS 1.2 in .NET 4.5 (source: https://blogs.perficient.com/2016/04/28/tsl-1-2-and-net-support/)
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 
-            if (IsAccessTokenExpired() == true)
-            {
-                authService.Authenticate();
-            } 
+            var authResponse = authService.GetAuthorizationHeaderValue();
 
-            request.AddHeader("Authorization", $"{configuration.TokenType} {configuration.AccessToken}");
-        }
-
-        public bool IsAccessTokenExpired()
-        {
-            var cacheKey = configuration.ClientId + "-" + configuration.AccountId;
-            //var cacheValue  = dict.GetOrAdd(key)
-            return false;
+            request.AddHeader("Authorization", $"{authResponse.TokenType} {authResponse.AccessToken}");
         }
     }
 }
