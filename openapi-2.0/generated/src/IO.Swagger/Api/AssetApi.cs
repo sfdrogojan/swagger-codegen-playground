@@ -25,7 +25,49 @@ namespace IO.Swagger.Api
     {
         #region Synchronous Operations
         /// <summary>
-        /// getObjectById
+        /// createAsset
+        /// </summary>
+        /// <remarks>
+        /// Creates a new asset.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">JSON Parameters (optional)</param>
+        /// <returns>Asset</returns>
+        Asset CreateAsset (Asset body = null);
+
+        /// <summary>
+        /// createAsset
+        /// </summary>
+        /// <remarks>
+        /// Creates a new asset.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">JSON Parameters (optional)</param>
+        /// <returns>ApiResponse of Asset</returns>
+        ApiResponse<Asset> CreateAssetWithHttpInfo (Asset body = null);
+        /// <summary>
+        /// deleteAsset
+        /// </summary>
+        /// <remarks>
+        /// Deletes an asset.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset to delete</param>
+        /// <returns></returns>
+        void DeleteAssetById (decimal? id);
+
+        /// <summary>
+        /// deleteAsset
+        /// </summary>
+        /// <remarks>
+        /// Deletes an asset.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset to delete</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> DeleteAssetByIdWithHttpInfo (decimal? id);
+        /// <summary>
+        /// getAssetById
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -33,10 +75,10 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Asset</returns>
-        Asset AssetV1ContentAssetsIdGet (decimal? id);
+        Asset GetAssetById (decimal? id);
 
         /// <summary>
-        /// getObjectById
+        /// getAssetById
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -44,7 +86,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>ApiResponse of Asset</returns>
-        ApiResponse<Asset> AssetV1ContentAssetsIdGetWithHttpInfo (decimal? id);
+        ApiResponse<Asset> GetAssetByIdWithHttpInfo (decimal? id);
         /// <summary>
         /// patchAsset
         /// </summary>
@@ -55,7 +97,7 @@ namespace IO.Swagger.Api
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>Asset</returns>
-        Asset AssetV1ContentAssetsIdPatch (decimal? id, Asset body = null);
+        Asset PartiallyUpdateAsset (decimal? id, Asset body = null);
 
         /// <summary>
         /// patchAsset
@@ -67,11 +109,53 @@ namespace IO.Swagger.Api
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>ApiResponse of Asset</returns>
-        ApiResponse<Asset> AssetV1ContentAssetsIdPatchWithHttpInfo (decimal? id, Asset body = null);
+        ApiResponse<Asset> PartiallyUpdateAssetWithHttpInfo (decimal? id, Asset body = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
-        /// getObjectById
+        /// createAsset
+        /// </summary>
+        /// <remarks>
+        /// Creates a new asset.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">JSON Parameters (optional)</param>
+        /// <returns>Task of Asset</returns>
+        System.Threading.Tasks.Task<Asset> CreateAssetAsync (Asset body = null);
+
+        /// <summary>
+        /// createAsset
+        /// </summary>
+        /// <remarks>
+        /// Creates a new asset.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">JSON Parameters (optional)</param>
+        /// <returns>Task of ApiResponse (Asset)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Asset>> CreateAssetAsyncWithHttpInfo (Asset body = null);
+        /// <summary>
+        /// deleteAsset
+        /// </summary>
+        /// <remarks>
+        /// Deletes an asset.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset to delete</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task DeleteAssetByIdAsync (decimal? id);
+
+        /// <summary>
+        /// deleteAsset
+        /// </summary>
+        /// <remarks>
+        /// Deletes an asset.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset to delete</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteAssetByIdAsyncWithHttpInfo (decimal? id);
+        /// <summary>
+        /// getAssetById
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -79,10 +163,10 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Task of Asset</returns>
-        System.Threading.Tasks.Task<Asset> AssetV1ContentAssetsIdGetAsync (decimal? id);
+        System.Threading.Tasks.Task<Asset> GetAssetByIdAsync (decimal? id);
 
         /// <summary>
-        /// getObjectById
+        /// getAssetById
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -90,7 +174,7 @@ namespace IO.Swagger.Api
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Task of ApiResponse (Asset)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Asset>> AssetV1ContentAssetsIdGetAsyncWithHttpInfo (decimal? id);
+        System.Threading.Tasks.Task<ApiResponse<Asset>> GetAssetByIdAsyncWithHttpInfo (decimal? id);
         /// <summary>
         /// patchAsset
         /// </summary>
@@ -101,7 +185,7 @@ namespace IO.Swagger.Api
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>Task of Asset</returns>
-        System.Threading.Tasks.Task<Asset> AssetV1ContentAssetsIdPatchAsync (decimal? id, Asset body = null);
+        System.Threading.Tasks.Task<Asset> PartiallyUpdateAssetAsync (decimal? id, Asset body = null);
 
         /// <summary>
         /// patchAsset
@@ -113,7 +197,7 @@ namespace IO.Swagger.Api
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>Task of ApiResponse (Asset)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Asset>> AssetV1ContentAssetsIdPatchAsyncWithHttpInfo (decimal? id, Asset body = null);
+        System.Threading.Tasks.Task<ApiResponse<Asset>> PartiallyUpdateAssetAsyncWithHttpInfo (decimal? id, Asset body = null);
         #endregion Asynchronous Operations
     }
 
@@ -128,11 +212,28 @@ namespace IO.Swagger.Api
         /// Initializes a new instance of the <see cref="AssetApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public AssetApi(String basePath)
+        public AssetApi(String authBasePath, string clientId, string clientSecret, int accountId)
         {
-            this.Configuration = new IO.Swagger.Client.Configuration { BasePath = basePath };
+            this.Configuration = new IO.Swagger.Client.Configuration
+            {
+                AuthenticationInstanceUrl = authBasePath,
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                AccountId = accountId
+            };
+            this.Configuration.ApiClient.RestClient.Authenticator = new Authenticators.OAuth2Authenticator(this.Configuration, new ApiClient(authBasePath));
 
             ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssetApi"/> class.
+        /// </summary>
+        /// <returns></returns>
+        internal AssetApi(String authBasePath, string clientId, string clientSecret, int accountId, IAuthenticator authenticator)
+            : this(authBasePath, clientId, clientSecret, accountId)
+        {
+            this.Configuration.ApiClient.RestClient.Authenticator = authenticator;
         }
 
         /// <summary>
@@ -215,28 +316,296 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getObjectById Gets an asset by ID.
+        /// createAsset Creates a new asset.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id">The ID of the asset</param>
+        /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>Asset</returns>
-        public Asset AssetV1ContentAssetsIdGet (decimal? id)
+        public Asset CreateAsset (Asset body = null)
         {
-             ApiResponse<Asset> localVarResponse = AssetV1ContentAssetsIdGetWithHttpInfo(id);
+             ApiResponse<Asset> localVarResponse = CreateAssetWithHttpInfo(body);
              return localVarResponse.Data;
         }
 
         /// <summary>
-        /// getObjectById Gets an asset by ID.
+        /// createAsset Creates a new asset.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">JSON Parameters (optional)</param>
+        /// <returns>ApiResponse of Asset</returns>
+        public ApiResponse< Asset > CreateAssetWithHttpInfo (Asset body = null)
+        {
+
+            var localVarPath = "/asset/v1/content/assets";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("CreateAsset", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Asset>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Asset) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Asset)));
+        }
+
+        /// <summary>
+        /// createAsset Creates a new asset.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">JSON Parameters (optional)</param>
+        /// <returns>Task of Asset</returns>
+        public async System.Threading.Tasks.Task<Asset> CreateAssetAsync (Asset body = null)
+        {
+             ApiResponse<Asset> localVarResponse = await CreateAssetAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// createAsset Creates a new asset.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">JSON Parameters (optional)</param>
+        /// <returns>Task of ApiResponse (Asset)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Asset>> CreateAssetAsyncWithHttpInfo (Asset body = null)
+        {
+
+            var localVarPath = "/asset/v1/content/assets";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("CreateAsset", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Asset>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (Asset) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Asset)));
+        }
+
+        /// <summary>
+        /// deleteAsset Deletes an asset.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset to delete</param>
+        /// <returns></returns>
+        public void DeleteAssetById (decimal? id)
+        {
+             DeleteAssetByIdWithHttpInfo(id);
+        }
+
+        /// <summary>
+        /// deleteAsset Deletes an asset.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset to delete</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> DeleteAssetByIdWithHttpInfo (decimal? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->DeleteAssetById");
+
+            var localVarPath = "/asset/v1/content/assets/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("DeleteAssetById", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        /// <summary>
+        /// deleteAsset Deletes an asset.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset to delete</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task DeleteAssetByIdAsync (decimal? id)
+        {
+             await DeleteAssetByIdAsyncWithHttpInfo(id);
+
+        }
+
+        /// <summary>
+        /// deleteAsset Deletes an asset.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset to delete</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteAssetByIdAsyncWithHttpInfo (decimal? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->DeleteAssetById");
+
+            var localVarPath = "/asset/v1/content/assets/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("DeleteAssetById", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        /// <summary>
+        /// getAssetById Gets an asset by ID.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the asset</param>
+        /// <returns>Asset</returns>
+        public Asset GetAssetById (decimal? id)
+        {
+             ApiResponse<Asset> localVarResponse = GetAssetByIdWithHttpInfo(id);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// getAssetById Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>ApiResponse of Asset</returns>
-        public ApiResponse< Asset > AssetV1ContentAssetsIdGetWithHttpInfo (decimal? id)
+        public ApiResponse< Asset > GetAssetByIdWithHttpInfo (decimal? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->AssetV1ContentAssetsIdGet");
+                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->GetAssetById");
 
             var localVarPath = "/asset/v1/content/assets/{id}";
             var localVarPathParams = new Dictionary<String, String>();
@@ -270,7 +639,7 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AssetV1ContentAssetsIdGet", localVarResponse);
+                Exception exception = ExceptionFactory("GetAssetById", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -280,29 +649,29 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getObjectById Gets an asset by ID.
+        /// getAssetById Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Task of Asset</returns>
-        public async System.Threading.Tasks.Task<Asset> AssetV1ContentAssetsIdGetAsync (decimal? id)
+        public async System.Threading.Tasks.Task<Asset> GetAssetByIdAsync (decimal? id)
         {
-             ApiResponse<Asset> localVarResponse = await AssetV1ContentAssetsIdGetAsyncWithHttpInfo(id);
+             ApiResponse<Asset> localVarResponse = await GetAssetByIdAsyncWithHttpInfo(id);
              return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// getObjectById Gets an asset by ID.
+        /// getAssetById Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Task of ApiResponse (Asset)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Asset>> AssetV1ContentAssetsIdGetAsyncWithHttpInfo (decimal? id)
+        public async System.Threading.Tasks.Task<ApiResponse<Asset>> GetAssetByIdAsyncWithHttpInfo (decimal? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->AssetV1ContentAssetsIdGet");
+                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->GetAssetById");
 
             var localVarPath = "/asset/v1/content/assets/{id}";
             var localVarPathParams = new Dictionary<String, String>();
@@ -336,7 +705,7 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AssetV1ContentAssetsIdGet", localVarResponse);
+                Exception exception = ExceptionFactory("GetAssetById", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -352,9 +721,9 @@ namespace IO.Swagger.Api
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>Asset</returns>
-        public Asset AssetV1ContentAssetsIdPatch (decimal? id, Asset body = null)
+        public Asset PartiallyUpdateAsset (decimal? id, Asset body = null)
         {
-             ApiResponse<Asset> localVarResponse = AssetV1ContentAssetsIdPatchWithHttpInfo(id, body);
+             ApiResponse<Asset> localVarResponse = PartiallyUpdateAssetWithHttpInfo(id, body);
              return localVarResponse.Data;
         }
 
@@ -365,11 +734,11 @@ namespace IO.Swagger.Api
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>ApiResponse of Asset</returns>
-        public ApiResponse< Asset > AssetV1ContentAssetsIdPatchWithHttpInfo (decimal? id, Asset body = null)
+        public ApiResponse< Asset > PartiallyUpdateAssetWithHttpInfo (decimal? id, Asset body = null)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->AssetV1ContentAssetsIdPatch");
+                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->PartiallyUpdateAsset");
 
             var localVarPath = "/asset/v1/content/assets/{id}";
             var localVarPathParams = new Dictionary<String, String>();
@@ -411,7 +780,7 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AssetV1ContentAssetsIdPatch", localVarResponse);
+                Exception exception = ExceptionFactory("PartiallyUpdateAsset", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -427,9 +796,9 @@ namespace IO.Swagger.Api
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>Task of Asset</returns>
-        public async System.Threading.Tasks.Task<Asset> AssetV1ContentAssetsIdPatchAsync (decimal? id, Asset body = null)
+        public async System.Threading.Tasks.Task<Asset> PartiallyUpdateAssetAsync (decimal? id, Asset body = null)
         {
-             ApiResponse<Asset> localVarResponse = await AssetV1ContentAssetsIdPatchAsyncWithHttpInfo(id, body);
+             ApiResponse<Asset> localVarResponse = await PartiallyUpdateAssetAsyncWithHttpInfo(id, body);
              return localVarResponse.Data;
 
         }
@@ -441,11 +810,11 @@ namespace IO.Swagger.Api
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>Task of ApiResponse (Asset)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Asset>> AssetV1ContentAssetsIdPatchAsyncWithHttpInfo (decimal? id, Asset body = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Asset>> PartiallyUpdateAssetAsyncWithHttpInfo (decimal? id, Asset body = null)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->AssetV1ContentAssetsIdPatch");
+                throw new ApiException(400, "Missing required parameter 'id' when calling AssetApi->PartiallyUpdateAsset");
 
             var localVarPath = "/asset/v1/content/assets/{id}";
             var localVarPathParams = new Dictionary<String, String>();
@@ -487,7 +856,7 @@ namespace IO.Swagger.Api
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("AssetV1ContentAssetsIdPatch", localVarResponse);
+                Exception exception = ExceptionFactory("PartiallyUpdateAsset", localVarResponse);
                 if (exception != null) throw exception;
             }
 

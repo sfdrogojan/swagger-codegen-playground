@@ -210,11 +210,11 @@ namespace IO.Swagger.Client
 
         #region Properties
 
-        private ApiClient _apiClient = null;
+        private IApiClient _apiClient = null;
         /// <summary>
         /// Gets an instance of an ApiClient for this configuration
         /// </summary>
-        public virtual ApiClient ApiClient
+        public virtual IApiClient ApiClient
         {
             get
             {
@@ -387,6 +387,36 @@ namespace IO.Swagger.Client
                 _apiKey = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the client id.
+        /// </summary>
+        public string ClientId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the client secret.
+        /// </summary>
+        public string ClientSecret { get; set; }
+
+        /// <summary>
+        /// Gets or sets the account id.
+        /// </summary>
+        public int AccountId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the base authentication url.
+        /// </summary>
+        public string AuthenticationInstanceUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the base REST url.
+        /// </summary>
+        public string RestInstanceUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the base SOAP url.
+        /// </summary>
+        public string SoapInstanceUrl { get; set; }
 
         #endregion Properties
 

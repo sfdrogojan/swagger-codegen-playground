@@ -86,9 +86,16 @@ namespace {{packageName}}.{{apiPackage}}
         /// Initializes a new instance of the <see cref="{{classname}}"/> class.
         /// </summary>
         /// <returns></returns>
-        public {{classname}}(String basePath)
+        public {{classname}}(String authBasePath, string clientId, string clientSecret, int accountId)
         {
-            this.Configuration = new {{packageName}}.Client.Configuration { BasePath = basePath };
+            this.Configuration = new {{packageName}}.Client.Configuration
+            {
+                AuthenticationInstanceUrl = authBasePath,
+                ClientId = clientId,
+                ClientSecret = clientSecret,
+                AccountId = accountId
+            };
+            this.Configuration.ApiClient.RestClient.Authenticator = new Authenticators.OAuth2Authenticator(this.Configuration);
 
             ExceptionFactory = {{packageName}}.Client.Configuration.DefaultExceptionFactory;
         }

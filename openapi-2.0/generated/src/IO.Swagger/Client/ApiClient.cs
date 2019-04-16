@@ -23,10 +23,146 @@ using RestSharp;
 
 namespace IO.Swagger.Client
 {
+    public interface IApiClient
+    {
+        /// <summary>
+        /// Gets or sets an instance of the IReadableConfiguration.
+        /// </summary>
+        /// <value>An instance of the IReadableConfiguration.</value>
+        /// <remarks>
+        /// <see cref="IReadableConfiguration"/> helps us to avoid modifying possibly global
+        /// configuration values from within a given client. It does not guarantee thread-safety
+        /// of the <see cref="Configuration"/> instance in any way.
+        /// </remarks>
+        IReadableConfiguration Configuration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the RestClient.
+        /// </summary>
+        /// <value>An instance of the RestClient</value>
+        RestClient RestClient { get; set; }
+
+        /// <summary>
+        /// Makes the HTTP request (Sync).
+        /// </summary>
+        /// <param name="path">URL path.</param>
+        /// <param name="method">HTTP method.</param>
+        /// <param name="queryParams">Query parameters.</param>
+        /// <param name="postBody">HTTP body (POST request).</param>
+        /// <param name="headerParams">Header parameters.</param>
+        /// <param name="formParams">Form parameters.</param>
+        /// <param name="fileParams">File parameters.</param>
+        /// <param name="pathParams">Path parameters.</param>
+        /// <param name="contentType">Content Type of the request</param>
+        /// <returns>Object</returns>
+        Object CallApi(
+            String path, RestSharp.Method method, List<KeyValuePair<String, String>> queryParams, Object postBody,
+            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
+            Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
+            String contentType);
+
+        /// <summary>
+        /// Makes the asynchronous HTTP request.
+        /// </summary>
+        /// <param name="path">URL path.</param>
+        /// <param name="method">HTTP method.</param>
+        /// <param name="queryParams">Query parameters.</param>
+        /// <param name="postBody">HTTP body (POST request).</param>
+        /// <param name="headerParams">Header parameters.</param>
+        /// <param name="formParams">Form parameters.</param>
+        /// <param name="fileParams">File parameters.</param>
+        /// <param name="pathParams">Path parameters.</param>
+        /// <param name="contentType">Content type.</param>
+        /// <returns>The Task instance.</returns>
+        System.Threading.Tasks.Task<Object> CallApiAsync(
+            String path, RestSharp.Method method, List<KeyValuePair<String, String>> queryParams, Object postBody,
+            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
+            Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
+            String contentType);
+
+        /// <summary>
+        /// Escape string (url-encoded).
+        /// </summary>
+        /// <param name="str">String to be escaped.</param>
+        /// <returns>Escaped string.</returns>
+        string EscapeString(string str);
+
+        /// <summary>
+        /// Create FileParameter based on Stream.
+        /// </summary>
+        /// <param name="name">Parameter name.</param>
+        /// <param name="stream">Input stream.</param>
+        /// <returns>FileParameter.</returns>
+        FileParameter ParameterToFile(string name, Stream stream);
+
+        /// <summary>
+        /// If parameter is DateTime, output in a formatted string (default ISO 8601), customizable with Configuration.DateTime.
+        /// If parameter is a list, join the list with ",".
+        /// Otherwise just return the string.
+        /// </summary>
+        /// <param name="obj">The parameter (header, path, query, form).</param>
+        /// <returns>Formatted string.</returns>
+        string ParameterToString(object obj);
+
+        /// <summary>
+        /// Deserialize the JSON string into a proper object.
+        /// </summary>
+        /// <param name="response">The HTTP response.</param>
+        /// <param name="type">Object type.</param>
+        /// <returns>Object representation of the JSON string.</returns>
+        object Deserialize(IRestResponse response, Type type);
+
+        /// <summary>
+        /// Serialize an input (model) into JSON string
+        /// </summary>
+        /// <param name="obj">Object.</param>
+        /// <returns>JSON string.</returns>
+        String Serialize(object obj);
+
+        /// <summary>
+        ///Check if the given MIME is a JSON MIME.
+        ///JSON MIME examples:
+        ///    application/json
+        ///    application/json; charset=UTF8
+        ///    APPLICATION/JSON
+        ///    application/vnd.company+json
+        /// </summary>
+        /// <param name="mime">MIME</param>
+        /// <returns>Returns True if MIME type is json.</returns>
+        bool IsJsonMime(String mime);
+
+        /// <summary>
+        /// Select the Content-Type header's value from the given content-type array:
+        /// if JSON type exists in the given array, use it;
+        /// otherwise use the first one defined in 'consumes'
+        /// </summary>
+        /// <param name="contentTypes">The Content-Type array to select from.</param>
+        /// <returns>The Content-Type header to use.</returns>
+        String SelectHeaderContentType(String[] contentTypes);
+
+        /// <summary>
+        /// Select the Accept header's value from the given accepts array:
+        /// if JSON exists in the given array, use it;
+        /// otherwise use all of them (joining into a string)
+        /// </summary>
+        /// <param name="accepts">The accepts array to select from.</param>
+        /// <returns>The Accept header to use.</returns>
+        String SelectHeaderAccept(String[] accepts);
+
+        /// <summary>
+        /// Convert params to key/value pairs.
+        /// Use collectionFormat to properly format lists and collections.
+        /// </summary>
+        /// <param name="name">Key name.</param>
+        /// <param name="value">Value object.</param>
+        /// <returns>A list of KeyValuePairs</returns>
+        IEnumerable<KeyValuePair<string, string>> ParameterToKeyValuePairs(string collectionFormat, string name, object value);
+    }
+
     /// <summary>
     /// API client is mainly responsible for making the HTTP call to the API backend.
     /// </summary>
-    public partial class ApiClient
+    public partial class ApiClient : IApiClient
     {
         private JsonSerializerSettings serializerSettings = new JsonSerializerSettings
         {
