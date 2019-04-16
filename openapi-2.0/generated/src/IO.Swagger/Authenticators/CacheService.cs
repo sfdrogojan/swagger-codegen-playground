@@ -7,7 +7,7 @@ namespace IO.Swagger.Authenticators
     public class CacheService : ICacheService
     {
         internal static ConcurrentDictionary<string, Tuple<AccessTokenResponse, DateTime>> cache = new ConcurrentDictionary<string, Tuple<AccessTokenResponse, DateTime>>();
-        private readonly IDateTimeProvider dateTimeProvider;
+        internal IDateTimeProvider dateTimeProvider;
 
         public CacheService(IDateTimeProvider dateTimeProvider)
         {

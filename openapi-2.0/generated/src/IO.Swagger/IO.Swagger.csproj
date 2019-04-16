@@ -75,10 +75,13 @@ Contact: mc_sdk@salesforce.com
     <Compile Include="Api\AssetApi.cs" />
     <Compile Include="Authenticators\AuthService.cs" />
     <Compile Include="Authenticators\DefaultDateTimeProvider.cs" />
+    <Compile Include="Authenticators\IAuthorizationHeaderValue.cs" />
     <Compile Include="Authenticators\IAuthService.cs" />
+    <Compile Include="Authenticators\ICacheService.cs" />
     <Compile Include="Authenticators\IDateTimeProvider.cs" />
     <Compile Include="Authenticators\OAuth2Authenticator.cs" />
     <Compile Include="Authenticators\AuthorizationHeaderValue.cs" />
+    <Compile Include="Authenticators\SettableDateTimeProvider.cs" />
     <Compile Include="Client\ApiClient.cs" />
     <Compile Include="Client\ApiException.cs" />
     <Compile Include="Client\ApiResponse.cs" />
@@ -94,7 +97,6 @@ Contact: mc_sdk@salesforce.com
     <Compile Include="Model\Asset.cs" />
     <Compile Include="Model\AssetError.cs" />
     <Compile Include="Model\CachedAccessTokenResponse.cs" />
-    <Compile Include="Authenticators\ICacheService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

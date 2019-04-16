@@ -54,19 +54,14 @@ namespace IO.Swagger.Authenticators
 
                 SetConfigParameters(response);
                 cacheService.Add(GetCacheKey(configuration), response);
+
+                return new AuthorizationHeaderValue(response.AccessToken, response.TokenType);
             }
             else
             {
                 SetConfigParameters(cachedValue);
+                return new AuthorizationHeaderValue(cachedValue.AccessToken, cachedValue.TokenType);
             }
-
-            var cacheKey = GetCacheKey(configuration);
-            var cacheKeyCorrespondingValue = cacheService.Get(cacheKey);
-
-            var accessToken = cacheKeyCorrespondingValue.AccessToken;
-            var tokenType = cacheKeyCorrespondingValue.TokenType;
-
-            return new AuthorizationHeaderValue(accessToken, tokenType);
         }
 
         public void SetConfigParameters(AccessTokenResponse response)
