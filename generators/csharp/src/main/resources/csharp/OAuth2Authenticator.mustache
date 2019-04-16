@@ -1,7 +1,6 @@
 {{>partial_header}}
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using {{packageName}}.Client;
 using {{packageName}}.Model;
@@ -9,13 +8,15 @@ using RestSharp;
 
 namespace {{packageName}}.Authenticators
 {
-    public class OAuth2Authenticator : IAuthenticator
+    internal class OAuth2Authenticator : IAuthenticator
     {
         private readonly Configuration configuration;
+        private readonly IApiClient apiClient;
 
-        public OAuth2Authenticator(Configuration configuration)
+        public OAuth2Authenticator(Configuration configuration, IApiClient apiClient)
         {
             this.configuration = configuration;
+            this.apiClient = apiClient;
         }
 
         public void Authenticate(IRestClient client, IRestRequest request)
@@ -34,7 +35,9 @@ namespace {{packageName}}.Authenticators
 
         private AccessTokenResponse Authenticate()
         {
-            var authApiClient = new ApiClient(configuration.AuthenticationInstanceUrl) { Configuration = configuration };
+            apiClient.Configuration = configuration;
+
+            var authApiClient = apiClient;
 
             var serializedAuthRequestBody =
                 authApiClient.Serialize(new AccessTokenRequest(configuration.ClientId,
@@ -57,12 +60,7 @@ namespace {{packageName}}.Authenticators
                 if (exception != null) throw exception;
             }
 
-            var accessTokenApiResponse = new ApiResponse<AccessTokenResponse>(
-                (int)authRequestResponse.StatusCode,
-                authRequestResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (AccessTokenResponse)configuration.ApiClient.Deserialize(authRequestResponse, typeof(AccessTokenResponse)));
-
-            return accessTokenApiResponse.Data;
+            return (AccessTokenResponse)configuration.ApiClient.Deserialize(authRequestResponse, typeof(AccessTokenResponse));
         }
     }
 }

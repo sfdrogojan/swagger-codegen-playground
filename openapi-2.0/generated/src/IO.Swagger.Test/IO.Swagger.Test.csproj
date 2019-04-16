@@ -84,4 +84,7 @@ Contact: mc_sdk@salesforce.com
       <Name>IO.Swagger</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Api\ApiTests.cs.template" />
+  </ItemGroup>
 </Project>
