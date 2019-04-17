@@ -1,6 +1,7 @@
 ﻿using System;
+using IO.Swagger.Authenticators;
 
-namespace IO.Swagger.Authenticators
+namespace IO.Swagger.UnitTests
 {
     public class SettableDateTimeProvider : IDateTimeProvider
     {

@@ -25,8 +25,7 @@ namespace IO.Swagger.Test
     [TestFixture]
     public class AssetApiTests
     {
-        private AssetApi instance1;
-        private AssetApi instance2;
+        private AssetApi instance;
         private readonly string authBasePath = "";
         private readonly string clientId = "";
         private readonly string clientSecret = "";
@@ -38,16 +37,10 @@ namespace IO.Swagger.Test
         [SetUp]
         public void Init()
         {
-            instance1 = new AssetApi(
+            instance = new AssetApi(
                 authBasePath, 
                 clientId, 
                 clientSecret, 
-                accountId);
-
-            instance2 = new AssetApi(
-                authBasePath,
-                clientId,
-                clientSecret,
                 accountId);
         }
 
@@ -68,7 +61,7 @@ namespace IO.Swagger.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             decimal? id = 273724;
-            var response = instance1.GetAssetById(id);
+            var response = instance.GetAssetById(id);
             Assert.IsInstanceOf<Asset> (response, "response is Asset");
         }
 
@@ -80,9 +73,9 @@ namespace IO.Swagger.Test
         {
             // TODO uncomment below to test the method and replace null with proper value
             decimal? id = 273724;
-            Asset asset = instance1.GetAssetById(id);
+            Asset asset = instance.GetAssetById(id);
             asset.Description = Guid.NewGuid().ToString();
-            var response = instance1.PartiallyUpdateAsset(id, asset);
+            var response = instance.PartiallyUpdateAsset(id, asset);
             Assert.IsInstanceOf<Asset>(response, "response is Asset");
         }
     }

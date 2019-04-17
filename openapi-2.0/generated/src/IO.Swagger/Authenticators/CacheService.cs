@@ -22,19 +22,13 @@ namespace IO.Swagger.Authenticators
                 if (value.Item2 > dateTimeProvider.Now)
                     return value.Item1;
             }
-
             return null;
         }
 
         public void Add(string key, AccessTokenResponse value)
         {
-            if(!cache.ContainsKey(key))
-            {
-                cache.TryAdd(key, new Tuple<AccessTokenResponse, DateTime>(
-                    value, 
-                    dateTimeProvider.Now.AddSeconds(value.ExpiresIn).AddMinutes(-5))
-                );
-            }
+            var valueToAdd = new Tuple<AccessTokenResponse, DateTime>(value, dateTimeProvider.Now.AddSeconds(value.ExpiresIn).AddMinutes(-5));
+            cache.AddOrUpdate(key, (cacheKey) => valueToAdd, (cacheKey, existingCacheValue) => valueToAdd);
         }
     }
 }

@@ -67,6 +67,7 @@
     <Compile Include="CacheServiceTests.cs" />
     <Compile Include="OAuth2AuthenticatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettableDateTimeProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -16,36 +16,8 @@ namespace IO.Swagger.UnitTests
         [Test]
         public void Get_WhenCacheIsSetAndNotExpired_ReturnsAccessTokenResponse()
         {
-            IDateTimeProvider datetimeProvider = new SettableDateTimeProvider(new DateTime(2019, 1, 1));
-            var authRequestResponse = CreateAuthRequestResponse();
-
-            CacheService cacheService = new CacheService(datetimeProvider);
-            var accessTokenResponse = new AccessTokenResponse()
-            {
-                AccessToken = "access_token",
-                TokenType = "token_type", 
-                ExpiresIn = 1000,
-                RestInstanceUrl = "https://rest.com",
-                SoapInstanceUrl = "https://soap.com"
-            };
-
-            cacheService.Add("cacheKey", accessTokenResponse);
-            cacheService.dateTimeProvider.Now.AddMinutes(5);
-
-            var response = cacheService.Get("cacheKey");
-
-            Assert.AreEqual("access_token", response.AccessToken);
-            Assert.AreEqual("token_type", response.TokenType);
-            Assert.AreEqual(1000, response.ExpiresIn);
-            Assert.AreEqual("https://rest.com", response.RestInstanceUrl);
-            Assert.AreEqual("https://soap.com", response.SoapInstanceUrl);
-        }
-
-        [Test]
-        public void Get_WhenCacheIsSetAndNotExpired_ReturnsNull()
-        {
-            IDateTimeProvider datetimeProvider = new SettableDateTimeProvider(new DateTime(2019, 1, 1));
-            var authRequestResponse = CreateAuthRequestResponse();
+            DateTime currentTime = new DateTime(2000, 1, 1);
+            SettableDateTimeProvider datetimeProvider = new SettableDateTimeProvider(currentTime);
 
             CacheService cacheService = new CacheService(datetimeProvider);
             var accessTokenResponse = new AccessTokenResponse()
@@ -58,7 +30,37 @@ namespace IO.Swagger.UnitTests
             };
 
             cacheService.Add("cacheKey", accessTokenResponse);
-            // to create time lapse  
+            datetimeProvider.Now = currentTime.AddMinutes(10);
+
+            var response = cacheService.Get("cacheKey");
+
+            Assert.AreEqual("access_token", response.AccessToken);
+            Assert.AreEqual("token_type", response.TokenType);
+            Assert.AreEqual(1000, response.ExpiresIn);
+            Assert.AreEqual("https://rest.com", response.RestInstanceUrl);
+            Assert.AreEqual("https://soap.com", response.SoapInstanceUrl);
+        }
+
+        [Test]
+        public void Get_WhenCacheIsSetAndExpired_ReturnsNull()
+        {
+            DateTime currentTime = new DateTime(2000, 1, 1);
+            SettableDateTimeProvider datetimeProvider = new SettableDateTimeProvider(currentTime);
+
+            CacheService cacheService = new CacheService(datetimeProvider);
+            var accessTokenResponse = new AccessTokenResponse()
+            {
+                AccessToken = "access_token",
+                TokenType = "token_type",
+                ExpiresIn = 1000,
+                RestInstanceUrl = "https://rest.com",
+                SoapInstanceUrl = "https://soap.com"
+            };
+
+            cacheService.Add("cacheKey", accessTokenResponse);
+
+            DateTime newCurrentTime = currentTime.AddMinutes(60);
+            datetimeProvider.Now = newCurrentTime;
 
             var response = cacheService.Get("cacheKey");
 

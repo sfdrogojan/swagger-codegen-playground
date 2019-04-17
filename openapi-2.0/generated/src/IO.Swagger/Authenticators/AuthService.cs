@@ -18,21 +18,19 @@ namespace IO.Swagger.Authenticators
             this.cacheService = cacheService;
             this.configuration = configuration;
         }
-        public AuthorizationHeaderValue GetAuthorizationHeaderValue()
+        public virtual AuthorizationHeaderValue GetAuthorizationHeaderValue()
         {
-            var cachedValue = cacheService.Get(GetCacheKey(configuration));
+            var cachedValue = cacheService.Get(GetCacheKey());
 
             if (cachedValue == null)
             {
                 apiClient.Configuration = configuration;
 
-                var authApiClient = apiClient;
-
                 var serializedAuthRequestBody =
-                    authApiClient.Serialize(new AccessTokenRequest(configuration.ClientId,
+                    apiClient.Serialize(new AccessTokenRequest(configuration.ClientId,
                         configuration.ClientSecret, configuration.AccountId));
 
-                IRestResponse authRequestResponse = (IRestResponse) authApiClient.CallApi("/v2/token",
+                IRestResponse authRequestResponse = (IRestResponse)apiClient.CallApi("/v2/token",
                     Method.POST,
                     new List<KeyValuePair<string, string>>(),
                     serializedAuthRequestBody,
@@ -53,7 +51,7 @@ namespace IO.Swagger.Authenticators
                         typeof(AccessTokenResponse));
 
                 SetConfigParameters(response);
-                cacheService.Add(GetCacheKey(configuration), response);
+                cacheService.Add(GetCacheKey(), response);
 
                 return new AuthorizationHeaderValue(response.AccessToken, response.TokenType);
             }
@@ -71,7 +69,7 @@ namespace IO.Swagger.Authenticators
             configuration.BasePath = response.RestInstanceUrl;
         }
 
-        public string GetCacheKey(Configuration configuration)
+        public string GetCacheKey()
         {
             return configuration.ClientId + "-" + configuration.AccountId;
         }

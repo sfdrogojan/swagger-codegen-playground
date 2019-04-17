@@ -9,7 +9,6 @@ namespace IO.Swagger.Authenticators
     internal class OAuth2Authenticator : IAuthenticator
     {
         private readonly IAuthService authService;
-        private Configuration configuration;
 
         public OAuth2Authenticator(IAuthService authService)
         {

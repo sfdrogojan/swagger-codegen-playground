@@ -81,7 +81,6 @@ Contact: mc_sdk@salesforce.com
     <Compile Include="Authenticators\IDateTimeProvider.cs" />
     <Compile Include="Authenticators\OAuth2Authenticator.cs" />
     <Compile Include="Authenticators\AuthorizationHeaderValue.cs" />
-    <Compile Include="Authenticators\SettableDateTimeProvider.cs" />
     <Compile Include="Client\ApiClient.cs" />
     <Compile Include="Client\ApiException.cs" />
     <Compile Include="Client\ApiResponse.cs" />
