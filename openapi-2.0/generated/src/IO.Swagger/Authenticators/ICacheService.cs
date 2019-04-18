@@ -5,6 +5,6 @@ namespace IO.Swagger.Authenticators
     public interface ICacheService
     {
         AccessTokenResponse Get(string key);
-        void Add(string key, AccessTokenResponse value);
+        void AddOrUpdate(string key, AccessTokenResponse value);
     }
 }

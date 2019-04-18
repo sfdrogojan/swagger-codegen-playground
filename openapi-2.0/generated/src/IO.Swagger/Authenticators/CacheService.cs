@@ -25,7 +25,7 @@ namespace IO.Swagger.Authenticators
             return null;
         }
 
-        public void Add(string key, AccessTokenResponse value)
+        public void AddOrUpdate(string key, AccessTokenResponse value)
         {
             var valueToAdd = new Tuple<AccessTokenResponse, DateTime>(value, dateTimeProvider.Now.AddSeconds(value.ExpiresIn).AddMinutes(-5));
             cache.AddOrUpdate(key, (cacheKey) => valueToAdd, (cacheKey, existingCacheValue) => valueToAdd);

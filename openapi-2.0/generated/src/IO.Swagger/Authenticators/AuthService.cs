@@ -6,7 +6,7 @@ using RestSharp;
 
 namespace IO.Swagger.Authenticators
 {
-    public class AuthService : IAuthService
+    internal class AuthService : IAuthService
     {
         private readonly Configuration configuration;
         private readonly IApiClient apiClient;
@@ -51,7 +51,7 @@ namespace IO.Swagger.Authenticators
                         typeof(AccessTokenResponse));
 
                 SetConfigParameters(response);
-                cacheService.Add(GetCacheKey(), response);
+                cacheService.AddOrUpdate(GetCacheKey(), response);
 
                 return new AuthorizationHeaderValue(response.AccessToken, response.TokenType);
             }

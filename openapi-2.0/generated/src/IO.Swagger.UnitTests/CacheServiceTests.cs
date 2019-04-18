@@ -16,7 +16,7 @@ namespace IO.Swagger.UnitTests
         [Test]
         public void Get_WhenCacheIsSetAndNotExpired_ReturnsAccessTokenResponse()
         {
-            DateTime currentTime = new DateTime(2000, 1, 1);
+            DateTime currentTime = DateTime.Now;
             SettableDateTimeProvider datetimeProvider = new SettableDateTimeProvider(currentTime);
 
             CacheService cacheService = new CacheService(datetimeProvider);
@@ -29,7 +29,7 @@ namespace IO.Swagger.UnitTests
                 SoapInstanceUrl = "https://soap.com"
             };
 
-            cacheService.Add("cacheKey", accessTokenResponse);
+            cacheService.AddOrUpdate("cacheKey", accessTokenResponse);
             datetimeProvider.Now = currentTime.AddMinutes(10);
 
             var response = cacheService.Get("cacheKey");
@@ -44,10 +44,10 @@ namespace IO.Swagger.UnitTests
         [Test]
         public void Get_WhenCacheIsSetAndExpired_ReturnsNull()
         {
-            DateTime currentTime = new DateTime(2000, 1, 1);
-            SettableDateTimeProvider datetimeProvider = new SettableDateTimeProvider(currentTime);
+            DateTime currentTime = DateTime.Now;
+            SettableDateTimeProvider dateTimeProvider = new SettableDateTimeProvider(currentTime);
 
-            CacheService cacheService = new CacheService(datetimeProvider);
+            CacheService cacheService = new CacheService(dateTimeProvider);
             var accessTokenResponse = new AccessTokenResponse()
             {
                 AccessToken = "access_token",
@@ -57,10 +57,10 @@ namespace IO.Swagger.UnitTests
                 SoapInstanceUrl = "https://soap.com"
             };
 
-            cacheService.Add("cacheKey", accessTokenResponse);
+            cacheService.AddOrUpdate("cacheKey", accessTokenResponse);
 
             DateTime newCurrentTime = currentTime.AddMinutes(60);
-            datetimeProvider.Now = newCurrentTime;
+            dateTimeProvider.Now = newCurrentTime;
 
             var response = cacheService.Get("cacheKey");
 
