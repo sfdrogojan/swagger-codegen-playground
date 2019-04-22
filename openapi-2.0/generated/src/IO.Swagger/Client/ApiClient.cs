@@ -150,7 +150,7 @@ namespace IO.Swagger.Client
         String SelectHeaderAccept(String[] accepts);
 
         /// <summary>
-        /// Convert params to key/value pairs. 
+        /// Convert params to key/value pairs.
         /// Use collectionFormat to properly format lists and collections.
         /// </summary>
         /// <param name="name">Key name.</param>

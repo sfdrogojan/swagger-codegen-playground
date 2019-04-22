@@ -4,9 +4,132 @@ All URIs are relative to *https://www.exacttargetapis.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateAsset**](AssetApi.md#createasset) | **POST** /asset/v1/content/assets | createAsset
+[**DeleteAssetById**](AssetApi.md#deleteassetbyid) | **DELETE** /asset/v1/content/assets/{id} | deleteAsset
 [**GetAssetById**](AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getAssetById
 [**PartiallyUpdateAsset**](AssetApi.md#partiallyupdateasset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
 
+
+<a name="createasset"></a>
+# **CreateAsset**
+> Asset CreateAsset (Asset body = null)
+
+createAsset
+
+Creates a new asset.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class CreateAssetExample
+    {
+        public void main()
+        {
+            var apiInstance = new AssetApi();
+            var body = new Asset(); // Asset | JSON Parameters (optional) 
+
+            try
+            {
+                // createAsset
+                Asset result = apiInstance.CreateAsset(body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AssetApi.CreateAsset: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**Asset**](Asset.md)| JSON Parameters | [optional] 
+
+### Return type
+
+[**Asset**](Asset.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="deleteassetbyid"></a>
+# **DeleteAssetById**
+> void DeleteAssetById (decimal? id)
+
+deleteAsset
+
+Deletes an asset.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class DeleteAssetByIdExample
+    {
+        public void main()
+        {
+            var apiInstance = new AssetApi();
+            var id = 8.14;  // decimal? | The ID of the asset to delete
+
+            try
+            {
+                // deleteAsset
+                apiInstance.DeleteAssetById(id);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AssetApi.DeleteAssetById: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **decimal?**| The ID of the asset to delete | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="getassetbyid"></a>
 # **GetAssetById**
@@ -30,9 +153,6 @@ namespace Example
     {
         public void main()
         {
-            // Configure OAuth2 access token for authorization: SFMC_OAuth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
             var apiInstance = new AssetApi();
             var id = 8.14;  // decimal? | The ID of the asset
 
@@ -63,7 +183,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[SFMC_OAuth2](../README.md#SFMC_OAuth2)
+No authorization required
 
 ### HTTP request headers
 
@@ -94,9 +214,6 @@ namespace Example
     {
         public void main()
         {
-            // Configure OAuth2 access token for authorization: SFMC_OAuth2
-            Configuration.Default.AccessToken = "YOUR_ACCESS_TOKEN";
-
             var apiInstance = new AssetApi();
             var id = 8.14;  // decimal? | The ID of the asset to update
             var body = new Asset(); // Asset | JSON Parameters (optional) 
@@ -129,7 +246,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[SFMC_OAuth2](../README.md#SFMC_OAuth2)
+No authorization required
 
 ### HTTP request headers
 

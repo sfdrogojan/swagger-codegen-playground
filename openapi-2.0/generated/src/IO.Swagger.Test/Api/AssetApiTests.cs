@@ -23,13 +23,9 @@ namespace IO.Swagger.Test
     /// Please update the test case below to test the API endpoint.
     /// </remarks>
     [TestFixture]
-    public class AssetApiTests
+    public class AssetApiTests : ApiTests
     {
         private AssetApi instance;
-        private readonly string authBasePath = "";
-        private readonly string clientId = "";
-        private readonly string clientSecret = "";
-        private readonly int accountId = 0;
 
         /// <summary>
         /// Setup before each unit test
