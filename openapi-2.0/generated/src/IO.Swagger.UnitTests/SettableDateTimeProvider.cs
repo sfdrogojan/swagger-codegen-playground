@@ -1,24 +1,15 @@
 ﻿using System;
-using IO.Swagger.Authenticators;
+using IO.Swagger.Authentication;
 
 namespace IO.Swagger.UnitTests
 {
     public class SettableDateTimeProvider : IDateTimeProvider
     {
-        private DateTime dateTime;
-
         public SettableDateTimeProvider(DateTime dateTime)
         {
-            this.dateTime = dateTime;
+            this.Now = dateTime;
         }
-        
-        public DateTime Now
-        {
-            get
-            {
-                return dateTime;
-            }
-            set { dateTime = value; }
-        }
+
+        public DateTime Now { get; set; }
     }
 }

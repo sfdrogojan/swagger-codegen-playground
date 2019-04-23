@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using IO.Swagger.Authenticators;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+﻿using System.Linq;
+using IO.Swagger.Authentication;
 using NSubstitute;
 using NUnit.Framework;
 using RestSharp;
+using OAuth2Authenticator = IO.Swagger.Authentication.OAuth2Authenticator;
 
 namespace IO.Swagger.UnitTests
 {
@@ -17,11 +14,11 @@ namespace IO.Swagger.UnitTests
         public void Authenticate_WhenAuthenticationSucceeds_SetsAuthenticationHeader()
         {
             IAuthService authServiceStub = Substitute.For<IAuthService>();
-            authServiceStub.GetAuthorizationHeaderValue()
-                .Returns(new AuthorizationHeaderValue("access_token", "token_type"));
+            authServiceStub.GetAuthorizationToken()
+                .Returns(new AuthorizationToken("access_token", "token_type"));
 
             IAuthenticator oAuth2Authenticator =
-                new Authenticators.OAuth2Authenticator(authServiceStub);
+                new OAuth2Authenticator(authServiceStub);
 
             IRestClient restClient = new RestClient("https://auth.com");
             IRestRequest request = new RestRequest();

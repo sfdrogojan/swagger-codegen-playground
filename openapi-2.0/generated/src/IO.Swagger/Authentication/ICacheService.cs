@@ -1,6 +1,6 @@
 ﻿using IO.Swagger.Model;
 
-namespace IO.Swagger.Authenticators
+namespace IO.Swagger.Authentication
 {
     public interface ICacheService
     {

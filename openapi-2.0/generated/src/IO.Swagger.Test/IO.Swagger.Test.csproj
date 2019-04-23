@@ -72,7 +72,10 @@ Contact: mc_sdk@salesforce.com
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="obj\**" />
+    <Compile Include="Api\ApiTests.cs" />
+    <Compile Include="Api\AssetApiTests.cs" />
+    <Compile Include="Model\AssetErrorTests.cs" />
+    <Compile Include="Model\AssetTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

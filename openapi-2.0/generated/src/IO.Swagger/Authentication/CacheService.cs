@@ -2,12 +2,18 @@
 using System.Collections.Concurrent;
 using IO.Swagger.Model;
 
-namespace IO.Swagger.Authenticators
+namespace IO.Swagger.Authentication
 {
-    public class CacheService : ICacheService
+    internal class CacheService : ICacheService
     {
-        internal static ConcurrentDictionary<string, Tuple<AccessTokenResponse, DateTime>> cache = new ConcurrentDictionary<string, Tuple<AccessTokenResponse, DateTime>>();
-        internal IDateTimeProvider dateTimeProvider;
+        internal static ConcurrentDictionary<string, Tuple<AccessTokenResponse, DateTime>> cache;
+        private readonly IDateTimeProvider dateTimeProvider;
+        private readonly int invalidCacheWindowInSeconds = 5 * 60;
+
+        static CacheService()
+        {
+            cache = new ConcurrentDictionary<string, Tuple<AccessTokenResponse, DateTime>>();
+        }
 
         public CacheService(IDateTimeProvider dateTimeProvider)
         {
@@ -27,7 +33,9 @@ namespace IO.Swagger.Authenticators
 
         public void AddOrUpdate(string key, AccessTokenResponse value)
         {
-            var valueToAdd = new Tuple<AccessTokenResponse, DateTime>(value, dateTimeProvider.Now.AddSeconds(value.ExpiresIn).AddMinutes(-5));
+
+            var expirationTime = dateTimeProvider.Now.AddSeconds(value.ExpiresIn).Subtract(TimeSpan.FromSeconds(invalidCacheWindowInSeconds));
+            var valueToAdd = new Tuple<AccessTokenResponse, DateTime>(value, expirationTime);
             cache.AddOrUpdate(key, (cacheKey) => valueToAdd, (cacheKey, existingCacheValue) => valueToAdd);
         }
     }

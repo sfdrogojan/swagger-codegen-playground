@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using IO.Swagger.Authenticators;
-using IO.Swagger.Client;
+using System.Collections.Concurrent;
+using IO.Swagger.Authentication;
 using IO.Swagger.Model;
-using NSubstitute;
 using NUnit.Framework;
-using RestSharp;
 
 namespace IO.Swagger.UnitTests
 {
@@ -14,25 +10,18 @@ namespace IO.Swagger.UnitTests
     public class CacheServiceTests
     {
         [Test]
-        public void Get_WhenCacheIsSetAndNotExpired_ReturnsAccessTokenResponse()
+        public void Get_WhenCacheIsNotExpired_ReturnsCachedValue()
         {
-            DateTime currentTime = DateTime.Now;
-            SettableDateTimeProvider datetimeProvider = new SettableDateTimeProvider(currentTime);
+            var currentTime = new DateTime(2000, 1, 1);
+            var datetimeProviderStub = new SettableDateTimeProvider(currentTime);
+            var accessTokenResponse = CreateAccessTokenResponse();
 
-            CacheService cacheService = new CacheService(datetimeProvider);
-            var accessTokenResponse = new AccessTokenResponse()
-            {
-                AccessToken = "access_token",
-                TokenType = "token_type",
-                ExpiresIn = 1000,
-                RestInstanceUrl = "https://rest.com",
-                SoapInstanceUrl = "https://soap.com"
-            };
+            var cacheService = new CacheService(datetimeProviderStub);
+            var cacheKey = "cacheKey";
+            cacheService.AddOrUpdate(cacheKey, accessTokenResponse);
 
-            cacheService.AddOrUpdate("cacheKey", accessTokenResponse);
-            datetimeProvider.Now = currentTime.AddMinutes(10);
-
-            var response = cacheService.Get("cacheKey");
+            datetimeProviderStub.Now = currentTime.AddMinutes(10);
+            var response = cacheService.Get(cacheKey);
 
             Assert.AreEqual("access_token", response.AccessToken);
             Assert.AreEqual("token_type", response.TokenType);
@@ -42,13 +31,85 @@ namespace IO.Swagger.UnitTests
         }
 
         [Test]
-        public void Get_WhenCacheIsSetAndExpired_ReturnsNull()
+        public void Get_WhenCacheIsExpired_ReturnsNull()
         {
-            DateTime currentTime = DateTime.Now;
-            SettableDateTimeProvider dateTimeProvider = new SettableDateTimeProvider(currentTime);
+            var currentTime = new DateTime(2000, 1, 1);
+            var dateTimeProvider = new SettableDateTimeProvider(currentTime);
+            var cacheService = new CacheService(dateTimeProvider);
+            var accessTokenResponse = CreateAccessTokenResponse();
 
-            CacheService cacheService = new CacheService(dateTimeProvider);
-            var accessTokenResponse = new AccessTokenResponse()
+            var cacheKey = "cacheKey";
+            cacheService.AddOrUpdate(cacheKey, accessTokenResponse);
+
+            var newCurrentTime = currentTime.AddMinutes(20);
+            dateTimeProvider.Now = newCurrentTime;
+
+            var response = cacheService.Get(cacheKey);
+
+            Assert.AreEqual(null, response);
+        }
+
+        [Test]
+        public void AddOrUpdate_WhenCalledAndKeyIsNotInCache_AddsValueInCache()
+        {
+            var currentTime = new DateTime(2000, 1, 1);
+            var dateTimeProvider = new SettableDateTimeProvider(currentTime);
+            var cacheService = new CacheService(dateTimeProvider);
+            var accessTokenResponse = CreateAccessTokenResponse();
+
+            var cacheKey = "cacheKey";
+            cacheService.AddOrUpdate(cacheKey, accessTokenResponse);
+
+            var cachedValue = cacheService.Get(cacheKey);
+            Assert.AreSame(cachedValue, accessTokenResponse);
+        }
+
+        [Test]
+        public void AddOrUpdate_WhenCalledTwoTimesForTheSameKey_OverwritesValueInCache()
+        {
+            var currentTime = new DateTime(2000, 1, 1);
+            var dateTimeProvider = new SettableDateTimeProvider(currentTime);
+            var cacheService = new CacheService(dateTimeProvider);
+            var accessTokenResponse = CreateAccessTokenResponse();
+
+            var cacheKey = "cacheKey";
+            cacheService.AddOrUpdate(cacheKey, accessTokenResponse);
+
+            var newAccessTokenResponse = CreateAccessTokenResponse();
+            cacheService.AddOrUpdate(cacheKey, newAccessTokenResponse);
+
+            var cachedValue = cacheService.Get(cacheKey);
+            Assert.AreSame(cachedValue, newAccessTokenResponse);
+        }
+
+        [TestCase(-299, false)]
+        [TestCase(-300, false)]
+        [TestCase(-301, true)]
+        public void Get_WhenCalledForACachedValue_ReturnsBasedOnInvalidCacheWindow(int windowInSeconds, bool isValid)
+        {
+            var currentTime = new DateTime(2000, 1, 1);
+            var dateTimeProvider = new SettableDateTimeProvider(currentTime);
+            var cacheService = new CacheService(dateTimeProvider);
+            var accessTokenResponse = CreateAccessTokenResponse();
+
+            var cacheKey = "cacheKey";
+            cacheService.AddOrUpdate(cacheKey, accessTokenResponse);
+
+            dateTimeProvider.Now = currentTime.AddSeconds(accessTokenResponse.ExpiresIn).AddSeconds(windowInSeconds);
+            var cachedValue = cacheService.Get(cacheKey);
+            var expectedIsValid = cachedValue != null;
+            Assert.AreEqual(expectedIsValid, isValid);
+        }
+
+        [TearDown]
+        public void CleanUp()
+        {
+            CacheService.cache = new ConcurrentDictionary<string, Tuple<AccessTokenResponse, DateTime>>();
+        }
+
+        private AccessTokenResponse CreateAccessTokenResponse()
+        {
+            var accessTokenResponse = new AccessTokenResponse
             {
                 AccessToken = "access_token",
                 TokenType = "token_type",
@@ -56,79 +117,7 @@ namespace IO.Swagger.UnitTests
                 RestInstanceUrl = "https://rest.com",
                 SoapInstanceUrl = "https://soap.com"
             };
-
-            cacheService.AddOrUpdate("cacheKey", accessTokenResponse);
-
-            DateTime newCurrentTime = currentTime.AddMinutes(60);
-            dateTimeProvider.Now = newCurrentTime;
-
-            var response = cacheService.Get("cacheKey");
-
-            Assert.AreEqual(null, response);
-        }
-
-        private ICacheService CreateCacheService()
-        {
-            ICacheService cacheService = Substitute.For<ICacheService>();
-
-            cacheService.Get(Arg.Any<string>()).Returns(new AccessTokenResponse()
-            {
-                AccessToken = "access_token",
-                TokenType = "token_type",
-                RestInstanceUrl = "https://rest.com",
-                SoapInstanceUrl = "https://soap.com",
-                ExpiresIn = 1000
-            });
-
-            return cacheService;
-        }
-
-        private IAuthService CreateAuthService()
-        {
-            IAuthService authService = Substitute.For<IAuthService>();
-
-            var accessToken = "access_token";
-            var tokenType = "token_type";
-
-            authService.GetAuthorizationHeaderValue().Returns(
-                new AuthorizationHeaderValue(accessToken, tokenType)
-
-            );
-
-            return authService;
-        }
-
-        private IRestResponse CreateAuthRequestResponse(HttpStatusCode httpStatusCode = HttpStatusCode.OK)
-        {
-            IRestResponse authRequestResponse = Substitute.For<IRestResponse>();
-            authRequestResponse.Content.Returns(@"{ 
-                'access_token': 'access_token', 
-                'token_type': 'token_type',
-                'expires_in': 1000,
-                'rest_instance_url':'https://rest.com',
-                'soap_instance_url':'https://soap.com'
-            }");
-
-            authRequestResponse.StatusCode.Returns(httpStatusCode);
-            return authRequestResponse;
-        }
-
-        private IApiClient CreateApiClient(IRestResponse authRequestResponse)
-        {
-            IApiClient apiClient = Substitute.For<IApiClient>();
-            apiClient
-                .CallApi(
-                    Arg.Any<string>(),
-                    Arg.Any<Method>(),
-                    Arg.Any<List<KeyValuePair<string, string>>>(),
-                    Arg.Any<object>(),
-                    Arg.Any<Dictionary<string, string>>(),
-                    Arg.Any<Dictionary<string, string>>(),
-                    Arg.Any<Dictionary<string, FileParameter>>(),
-                    Arg.Any<Dictionary<string, string>>(),
-                    Arg.Any<string>()
-                ).Returns(authRequestResponse);
-            return apiClient;
+            return accessTokenResponse;
         }
     }
 }

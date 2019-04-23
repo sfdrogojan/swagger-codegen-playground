@@ -1,14 +1,11 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net;
-using Castle.Core.Logging;
-using IO.Swagger.Authenticators;
+using IO.Swagger.Authentication;
 using IO.Swagger.Client;
 using IO.Swagger.Model;
 using NSubstitute;
-using NSubstitute.Core;
-using NSubstitute.Core.Arguments;
-using NSubstitute.ReceivedExtensions;
 using NUnit.Framework;
 using RestSharp;
 
@@ -18,22 +15,20 @@ namespace IO.Swagger.UnitTests
     public class AuthServiceTests
     {
         [Test]
-        public void GetAuthorizationHeaderValue_WhenCacheIsSetAndNotExpired_CallsOneTimeCallApiMethod()
+        public void GetAuthorizationToken_WhenCacheIsNotExpired_CallsOneTimeCallApiMethod()
         {
-            var configurationStub = new Configuration()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                AccountId = 1
-            };
+            var configurationStub = new Configuration();
             var authRequestResponse = CreateAuthRequestResponse();
             var apiClientMock = CreateApiClient(authRequestResponse);
-            SettableDateTimeProvider dateTimeProvider = new SettableDateTimeProvider(DateTime.Now);
-            var cacheService = new CacheService(dateTimeProvider);
+            var currentTime = new DateTime(2000, 1, 1);
+            var dateTimeProvider = new SettableDateTimeProvider(currentTime);
+            var cacheServiceStub1 = new CacheService(dateTimeProvider);
+            var cacheServiceStub2 = new CacheService(dateTimeProvider);
 
-            var authService = new AuthService(configurationStub, apiClientMock, cacheService);
-
-            authService.GetAuthorizationHeaderValue();
-            authService.GetAuthorizationHeaderValue();
+            var authServiceInstance1 = new AuthService(configurationStub, apiClientMock, cacheServiceStub1);
+            authServiceInstance1.GetAuthorizationToken();
+            var authServiceInstance2 = new AuthService(configurationStub, apiClientMock, cacheServiceStub2);
+            authServiceInstance2.GetAuthorizationToken();
 
             apiClientMock.Received(1).CallApi(Arg.Any<string>(),
                 Arg.Any<Method>(),
@@ -47,27 +42,22 @@ namespace IO.Swagger.UnitTests
         }
 
         [Test]
-        public void GetAuthorizationHeaderValue_WhenCacheIsSetAndExpired_CallsTwoTimesCallApiMethod()
+        public void GetAuthorizationToken_WhenCacheIsExpired_CallsTwoTimesCallApiMethod()
         {
-            var configurationStub = new Configuration()
-            {
-                ClientId = Guid.NewGuid().ToString(),
-                AccountId = 1
-            };
+            var configurationStub = new Configuration();
             var authRequestResponse = CreateAuthRequestResponse();
             var apiClientMock = CreateApiClient(authRequestResponse);
-            DateTime currentTime = DateTime.Now;
-            SettableDateTimeProvider dateTimeProvider = new SettableDateTimeProvider(currentTime);
-            var cacheService = new CacheService(dateTimeProvider);
+            var currentTime = new DateTime(2000, 1, 1);
+            var dateTimeProvider = new SettableDateTimeProvider(currentTime);
+            var cacheServiceStub = new CacheService(dateTimeProvider);
 
-            var authService = new AuthService(configurationStub, apiClientMock, cacheService);
+            var authService = new AuthService(configurationStub, apiClientMock, cacheServiceStub);
+            authService.GetAuthorizationToken();
 
-            authService.GetAuthorizationHeaderValue();
-
-            DateTime newCurrentTime = currentTime.AddMinutes(60);
+            DateTime newCurrentTime = currentTime.AddMinutes(20);
             dateTimeProvider.Now = newCurrentTime;
 
-            authService.GetAuthorizationHeaderValue();
+            authService.GetAuthorizationToken();
 
             apiClientMock.Received(2).CallApi(Arg.Any<string>(),
                 Arg.Any<Method>(),
@@ -81,7 +71,7 @@ namespace IO.Swagger.UnitTests
         }
 
         [Test]
-        public void GetAuthorizationHeaderValue_WhenValueIsNotPresentInCache_CallsTokenApi()
+        public void GetAuthorizationToken_WhenValueIsNotPresentInCache_CallsTokenApi()
         {
             var configurationStub = new Configuration();
             var cacheServiceStub = Substitute.For<ICacheService>();
@@ -102,7 +92,7 @@ namespace IO.Swagger.UnitTests
 
             var authService = new AuthService(configurationStub, apiClientMock, cacheServiceStub);
 
-            authService.GetAuthorizationHeaderValue();
+            authService.GetAuthorizationToken();
 
             apiClientMock.Received().CallApi(
                 Arg.Is("/v2/token"),
@@ -118,7 +108,7 @@ namespace IO.Swagger.UnitTests
         }
 
         [Test]
-        public void GetAuthorizationHeaderValue_WhenValueIsNotPresentInCacheAndTokenApiFails_ThrowsException()
+        public void GetAuthorizationToken_WhenTokenApiCallsFails_ThrowsException()
         {
             var configurationStub = new Configuration();
             var cacheServiceStub = Substitute.For<ICacheService>();
@@ -139,20 +129,19 @@ namespace IO.Swagger.UnitTests
 
             var authService = new AuthService(configurationStub, apiClientMock, cacheServiceStub);
 
-            Assert.Throws<ApiException>(() => authService.GetAuthorizationHeaderValue());
+            Assert.Throws<ApiException>(() => authService.GetAuthorizationToken());
         }
 
         [Test]
-        public void SetConfigParameters_WhenValueIsNotPresentInCache_SetsConfigParameters()
+        public void GetAuthorizationToken_WhenValueIsPresentInCache_SetsConfigurationValues()
         {
-            var authRequestResponse = CreateAuthRequestResponse();
-            var apiClientMock = CreateApiClient(authRequestResponse);
+            var apiClientStub = Substitute.For<IApiClient>();
             var cacheServiceStub = CreateCacheService();
             var configurationStub = new Configuration();
 
-            var authService = new AuthService(configurationStub, apiClientMock, cacheServiceStub);
+            var authService = new AuthService(configurationStub, apiClientStub, cacheServiceStub);
 
-            authService.GetAuthorizationHeaderValue();
+            authService.GetAuthorizationToken();
 
             Assert.AreEqual("https://rest.com", configurationStub.RestInstanceUrl);
             Assert.AreEqual("https://soap.com", configurationStub.SoapInstanceUrl);
@@ -160,7 +149,7 @@ namespace IO.Swagger.UnitTests
         }
 
         [Test]
-        public void CacheServiceAdd_WhenValueIsNotPresentInCache_AddsAccessTokenResponseDateTimeTupleInCache()
+        public void GetAuthorizationToken_WhenValueIsNotPresentInCache_SetsConfigurationValues()
         {
             var authRequestResponse = CreateAuthRequestResponse();
             var apiClientMock = CreateApiClient(authRequestResponse);
@@ -169,89 +158,77 @@ namespace IO.Swagger.UnitTests
 
             var authService = new AuthService(configurationStub, apiClientMock, cacheServiceMock);
 
-            authService.GetAuthorizationHeaderValue();
+            authService.GetAuthorizationToken();
+
+            Assert.AreEqual("https://rest.com", configurationStub.RestInstanceUrl);
+            Assert.AreEqual("https://rest.com", configurationStub.BasePath);
+            Assert.AreEqual("https://soap.com", configurationStub.SoapInstanceUrl);
+        }
+
+        [Test]
+        public void GetAuthorizationToken_WhenValueIsNotPresentInCache_CallsAddOrUpdate()
+        {
+            var authRequestResponse = CreateAuthRequestResponse();
+            var apiClientStub = CreateApiClient(authRequestResponse);
+            var configurationStub = new Configuration();
+            var cacheServiceMock = Substitute.For<ICacheService>();
+
+            var authService = new AuthService(configurationStub, apiClientStub, cacheServiceMock);
+
+            authService.GetAuthorizationToken();
 
             cacheServiceMock.Received().AddOrUpdate(Arg.Any<string>(), Arg.Any<AccessTokenResponse>());
         }
 
         [Test]
-        public void GetAuthorizationHeaderValue_WhenValueIsNotPresentInCache_ReturnAuthorizationHeaderValue()
+        public void GetAuthorizationToken_WhenValueIsNotPresentInCache_ReturnsAuthorizationTokenFromApiResponse()
         {
             var authRequestResponse = CreateAuthRequestResponse();
-            var apiClientMock = CreateApiClient(authRequestResponse);
+            var apiClientStub = CreateApiClient(authRequestResponse);
             var configurationStub = new Configuration();
-            ICacheService cacheServiceMock = Substitute.For<ICacheService>();
+            var cacheServiceStub = Substitute.For<ICacheService>();
 
-            var authService = new AuthService(configurationStub, apiClientMock, cacheServiceMock);
+            var authService = new AuthService(configurationStub, apiClientStub, cacheServiceStub);
 
-            var response = authService.GetAuthorizationHeaderValue();
+            var response = authService.GetAuthorizationToken();
 
-            Assert.AreEqual(response.AccessToken, "access_token");
-            Assert.AreEqual(response.TokenType, "token_type");
+            Assert.AreEqual(response.Value, "access_token");
+            Assert.AreEqual(response.Type, "token_type");
         }
 
         [Test]
-        public void GetAuthorizationHeaderValue_WhenAuthenticationSucceeds_SetsConfigurationValues()
-        {
-            var authRequestResponse = CreateAuthRequestResponse();
-            var apiClientMock = CreateApiClient(authRequestResponse);
-            var configurationStub = new Configuration();
-            ICacheService cacheServiceMock = Substitute.For<ICacheService>();
-
-            var authService = new AuthService(configurationStub, apiClientMock, cacheServiceMock);
-
-            authService.GetAuthorizationHeaderValue();
-
-            Assert.AreEqual("https://rest.com", configurationStub.RestInstanceUrl);
-            Assert.AreEqual("https://rest.com", configurationStub.BasePath);
-            Assert.AreEqual("https://soap.com", configurationStub.SoapInstanceUrl);
-        }
-
-        [Test]
-        public void GetAuthorizationHeaderValue_WhenAuthenticationFails_ThrowsException()
+        public void GetAuthorizationToken_WhenAuthenticationFails_ThrowsException()
         {
             var authRequestResponse = CreateAuthRequestResponse(HttpStatusCode.Unauthorized);
-            var apiClientMock = CreateApiClient(authRequestResponse);
+            var apiClientStub = CreateApiClient(authRequestResponse);
             var configurationStub = new Configuration();
-            ICacheService cacheServiceMock = Substitute.For<ICacheService>();
+            var cacheServiceStub = Substitute.For<ICacheService>();
 
-            var authService = new AuthService(configurationStub, apiClientMock, cacheServiceMock);
+            var authService = new AuthService(configurationStub, apiClientStub, cacheServiceStub);
 
-            Assert.Throws<ApiException>(() => authService.GetAuthorizationHeaderValue());
-        }
-            
-        [Test]
-        public void SetConfigParameters_WhenValueIsPresentInCache_SetsConfigParameters()
-        {
-            var authRequestResponse = CreateAuthRequestResponse();
-            var apiClientMock = CreateApiClient(authRequestResponse);
-            var configurationStub = new Configuration();
-
-            var cacheServiceStub = CreateCacheService();
-            AccessTokenResponse cacheServiceContent = cacheServiceStub.Get("someCacheKey");
-
-            var authService = new AuthService(configurationStub, apiClientMock, cacheServiceStub);
-            authService.SetConfigParameters(cacheServiceContent);
-
-            Assert.AreEqual("https://rest.com", configurationStub.RestInstanceUrl);
-            Assert.AreEqual("https://soap.com", configurationStub.SoapInstanceUrl);
-            Assert.AreEqual("https://rest.com", configurationStub.BasePath);
+            Assert.Throws<ApiException>(() => authService.GetAuthorizationToken());
         }
 
         [Test]
-        public void GetAuthorizationHeaderValue_WhenValueIsPresentInCache_ReturnAuthorizationHeaderValue()
+        public void GetAuthorizationToken_WhenValueIsPresentInCache_ReturnsAuthorizationTokenFromCache()
         {
             var authRequestResponse = CreateAuthRequestResponse();
-            var apiClientMock = CreateApiClient(authRequestResponse);
+            var apiClientStub = CreateApiClient(authRequestResponse);
             var configurationStub = new Configuration();
             var cacheServiceStub = CreateCacheService();
 
-            var authService = new AuthService(configurationStub, apiClientMock, cacheServiceStub);
+            var authService = new AuthService(configurationStub, apiClientStub, cacheServiceStub);
 
-            var response = authService.GetAuthorizationHeaderValue();
+            var response = authService.GetAuthorizationToken();
 
-            Assert.AreEqual(response.AccessToken, "access_token");
-            Assert.AreEqual(response.TokenType, "token_type");
+            Assert.AreEqual(response.Value, "access_token");
+            Assert.AreEqual(response.Type, "token_type");
+        }
+
+        [TearDown]
+        public void CleanUp()
+        {
+            CacheService.cache = new ConcurrentDictionary<string, Tuple<AccessTokenResponse, DateTime>>();
         }
 
         private ICacheService CreateCacheService()
@@ -268,21 +245,6 @@ namespace IO.Swagger.UnitTests
             });
 
             return cacheService;
-        }
-
-        private IAuthService CreateAuthService()
-        {
-            IAuthService authService = Substitute.For<IAuthService>();
-
-            var accessToken = "access_token";
-            var tokenType = "token_type";
-
-            authService.GetAuthorizationHeaderValue().Returns(
-                new AuthorizationHeaderValue(accessToken, tokenType)
-
-            );
-
-            return authService;
         }
 
         private IRestResponse CreateAuthRequestResponse(HttpStatusCode httpStatusCode = HttpStatusCode.OK)

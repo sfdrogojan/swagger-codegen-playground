@@ -12,10 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using IO.Swagger.Authenticators;
+using IO.Swagger.Authentication;
 using RestSharp;
 using IO.Swagger.Client;
 using IO.Swagger.Model;
+using OAuth2Authenticator = IO.Swagger.Authentication.OAuth2Authenticator;
 
 namespace IO.Swagger.Api
 {
@@ -222,7 +223,7 @@ namespace IO.Swagger.Api
                 ClientSecret = clientSecret,
                 AccountId = accountId
             };
-            this.Configuration.ApiClient.RestClient.Authenticator = new Authenticators.OAuth2Authenticator(new AuthService(this.Configuration, new ApiClient(authBasePath), new CacheService(new DefaultDateTimeProvider())));
+            this.Configuration.ApiClient.RestClient.Authenticator = new OAuth2Authenticator(new AuthService(this.Configuration, new ApiClient(authBasePath), new CacheService(new DefaultDateTimeProvider())));
 
             ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
         }
