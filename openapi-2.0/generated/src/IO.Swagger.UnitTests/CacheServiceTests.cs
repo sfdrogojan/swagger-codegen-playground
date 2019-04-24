@@ -82,9 +82,9 @@ namespace IO.Swagger.UnitTests
             Assert.AreSame(cachedValue, newAccessTokenResponse);
         }
 
-        [TestCase(-299, false)]
-        [TestCase(-300, false)]
-        [TestCase(-301, true)]
+        [TestCase(299, false)]
+        [TestCase(300, false)]
+        [TestCase(301, true)]
         public void Get_WhenCalledForACachedValue_ReturnsBasedOnInvalidCacheWindow(int windowInSeconds, bool isValid)
         {
             var currentTime = new DateTime(2000, 1, 1);
@@ -95,7 +95,7 @@ namespace IO.Swagger.UnitTests
             var cacheKey = "cacheKey";
             cacheService.AddOrUpdate(cacheKey, accessTokenResponse);
 
-            dateTimeProvider.Now = currentTime.AddSeconds(accessTokenResponse.ExpiresIn).AddSeconds(windowInSeconds);
+            dateTimeProvider.Now = currentTime.AddSeconds(accessTokenResponse.ExpiresIn).Subtract(TimeSpan.FromSeconds(windowInSeconds));
             var cachedValue = cacheService.Get(cacheKey);
             var expectedIsValid = cachedValue != null;
             Assert.AreEqual(expectedIsValid, isValid);
