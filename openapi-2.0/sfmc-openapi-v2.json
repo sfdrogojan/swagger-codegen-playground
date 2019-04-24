@@ -189,6 +189,28 @@
         }
       }
     },
+    "AssetType": {
+      "type": "object",
+      "description": "The asset type",
+      "required": [
+        "Id",
+        "Name"
+      ],
+      "properties": {
+        "Id": {
+          "description": "The id of the asset type",
+          "type": "number"
+        },
+        "Name": {
+          "description": "The name of the asset type",
+          "type": "string"
+        },
+        "Description": {
+          "description": "The description of the asset type",
+          "type": "string"
+        }
+      }
+    },
     "Asset": {
       "type": "object",
       "required": [
@@ -211,8 +233,7 @@
           "type": "object"
         },
         "AssetType": {
-          "description": "The type of the asset saved as a name/ID pair",
-          "type": "object"
+          "$ref": "#/definitions/AssetType"
         },
         "Version": {
           "description": "The version of the asset",

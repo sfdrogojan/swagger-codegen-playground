@@ -41,7 +41,7 @@ namespace IO.Swagger.Model
         /// <param name="customerKey">Reference to customer&#39;s private ID/name for the asset (required).</param>
         /// <param name="contentType">The type that the content attribute will be in.</param>
         /// <param name="data">Property bag containing the asset data.</param>
-        /// <param name="assetType">The type of the asset saved as a name/ID pair (required).</param>
+        /// <param name="assetType">assetType (required).</param>
         /// <param name="version">The version of the asset.</param>
         /// <param name="locked">Specifies if the asset can be modified or not.</param>
         /// <param name="fileProperties">Stores the different properties that this asset refers to if it is a file type.</param>
@@ -67,7 +67,7 @@ namespace IO.Swagger.Model
         /// <param name="template">Template the asset follows.</param>
         /// <param name="file">Base64-encoded string of a file associated with an asset.</param>
         /// <param name="generateFrom">Tells the sending compiler what view to use for generating this view&#39;s content.</param>
-        public Asset(string customerKey = default(string), string contentType = default(string), Object data = default(Object), Object assetType = default(Object), decimal? version = default(decimal?), bool? locked = default(bool?), Object fileProperties = default(Object), string name = default(string), string description = default(string), Object category = default(Object), List<string> tags = default(List<string>), string content = default(string), string design = default(string), string superContent = default(string), Object customFields = default(Object), Object views = default(Object), Object blocks = default(Object), decimal? minBlocks = default(decimal?), decimal? maxBlocks = default(decimal?), Object channels = default(Object), List<string> allowedBlocks = default(List<string>), Object slots = default(Object), Object businessUnitAvailability = default(Object), Object sharingProperties = default(Object), Object sharingPropertiesSharedWith = default(Object), string sharingPropertiesSharingType = default(string), Object template = default(Object), string file = default(string), string generateFrom = default(string))
+        public Asset(string customerKey = default(string), string contentType = default(string), Object data = default(Object), AssetType assetType = default(AssetType), decimal? version = default(decimal?), bool? locked = default(bool?), Object fileProperties = default(Object), string name = default(string), string description = default(string), Object category = default(Object), List<string> tags = default(List<string>), string content = default(string), string design = default(string), string superContent = default(string), Object customFields = default(Object), Object views = default(Object), Object blocks = default(Object), decimal? minBlocks = default(decimal?), decimal? maxBlocks = default(decimal?), Object channels = default(Object), List<string> allowedBlocks = default(List<string>), Object slots = default(Object), Object businessUnitAvailability = default(Object), Object sharingProperties = default(Object), Object sharingPropertiesSharedWith = default(Object), string sharingPropertiesSharingType = default(string), Object template = default(Object), string file = default(string), string generateFrom = default(string))
         {
             // to ensure "customerKey" is required (not null)
             if (customerKey == null)
@@ -154,11 +154,10 @@ namespace IO.Swagger.Model
         public Object Data { get; set; }
 
         /// <summary>
-        /// The type of the asset saved as a name/ID pair
+        /// Gets or Sets AssetType
         /// </summary>
-        /// <value>The type of the asset saved as a name/ID pair</value>
         [DataMember(Name="AssetType", EmitDefaultValue=false)]
-        public Object AssetType { get; set; }
+        public AssetType AssetType { get; set; }
 
         /// <summary>
         /// The version of the asset

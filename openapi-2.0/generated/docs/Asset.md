@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **CustomerKey** | **string** | Reference to customer&#39;s private ID/name for the asset | 
 **ContentType** | **string** | The type that the content attribute will be in | [optional] 
 **Data** | **Object** | Property bag containing the asset data | [optional] 
-**AssetType** | **Object** | The type of the asset saved as a name/ID pair | 
+**AssetType** | [**AssetType**](AssetType.md) |  | 
 **Version** | **decimal?** | The version of the asset | [optional] 
 **Locked** | **bool?** | Specifies if the asset can be modified or not | [optional] 
 **FileProperties** | **Object** | Stores the different properties that this asset refers to if it is a file type | [optional] 

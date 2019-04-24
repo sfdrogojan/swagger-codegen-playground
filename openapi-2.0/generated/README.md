@@ -107,6 +107,7 @@ Class | Method | HTTP request | Description
 
  - [Model.Asset](docs/Asset.md)
  - [Model.AssetError](docs/AssetError.md)
+ - [Model.AssetType](docs/AssetType.md)
 
 
 <a name="documentation-for-authorization"></a>

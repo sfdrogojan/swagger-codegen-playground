@@ -9,6 +9,7 @@
  */
 
 using System;
+using System.Dynamic;
 using NUnit.Framework;
 using IO.Swagger.Api;
 using IO.Swagger.Model;
@@ -55,7 +56,6 @@ namespace IO.Swagger.Test
         [Test]
         public void GetAssetByIdTest()
         {
-            // TODO uncomment below to test the method and replace null with proper value
             decimal? id = 273724;
             var response = instance.GetAssetById(id);
             Assert.IsInstanceOf<Asset> (response, "response is Asset");
@@ -67,12 +67,34 @@ namespace IO.Swagger.Test
         [Test]
         public void PartiallyUpdateAssetTest()
         {
-            // TODO uncomment below to test the method and replace null with proper value
             decimal? id = 273724;
             Asset asset = instance.GetAssetById(id);
             asset.Description = Guid.NewGuid().ToString();
             var response = instance.PartiallyUpdateAsset(id, asset);
             Assert.IsInstanceOf<Asset>(response, "response is Asset");
+        }
+
+        [Test]
+        public void CreateAssetTest()
+        {
+            string customerKey = Guid.NewGuid().ToString();
+            string name = $"Automation POC {Guid.NewGuid()}";
+            string description = "Automation POC Description";
+
+            decimal? id = 273724;
+            var helperResponse = instance.GetAssetById(id);
+            var assetType = new AssetType(196, "textblock", "Text Block");
+            var asset = new Asset(customerKey, null, null, assetType, null, null, null, name, description);
+
+            var response = instance.CreateAsset(asset);
+
+            Assert.IsInstanceOf<Asset>(response);
+        }
+
+        [Test]
+        public void DeleteAssetTest()
+        {
+            instance.DeleteAssetById(273724);
         }
     }
 }
