@@ -9,6 +9,7 @@ using RestSharp.Portable;
 {{^netStandard}}
 using RestSharp;
 {{/netStandard}}
+using {{packageName}}.Authentication;
 using {{packageName}}.Client;
 {{#hasImport}}using {{packageName}}.{{modelPackage}};
 {{/hasImport}}
@@ -95,7 +96,14 @@ namespace {{packageName}}.{{apiPackage}}
                 ClientSecret = clientSecret,
                 AccountId = accountId
             };
-            this.Configuration.ApiClient.RestClient.Authenticator = new Authenticators.OAuth2Authenticator(this.Configuration, new ApiClient(authBasePath));
+
+            var defaultDateTimeProvider = new DefaultDateTimeProvider();
+            var cacheService = new CacheService(defaultDateTimeProvider);
+            var apiClient = new ApiClient(authBasePath);
+            var authService = new AuthService(this.Configuration, apiClient, cacheService);
+
+            this.Configuration.ApiClient.RestClient.Authenticator =
+                new IO.Swagger.Authentication.OAuth2Authenticator(authService);
 
             ExceptionFactory = {{packageName}}.Client.Configuration.DefaultExceptionFactory;
         }

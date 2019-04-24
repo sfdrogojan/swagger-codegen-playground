@@ -1,66 +1,25 @@
 {{>partial_header}}
-using System;
-using System.Collections.Generic;
 using System.Net;
-using {{packageName}}.Client;
-using {{packageName}}.Model;
 using RestSharp;
 
-namespace {{packageName}}.Authenticators
+namespace {{packageName}}.Authentication
 {
     internal class OAuth2Authenticator : IAuthenticator
     {
-        private readonly Configuration configuration;
-        private readonly IApiClient apiClient;
+        private readonly IAuthService authService;
 
-        public OAuth2Authenticator(Configuration configuration, IApiClient apiClient)
+        public OAuth2Authenticator(IAuthService authService)
         {
-            this.configuration = configuration;
-            this.apiClient = apiClient;
+            this.authService = authService;
         }
 
         public void Authenticate(IRestClient client, IRestRequest request)
         {
-            // workaround to support TLS 1.2 in .NET 4.5 (source: https://blogs.perficient.com/2016/04/28/tsl-1-2-and-net-support/)
             ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
 
-            var accessTokenResponse = this.Authenticate();
+            var authorizationToken = authService.GetAuthorizationToken();
 
-            configuration.RestInstanceUrl = accessTokenResponse.RestInstanceUrl;
-            configuration.SoapInstanceUrl = accessTokenResponse.SoapInstanceUrl;
-            configuration.BasePath = accessTokenResponse.RestInstanceUrl;
-
-            request.AddHeader("Authorization", $"{accessTokenResponse.TokenType} {accessTokenResponse.AccessToken}");
-        }
-
-        private AccessTokenResponse Authenticate()
-        {
-            apiClient.Configuration = configuration;
-
-            var authApiClient = apiClient;
-
-            var serializedAuthRequestBody =
-                authApiClient.Serialize(new AccessTokenRequest(configuration.ClientId,
-                    configuration.ClientSecret, configuration.AccountId));
-
-            IRestResponse authRequestResponse = (IRestResponse)authApiClient.CallApi("/v2/token",
-                Method.POST,
-                new List<KeyValuePair<string, string>>(),
-                serializedAuthRequestBody,
-                new Dictionary<string, string>(),
-                new Dictionary<string, string>(),
-                new Dictionary<string, FileParameter>(),
-                new Dictionary<string, string>(),
-                "application/json");
-
-            var exceptionFactory = Configuration.DefaultExceptionFactory;
-            if (exceptionFactory != null)
-            {
-                Exception exception = exceptionFactory("Authenticate", authRequestResponse);
-                if (exception != null) throw exception;
-            }
-
-            return (AccessTokenResponse)configuration.ApiClient.Deserialize(authRequestResponse, typeof(AccessTokenResponse));
+            request.AddHeader("Authorization", $"{authorizationToken.Type} {authorizationToken.Value}");
         }
     }
 }
