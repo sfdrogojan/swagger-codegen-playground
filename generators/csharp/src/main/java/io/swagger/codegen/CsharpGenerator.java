@@ -7,7 +7,7 @@ import java.io.File;
 public class CsharpGenerator extends CSharpClientCodegen {
 
     String packageFolder = sourceFolder + File.separator + packageName;
-    String authenticatorsPackageDir = packageFolder + File.separator + "Authenticators";
+    String authenticatorsPackageDir = packageFolder + File.separator + "Authentication";
 
     @Override
     public void processOpts() {

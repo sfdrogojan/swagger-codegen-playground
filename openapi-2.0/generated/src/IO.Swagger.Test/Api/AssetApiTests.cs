@@ -9,15 +9,7 @@
  */
 
 using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
-using RestSharp;
 using NUnit.Framework;
-
-using IO.Swagger.Client;
 using IO.Swagger.Api;
 using IO.Swagger.Model;
 
@@ -56,18 +48,7 @@ namespace IO.Swagger.Test
         {
 
         }
-
-        /// <summary>
-        /// Test an instance of AssetApi
-        /// </summary>
-        [Test]
-        public void InstanceTest()
-        {
-            // TODO uncomment below to test 'IsInstanceOfType' AssetApi
-            //Assert.IsInstanceOfType(typeof(AssetApi), instance, "instance is a AssetApi");
-        }
-
-        
+   
         /// <summary>
         /// Test GetAssetById
         /// </summary>
@@ -79,7 +60,7 @@ namespace IO.Swagger.Test
             var response = instance.GetAssetById(id);
             Assert.IsInstanceOf<Asset> (response, "response is Asset");
         }
-        
+
         /// <summary>
         /// Test PartiallyUpdateAsset
         /// </summary>
@@ -93,7 +74,5 @@ namespace IO.Swagger.Test
             var response = instance.PartiallyUpdateAsset(id, asset);
             Assert.IsInstanceOf<Asset>(response, "response is Asset");
         }
-        
     }
-
 }

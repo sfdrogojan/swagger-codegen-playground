@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
+using IO.Swagger.Authentication;
 using IO.Swagger.Client;
 using IO.Swagger.Model;
 
@@ -221,7 +222,14 @@ namespace IO.Swagger.Api
                 ClientSecret = clientSecret,
                 AccountId = accountId
             };
-            this.Configuration.ApiClient.RestClient.Authenticator = new Authenticators.OAuth2Authenticator(this.Configuration, new ApiClient(authBasePath));
+
+            var defaultDateTimeProvider = new DefaultDateTimeProvider();
+            var cacheService = new CacheService(defaultDateTimeProvider);
+            var apiClient = new ApiClient(authBasePath);
+            var authService = new AuthService(this.Configuration, apiClient, cacheService);
+
+            this.Configuration.ApiClient.RestClient.Authenticator =
+                new IO.Swagger.Authentication.OAuth2Authenticator(authService);
 
             ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
         }
