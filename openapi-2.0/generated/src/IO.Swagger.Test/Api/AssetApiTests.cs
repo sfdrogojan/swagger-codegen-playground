@@ -82,8 +82,6 @@ namespace IO.Swagger.Test
             string name = $"Automation POC {Guid.NewGuid()}";
             string description = "Automation POC Description";  
             
-            decimal? id = 273724;
-            var helperResponse = instance.GetAssetById(id);
             var assetType = new AssetType(196, "textblock", "Text Block");
             var asset = new Asset(null, customerKey, null, null, assetType, null, null, null, name, description);
 
