@@ -220,6 +220,10 @@
         "AssetType"
       ],
       "properties": {
+        "Id":{
+          "description": "The id of the asset",
+          "type": "number"
+        },
         "CustomerKey": {
           "description": "Reference to customer's private ID/name for the asset",
           "type": "string"

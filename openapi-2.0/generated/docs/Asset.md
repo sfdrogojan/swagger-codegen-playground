@@ -3,6 +3,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | **decimal?** | The id of the asset | [optional] 
 **CustomerKey** | **string** | Reference to customer&#39;s private ID/name for the asset | 
 **ContentType** | **string** | The type that the content attribute will be in | [optional] 
 **Data** | **Object** | Property bag containing the asset data | [optional] 

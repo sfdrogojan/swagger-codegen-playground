@@ -13,6 +13,7 @@ using System.Dynamic;
 using NUnit.Framework;
 using IO.Swagger.Api;
 using IO.Swagger.Model;
+using IO.Swagger.Client;
 
 namespace IO.Swagger.Test
 {
@@ -79,12 +80,12 @@ namespace IO.Swagger.Test
         {
             string customerKey = Guid.NewGuid().ToString();
             string name = $"Automation POC {Guid.NewGuid()}";
-            string description = "Automation POC Description";
-
+            string description = "Automation POC Description";  
+            
             decimal? id = 273724;
             var helperResponse = instance.GetAssetById(id);
             var assetType = new AssetType(196, "textblock", "Text Block");
-            var asset = new Asset(customerKey, null, null, assetType, null, null, null, name, description);
+            var asset = new Asset(null, customerKey, null, null, assetType, null, null, null, name, description);
 
             var response = instance.CreateAsset(asset);
 
@@ -94,7 +95,21 @@ namespace IO.Swagger.Test
         [Test]
         public void DeleteAssetTest()
         {
-            instance.DeleteAssetById(273724);
+            string customerKey = Guid.NewGuid().ToString();
+            string name = $"Automation POC {Guid.NewGuid()}";
+            string description = "Automation POC Description";
+
+            var assetType = new AssetType(196, "textblock", "Text Block");
+            var asset = new Asset(null, customerKey, null, null, assetType, null, null, null, name, description);
+
+            var response = instance.CreateAsset(asset);
+            Assert.IsInstanceOf<Asset>(response);
+
+            var assetToDeleteId = response.Id;
+            instance.DeleteAssetById(assetToDeleteId);
+
+            Assert.Throws(Is.TypeOf<ApiException>().And.Message.EqualTo("Error calling GetAssetById: "),
+                () => instance.GetAssetById(assetToDeleteId));
         }
     }
 }
