@@ -169,6 +169,90 @@
         "x-published": true,
         "operationId": "createAsset"
       }
+    },
+    "/hub/v1/campaigns": {
+      "post": {
+        "tags": [
+          "campaigns"
+        ],
+        "summary": "createCampaign",
+        "description": "Creates a campaign.",
+        "parameters": [{
+            "name": "name",
+            "in": "query",
+            "description": "Name of the campaign with a maximum length of 128 characters",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "Description of the campaign with a maximum length of 512 characters",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "campaignCode",
+            "in": "query",
+            "description": "Unique identifier for the campaign with a maximum length of 36 characters",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "description": "Hex color value",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "favorite",
+            "in": "query",
+            "description": "Determines if the campaign will be flagged as a favorite",
+            "required": true,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single campaign",
+            "schema": {
+              "$ref": "#/definitions/Campaign"
+    }
+          }
+  },
+        "x-md-detail": "createCampaign.htm",
+        "x-published": true,
+        "operationId": "createCampaign"
+      }
+    },
+    "/hub/v1/campaigns/{id}":{
+      "get": {
+				"tags": [
+					"campaigns"
+				],
+				"summary": "getCampaign",
+				"description": "Retrieves a campaign.",
+				"parameters": [{
+					"name": "id",
+					"in": "path",
+					"description": "Campaign ID",
+					"required": true,
+					"type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "A single campaign",
+            "schema": {
+              "$ref": "#/definitions/Campaign"
+            }
+          }
+        }
+        ,
+				"x-md-detail": "getCampaign.htm",
+        "x-published": true,
+        "operationId": "getCampaignById"
+			}
     }
   },
   "definitions": {
@@ -220,7 +304,7 @@
         "AssetType"
       ],
       "properties": {
-        "Id":{
+        "Id": {
           "description": "The id of the asset",
           "type": "number"
         },
@@ -344,6 +428,53 @@
         "GenerateFrom": {
           "description": "Tells the sending compiler what view to use for generating this view's content",
           "type": "string"
+        }
+      }
+    },
+    "Campaign": {
+      "type": "object",
+      "required": [
+        "Name",
+        "Description",
+        "CampaignCode",
+        "Color",
+        "Favorite"
+      ],
+      "properties": {
+        "Name": {
+          "description": "Name of the campaign with a maximum length of 128 characters",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Description of the campaign with a maximum length of 512 characters",
+          "type": "string"
+        },
+        "CampaignCode": {
+          "description": "Unique identifier for the campaign with a maximum length of 36 characters",
+          "type": "string"
+        },
+        "Color": {
+          "description": "Hex color value",
+          "type": "string"
+        },
+        "Favorite": {
+          "description": "Determines if the campaign will be flagged as a favorite",
+          "type": "boolean"
+        },
+        "Id": {
+          "description": "The id of the campaign",
+          "type": "number"
+        },
+        "CreatedDate": {
+          "description": "The date the campaign was created",
+          "type": "string",
+          "format": "date-time"
+        }
+        ,
+        "ModifiedDate": {
+          "description": "The date the campaign was modified",
+          "type": "string",
+          "format": "date-time"
         }
       }
     }
