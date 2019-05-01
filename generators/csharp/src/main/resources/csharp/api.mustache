@@ -109,10 +109,10 @@ namespace {{packageName}}.{{apiPackage}}
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="{{classname}}Api"/> class.
+        /// Initializes a new instance of the <see cref="{{classname}}"/> class.
         /// </summary>
         /// <returns></returns>
-        internal {{classname}}Api(String authBasePath, string clientId, string clientSecret, int accountId, IAuthenticator authenticator)
+        internal {{classname}}(String authBasePath, string clientId, string clientSecret, int accountId, IAuthenticator authenticator)
             : this(authBasePath, clientId, clientSecret, accountId)
         {
             this.Configuration.ApiClient.RestClient.Authenticator = authenticator;
