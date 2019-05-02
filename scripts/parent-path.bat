@@ -1,3 +1,4 @@
+@echo off
 echo batchfile=%0
 echo full=%~f0
 setlocal
