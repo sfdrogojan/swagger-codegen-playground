@@ -56,7 +56,7 @@ namespace IO.Swagger.Test
         [Test]
         public void GetAssetByIdTest()
         {
-            decimal? id = 273724;
+            decimal? id = 287067;
             var response = instance.GetAssetById(id);
             Assert.IsInstanceOf<Asset> (response, "response is Asset");
         }
@@ -67,7 +67,7 @@ namespace IO.Swagger.Test
         [Test]
         public void PartiallyUpdateAssetTest()
         {
-            decimal? id = 273724;
+            decimal? id = 287067;
             Asset asset = instance.GetAssetById(id);
             asset.Description = Guid.NewGuid().ToString();
             var response = instance.PartiallyUpdateAsset(id, asset);
@@ -81,8 +81,6 @@ namespace IO.Swagger.Test
             string name = $"Automation POC {Guid.NewGuid()}";
             string description = "Automation POC Description";
 
-            decimal? id = 273724;
-            var helperResponse = instance.GetAssetById(id);
             var assetType = new AssetType(196, "textblock", "Text Block");
             var asset = new Asset(customerKey, null, null, assetType, null, null, null, name, description);
 
@@ -92,9 +90,10 @@ namespace IO.Swagger.Test
         }
 
         [Test]
+        [Ignore]
         public void DeleteAssetTest()
         {
-            instance.DeleteAssetById(273724);
+            instance.DeleteAssetById(287067);
         }
     }
 }
