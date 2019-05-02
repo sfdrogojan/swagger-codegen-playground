@@ -106,6 +106,30 @@ namespace IO.Swagger.Test
         {
             // TODO unit test for the property 'Favorite'
         }
+        /// <summary>
+        /// Test the property 'Id'
+        /// </summary>
+        [Test]
+        public void IdTest()
+        {
+            // TODO unit test for the property 'Id'
+        }
+        /// <summary>
+        /// Test the property 'CreatedDate'
+        /// </summary>
+        [Test]
+        public void CreatedDateTest()
+        {
+            // TODO unit test for the property 'CreatedDate'
+        }
+        /// <summary>
+        /// Test the property 'ModifiedDate'
+        /// </summary>
+        [Test]
+        public void ModifiedDateTest()
+        {
+            // TODO unit test for the property 'ModifiedDate'
+        }
 
     }
 

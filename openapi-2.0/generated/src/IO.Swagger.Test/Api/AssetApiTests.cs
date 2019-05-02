@@ -95,7 +95,7 @@ namespace IO.Swagger.Test
         {
             string customerKey = Guid.NewGuid().ToString();
             string name = $"Automation POC {Guid.NewGuid()}";
-            string description = "Automation POC Description";
+            string description = $"Automation POC Description {Guid.NewGuid()}";
 
             var assetType = new AssetType(196, "textblock", "Text Block");
             var asset = new Asset(null, customerKey, null, null, assetType, null, null, null, name, description);
@@ -106,8 +106,16 @@ namespace IO.Swagger.Test
             var assetToDeleteId = response.Id;
             instance.DeleteAssetById(assetToDeleteId);
 
-            Assert.Throws(Is.TypeOf<ApiException>().And.Message.EqualTo("Error calling GetAssetById: "),
-                () => instance.GetAssetById(assetToDeleteId));
+            try
+            {
+                instance.GetAssetById(assetToDeleteId);
+                Assert.Fail("No exception thrown");
+            }
+            catch (ApiException e)
+            {
+                Assert.AreEqual(404, e.ErrorCode);
+                Assert.AreEqual("Error calling GetAssetById: ", e.Message);
+            }
         }
     }
 }

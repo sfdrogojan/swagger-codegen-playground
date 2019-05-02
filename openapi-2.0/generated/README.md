@@ -100,8 +100,8 @@ Class | Method | HTTP request | Description
 *AssetApi* | [**DeleteAssetById**](docs/AssetApi.md#deleteassetbyid) | **DELETE** /asset/v1/content/assets/{id} | deleteAsset
 *AssetApi* | [**GetAssetById**](docs/AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getAssetById
 *AssetApi* | [**PartiallyUpdateAsset**](docs/AssetApi.md#partiallyupdateasset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
-*CampaignsApi* | [**CreateCampaign**](docs/CampaignsApi.md#createcampaign) | **POST** /hub/v1/campaigns | createCampaign
-*CampaignsApi* | [**GetCampaignById**](docs/CampaignsApi.md#getcampaignbyid) | **GET** /hub/v1/campaigns/{id} | getCampaign
+*CampaignApi* | [**CreateCampaign**](docs/CampaignApi.md#createcampaign) | **POST** /hub/v1/campaigns | createCampaign
+*CampaignApi* | [**GetCampaignById**](docs/CampaignApi.md#getcampaignbyid) | **GET** /hub/v1/campaigns/{id} | getCampaign
 
 
 <a name="documentation-for-models"></a>
