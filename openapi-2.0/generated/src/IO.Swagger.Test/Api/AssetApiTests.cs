@@ -91,7 +91,7 @@ namespace IO.Swagger.Test
         }
 
         [Test]
-        public void DeleteAssetTest()
+        public void DeleteAssetByIdTest()
         {
             string customerKey = Guid.NewGuid().ToString();
             string name = $"Automation POC {Guid.NewGuid()}";
