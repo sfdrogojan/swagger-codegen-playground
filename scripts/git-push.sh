@@ -1,11 +1,22 @@
 #!/bin/sh
 
-cd ..
+# Change path to the root folder of the generated code.
+cd ../openapi-2.0
 
 branch_name="automation-pipeline"
 release_note="Automation pipeline script update"
+git_branch=`git symbolic-ref --short HEAD`
+current_branch=${git_branch}
 
-git pull origin $branch_name
+branch_exists=`git rev-parse --verify --quiet $branch_name`
+if [ "$branch_exists" = "" ]; then
+    echo "[INFO] Branch does not exist. Creating branch $branch_name"
+    git checkout -b $branch_name
+else
+    echo "[INFO] Branch exists"
+    git checkout $branch_name
+    git pull origin $branch_name
+fi
 
 # Adds the files in the local repository and stages them for commit.
 git add .
@@ -29,3 +40,5 @@ fi
 # Pushes the changes in the local repository up to the remote repository
 echo "Git pushing to https://github.com/${GIT_USER_ID}/${GIT_REPO_ID}.git"
 git push origin $branch_name 2>&1 | grep -v 'To https'
+
+git checkout $current_branch
