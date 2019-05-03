@@ -169,6 +169,61 @@
         "x-published": true,
         "operationId": "createAsset"
       }
+    },
+    "/hub/v1/campaigns": {
+      "post": {
+        "tags": [
+          "campaign"
+        ],
+        "summary": "createCampaign",
+        "description": "Creates a campaign.",
+        "parameters": [{
+          "name": "body",
+          "in": "body",
+          "description": "JSON Parameters",
+          "schema": {
+            "$ref": "#/definitions/Campaign"
+          }
+        }],
+        "responses": {
+          "200": {
+            "description": "A single campaign",
+            "schema": {
+              "$ref": "#/definitions/Campaign"
+            }
+          }
+        },
+        "x-md-detail": "createCampaign.htm",
+        "x-published": true,
+        "operationId": "createCampaign"
+      }
+    },
+    "/hub/v1/campaigns/{id}": {
+      "get": {
+        "tags": [
+          "campaign"
+        ],
+        "summary": "getCampaign",
+        "description": "Retrieves a campaign.",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "Campaign ID",
+          "required": true,
+          "type": "number"
+        }],
+        "responses": {
+          "200": {
+            "description": "A single campaign",
+            "schema": {
+              "$ref": "#/definitions/Campaign"
+            }
+    }
+  },
+        "x-md-detail": "getCampaign.htm",
+        "x-published": true,
+        "operationId": "getCampaignById"
+    }
     }
   },
   "definitions": {
@@ -205,7 +260,7 @@
           "description": "The name of the asset type",
           "type": "string"
         },
-        "Description": {
+        "DisplayName": {
           "description": "The description of the asset type",
           "type": "string"
         }
@@ -220,6 +275,10 @@
         "AssetType"
       ],
       "properties": {
+        "Id": {
+          "description": "The id of the asset",
+          "type": "number"
+        },
         "CustomerKey": {
           "description": "Reference to customer's private ID/name for the asset",
           "type": "string"
@@ -340,6 +399,52 @@
         "GenerateFrom": {
           "description": "Tells the sending compiler what view to use for generating this view's content",
           "type": "string"
+        }
+      }
+    },
+    "Campaign": {
+      "type": "object",
+      "required": [
+        "Name",
+        "Description",
+        "CampaignCode",
+        "Color",
+        "Favorite"
+      ],
+      "properties": {
+        "Name": {
+          "description": "Name of the campaign with a maximum length of 128 characters",
+          "type": "string"
+        },
+        "Description": {
+          "description": "Description of the campaign with a maximum length of 512 characters",
+          "type": "string"
+        },
+        "CampaignCode": {
+          "description": "Unique identifier for the campaign with a maximum length of 36 characters",
+          "type": "string"
+        },
+        "Color": {
+          "description": "Hex color value",
+          "type": "string"
+        },
+        "Favorite": {
+          "description": "Determines if the campaign will be flagged as a favorite",
+          "type": "boolean"
+        },
+        "Id": {
+          "description": "The id of the campaign",
+          "type": "number"
+        },
+        "CreatedDate": {
+          "description": "The date the campaign was created",
+          "type": "string",
+          "format": "date-time"
+        },
+        "ModifiedDate": {
+          "description": "The date the campaign was modified",
+          "type": "string",
+          "format": "date-time"
         }
       }
     }
