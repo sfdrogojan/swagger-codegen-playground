@@ -10,4 +10,6 @@ CALL run-unit-tests.bat
 
 CALL run-integration-tests.bat
 
+bash ./git-push.sh
+
 echo "Success!"

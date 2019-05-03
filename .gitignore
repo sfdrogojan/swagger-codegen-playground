@@ -1,5 +1,1 @@
-UnitTestsResult.xml
-
-IntegrationTestsResult.xml
-
-nuget.exe
+build-artifacts/
