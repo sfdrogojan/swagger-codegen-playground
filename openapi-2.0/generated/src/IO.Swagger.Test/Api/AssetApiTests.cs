@@ -41,15 +41,6 @@ namespace IO.Swagger.Test
                 clientSecret, 
                 accountId);
         }
-
-        /// <summary>
-        /// Clean up after each unit test
-        /// </summary>
-        [TearDown]
-        public void Cleanup()
-        {
-
-        }
    
         [Test]
         public void GetAssetByIdTest()
@@ -60,14 +51,19 @@ namespace IO.Swagger.Test
 
             var getAssetResult = instance.GetAssetById(assetToRetrieveId);
 
-            Assert.AreEqual(asset.CustomerKey, createAssetResult.CustomerKey);
-            Assert.AreEqual(asset.AssetType.Id, createAssetResult.AssetType.Id);
-            Assert.AreEqual(asset.AssetType.Name, createAssetResult.AssetType.Name);
-            Assert.AreEqual(asset.AssetType.DisplayName, createAssetResult.AssetType.DisplayName);
-            Assert.AreEqual(asset.Name, createAssetResult.Name);
-            Assert.AreEqual(asset.Description, createAssetResult.Description);
-
-            instance.DeleteAssetById(assetToRetrieveId);
+            try
+            {
+                Assert.AreEqual(asset.CustomerKey, getAssetResult.CustomerKey);
+                Assert.AreEqual(asset.AssetType.Id, getAssetResult.AssetType.Id);
+                Assert.AreEqual(asset.AssetType.Name, getAssetResult.AssetType.Name);
+                Assert.AreEqual(asset.AssetType.DisplayName, getAssetResult.AssetType.DisplayName);
+                Assert.AreEqual(asset.Name, getAssetResult.Name);
+                Assert.AreEqual(asset.Description, getAssetResult.Description);
+            }
+            finally
+            {
+                instance.DeleteAssetById(assetToRetrieveId);
+            }
         }
 
         [Test]
@@ -80,15 +76,20 @@ namespace IO.Swagger.Test
             createAssetResult.Description = $"AssetDescription {Guid.NewGuid()}";
             var partiallyUpdateAssetResult = instance.PartiallyUpdateAsset(assetToPartiallyUpdateId, createAssetResult);
 
-            Assert.AreEqual(createAssetResult.Description, partiallyUpdateAssetResult.Description);
+            try
+            {
+                Assert.AreEqual(createAssetResult.Description, partiallyUpdateAssetResult.Description);
 
-            Assert.AreEqual(asset.CustomerKey, partiallyUpdateAssetResult.CustomerKey);
-            Assert.AreEqual(asset.AssetType.Id, partiallyUpdateAssetResult.AssetType.Id);
-            Assert.AreEqual(asset.AssetType.Name, partiallyUpdateAssetResult.AssetType.Name);
-            Assert.AreEqual(asset.AssetType.DisplayName, partiallyUpdateAssetResult.AssetType.DisplayName);
-            Assert.AreEqual(asset.Name, partiallyUpdateAssetResult.Name);
-
-            instance.DeleteAssetById(assetToPartiallyUpdateId);
+                Assert.AreEqual(asset.CustomerKey, partiallyUpdateAssetResult.CustomerKey);
+                Assert.AreEqual(asset.AssetType.Id, partiallyUpdateAssetResult.AssetType.Id);
+                Assert.AreEqual(asset.AssetType.Name, partiallyUpdateAssetResult.AssetType.Name);
+                Assert.AreEqual(asset.AssetType.DisplayName, partiallyUpdateAssetResult.AssetType.DisplayName);
+                Assert.AreEqual(asset.Name, partiallyUpdateAssetResult.Name);
+            }
+            finally
+            {
+                instance.DeleteAssetById(assetToPartiallyUpdateId);
+            }
         }
 
         [Test]
@@ -97,15 +98,20 @@ namespace IO.Swagger.Test
             var asset = CreateAsset();
             var createAssetResult = instance.CreateAsset(asset);
 
-            Assert.AreEqual(asset.CustomerKey, createAssetResult.CustomerKey);
-            Assert.AreEqual(asset.AssetType.Id, createAssetResult.AssetType.Id);
-            Assert.AreEqual(asset.AssetType.Name, createAssetResult.AssetType.Name);
-            Assert.AreEqual(asset.AssetType.DisplayName, createAssetResult.AssetType.DisplayName);
-            Assert.AreEqual(asset.Name, createAssetResult.Name);
-            Assert.AreEqual(asset.Description, createAssetResult.Description);
-
-            var createAssetResultId = createAssetResult.Id;
-            instance.DeleteAssetById(createAssetResultId);
+            try
+            {
+                Assert.AreEqual(asset.CustomerKey, createAssetResult.CustomerKey);
+                Assert.AreEqual(asset.AssetType.Id, createAssetResult.AssetType.Id);
+                Assert.AreEqual(asset.AssetType.Name, createAssetResult.AssetType.Name);
+                Assert.AreEqual(asset.AssetType.DisplayName, createAssetResult.AssetType.DisplayName);
+                Assert.AreEqual(asset.Name, createAssetResult.Name);
+                Assert.AreEqual(asset.Description, createAssetResult.Description);
+            }
+            finally
+            {
+                var createAssetResultId = createAssetResult.Id;
+                instance.DeleteAssetById(createAssetResultId);
+            }
         }
 
         [Test]
