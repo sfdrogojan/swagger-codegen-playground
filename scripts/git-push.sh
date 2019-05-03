@@ -18,7 +18,7 @@ if [ "$git_repo_id" = "" ]; then
 fi
 
 if [ "$release_note" = "" ]; then
-    release_note="Minor update"
+    release_note="Automation pipeline update"
     echo "[INFO] No command line input provided. Set \$release_note to $release_note"
 fi
 
@@ -51,5 +51,5 @@ git pull origin master
 
 # Pushes (Forces) the changes in the local repository up to the remote repository
 echo "Git pushing to https://github.com/${git_user_id}/${git_repo_id}.git"
-git push origin $branch_name 2>&1 | grep -v 'To https'
+git push origin $branch_name 2>&1 | grep -v >> res.txt
 
