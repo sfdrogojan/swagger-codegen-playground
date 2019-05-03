@@ -48,6 +48,6 @@ if [ "$git_remote" = "" ]; then # git remote not defined
 fi
 
 # Pushes (Forces) the changes in the local repository up to the remote repository
-echo "Git pushing to https://github.com/${git_user_id}/${git_repo_id}.git"
+echo "Git pushing to https://github.com/${GIT_USER_ID}/${GIT_REPO_ID}.git"
 git push origin $branch_name 2>&1 | grep -v 'To https'
 
