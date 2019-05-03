@@ -59,5 +59,5 @@ git pull origin master
 
 # Pushes (Forces) the changes in the local repository up to the remote repository
 echo "Git pushing to https://github.com/${git_user_id}/${git_repo_id}.git"
-git push origin master 2>&1 | grep -v 'To https'
+git push origin $branch_name 2>&1 | grep -v 'To https'
 
