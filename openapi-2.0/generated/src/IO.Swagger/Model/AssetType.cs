@@ -40,8 +40,8 @@ namespace IO.Swagger.Model
         /// </summary>
         /// <param name="id">The id of the asset type (required).</param>
         /// <param name="name">The name of the asset type (required).</param>
-        /// <param name="description">The description of the asset type.</param>
-        public AssetType(decimal? id = default(decimal?), string name = default(string), string description = default(string))
+        /// <param name="displayName">The description of the asset type.</param>
+        public AssetType(decimal? id = default(decimal?), string name = default(string), string displayName = default(string))
         {
             // to ensure "id" is required (not null)
             if (id == null)
@@ -61,7 +61,7 @@ namespace IO.Swagger.Model
             {
                 this.Name = name;
             }
-            this.Description = description;
+            this.DisplayName = displayName;
         }
         
         /// <summary>
@@ -82,8 +82,8 @@ namespace IO.Swagger.Model
         /// The description of the asset type
         /// </summary>
         /// <value>The description of the asset type</value>
-        [DataMember(Name="Description", EmitDefaultValue=false)]
-        public string Description { get; set; }
+        [DataMember(Name="DisplayName", EmitDefaultValue=false)]
+        public string DisplayName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -95,7 +95,7 @@ namespace IO.Swagger.Model
             sb.Append("class AssetType {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -141,9 +141,9 @@ namespace IO.Swagger.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
-                    this.Description == input.Description ||
-                    (this.Description != null &&
-                    this.Description.Equals(input.Description))
+                    this.DisplayName == input.DisplayName ||
+                    (this.DisplayName != null &&
+                    this.DisplayName.Equals(input.DisplayName))
                 );
         }
 
@@ -160,8 +160,8 @@ namespace IO.Swagger.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.Description != null)
-                    hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.DisplayName != null)
+                    hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
                 return hashCode;
             }
         }

@@ -13,6 +13,7 @@ using System.Dynamic;
 using NUnit.Framework;
 using IO.Swagger.Api;
 using IO.Swagger.Model;
+using IO.Swagger.Client;
 
 namespace IO.Swagger.Test
 {
@@ -29,9 +30,9 @@ namespace IO.Swagger.Test
         private AssetApi instance;
 
         /// <summary>
-        /// Setup before each unit test
+        /// Setup only once before all the tests
         /// </summary>
-        [SetUp]
+        [TestFixtureSetUp]
         public void Init()
         {
             instance = new AssetApi(
@@ -40,61 +41,126 @@ namespace IO.Swagger.Test
                 clientSecret, 
                 accountId);
         }
-
-        /// <summary>
-        /// Clean up after each unit test
-        /// </summary>
-        [TearDown]
-        public void Cleanup()
-        {
-
-        }
    
-        /// <summary>
-        /// Test GetAssetById
-        /// </summary>
         [Test]
         public void GetAssetByIdTest()
         {
-            decimal? id = 273724;
-            var response = instance.GetAssetById(id);
-            Assert.IsInstanceOf<Asset> (response, "response is Asset");
+            var asset = CreateAsset();
+            var createAssetResult = instance.CreateAsset(asset);
+            var assetToRetrieveId = createAssetResult.Id;
+
+            var getAssetResult = instance.GetAssetById(assetToRetrieveId);
+
+            try
+            {
+                Assert.AreEqual(asset.CustomerKey, getAssetResult.CustomerKey);
+                Assert.AreEqual(asset.AssetType.Id, getAssetResult.AssetType.Id);
+                Assert.AreEqual(asset.AssetType.Name, getAssetResult.AssetType.Name);
+                Assert.AreEqual(asset.AssetType.DisplayName, getAssetResult.AssetType.DisplayName);
+                Assert.AreEqual(asset.Name, getAssetResult.Name);
+                Assert.AreEqual(asset.Description, getAssetResult.Description);
+            }
+            finally
+            {
+                instance.DeleteAssetById(assetToRetrieveId);
+            }
         }
 
-        /// <summary>
-        /// Test PartiallyUpdateAsset
-        /// </summary>
         [Test]
         public void PartiallyUpdateAssetTest()
         {
-            decimal? id = 273724;
-            Asset asset = instance.GetAssetById(id);
-            asset.Description = Guid.NewGuid().ToString();
-            var response = instance.PartiallyUpdateAsset(id, asset);
-            Assert.IsInstanceOf<Asset>(response, "response is Asset");
+            var asset = CreateAsset();
+            var createAssetResult = instance.CreateAsset(asset);
+            var assetToPartiallyUpdateId = createAssetResult.Id;
+
+            createAssetResult.Description = $"AssetDescription {Guid.NewGuid()}";
+            var partiallyUpdateAssetResult = instance.PartiallyUpdateAsset(assetToPartiallyUpdateId, createAssetResult);
+
+            try
+            {
+                Assert.AreEqual(createAssetResult.Description, partiallyUpdateAssetResult.Description);
+
+                Assert.AreEqual(asset.CustomerKey, partiallyUpdateAssetResult.CustomerKey);
+                Assert.AreEqual(asset.AssetType.Id, partiallyUpdateAssetResult.AssetType.Id);
+                Assert.AreEqual(asset.AssetType.Name, partiallyUpdateAssetResult.AssetType.Name);
+                Assert.AreEqual(asset.AssetType.DisplayName, partiallyUpdateAssetResult.AssetType.DisplayName);
+                Assert.AreEqual(asset.Name, partiallyUpdateAssetResult.Name);
+            }
+            finally
+            {
+                instance.DeleteAssetById(assetToPartiallyUpdateId);
+            }
         }
 
         [Test]
         public void CreateAssetTest()
         {
-            string customerKey = Guid.NewGuid().ToString();
-            string name = $"Automation POC {Guid.NewGuid()}";
-            string description = "Automation POC Description";
+            var asset = CreateAsset();
+            var createAssetResult = instance.CreateAsset(asset);
 
-            decimal? id = 273724;
-            var helperResponse = instance.GetAssetById(id);
-            var assetType = new AssetType(196, "textblock", "Text Block");
-            var asset = new Asset(customerKey, null, null, assetType, null, null, null, name, description);
-
-            var response = instance.CreateAsset(asset);
-
-            Assert.IsInstanceOf<Asset>(response);
+            try
+            {
+                Assert.AreEqual(asset.CustomerKey, createAssetResult.CustomerKey);
+                Assert.AreEqual(asset.AssetType.Id, createAssetResult.AssetType.Id);
+                Assert.AreEqual(asset.AssetType.Name, createAssetResult.AssetType.Name);
+                Assert.AreEqual(asset.AssetType.DisplayName, createAssetResult.AssetType.DisplayName);
+                Assert.AreEqual(asset.Name, createAssetResult.Name);
+                Assert.AreEqual(asset.Description, createAssetResult.Description);
+            }
+            finally
+            {
+                var createAssetResultId = createAssetResult.Id;
+                instance.DeleteAssetById(createAssetResultId);
+            }
         }
 
         [Test]
-        public void DeleteAssetTest()
+        public void DeleteAssetByIdTest()
         {
-            instance.DeleteAssetById(273724);
+            var asset = CreateAsset();
+            var createAssetResult = instance.CreateAsset(asset);
+
+            Assert.IsInstanceOf<Asset>(createAssetResult);
+
+            var assetToDeleteId = createAssetResult.Id;
+            instance.DeleteAssetById(assetToDeleteId);
+
+            try
+            {
+                instance.GetAssetById(assetToDeleteId);
+                Assert.Fail("No exception thrown");
+            }
+            catch (ApiException e)
+            {
+                Assert.AreEqual(404, e.ErrorCode);
+                Assert.AreEqual("Error calling GetAssetById: ", e.Message);
+            }
+        }
+
+        [Test]
+        public void DeleteNonExistingAssetTest()
+        {
+            var asset = CreateAsset();
+            var createAssetResult = instance.CreateAsset(asset);
+
+            Assert.IsInstanceOf<Asset>(createAssetResult);
+
+            var assetToDeleteId = createAssetResult.Id;
+            instance.DeleteAssetById(assetToDeleteId);
+
+            Assert.DoesNotThrow(() => instance.DeleteAssetById(assetToDeleteId));
+        }
+
+        private Asset CreateAsset()
+        {
+            var customerKey = Guid.NewGuid().ToString();
+            var name = $"AssetName {Guid.NewGuid()}"; // Asset names within a category and asset type must be unique
+            var description = "AssetDescription";
+            var assetType = new AssetType(196, "textblock", "Text Block");
+
+            var asset = new Asset(null, customerKey, null, null, assetType, null, null, null, name, description);
+
+            return asset;
         }
     }
 }
