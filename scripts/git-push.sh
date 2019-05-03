@@ -29,6 +29,7 @@ git pull origin master
 branch_name="automation-pipeline"
 
 if [ `git branch --list $branch_name` ]
+then
     echo "Branch name $branch_name already exists."
     git checkout $branch_name
 else
