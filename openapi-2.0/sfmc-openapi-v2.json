@@ -260,7 +260,7 @@
           "description": "The name of the asset type",
           "type": "string"
         },
-        "Description": {
+        "DisplayName": {
           "description": "The description of the asset type",
           "type": "string"
         }

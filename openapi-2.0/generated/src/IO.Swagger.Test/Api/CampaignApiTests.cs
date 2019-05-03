@@ -36,9 +36,9 @@ namespace IO.Swagger.Test
         private CampaignApi instance;
 
         /// <summary>
-        /// Setup before each unit test
+        /// Setup only once before all the tests
         /// </summary>
-        [SetUp]
+        [TestFixtureSetUp]
         public void Init()
         {
             instance = new CampaignApi(authBasePath,
@@ -59,45 +59,43 @@ namespace IO.Swagger.Test
         [Test]
         public void CreateCampaignTest()
         {
-            var name = $"Campaign name";
-            var description = $"Campaign description";
-            var campaignCode = $"Campaign code";
-            var color = "0000ff";
-            var favorite = false;
+            var campaign = CreateCampaign();
+            var createCampaignResult = instance.CreateCampaign(campaign);
 
-            var campaign = new Campaign(name, description, campaignCode, color, favorite);
-
-            var response = instance.CreateCampaign(campaign);
-
-            Assert.AreEqual(name, response.Name);
-            Assert.AreEqual(description, response.Description);
-            Assert.AreEqual(campaignCode.Replace(" ",""), response.CampaignCode); // the server removes all spaces from the campaign code
-            Assert.AreEqual(color, response.Color);
-            Assert.AreEqual(favorite, response.Favorite);
+            Assert.AreEqual(campaign.Name, createCampaignResult.Name);
+            Assert.AreEqual(campaign.Description, createCampaignResult.Description);
+            Assert.AreEqual(campaign.CampaignCode, createCampaignResult.CampaignCode);
+            Assert.AreEqual(campaign.Color, createCampaignResult.Color);
+            Assert.AreEqual(campaign.Favorite, createCampaignResult.Favorite);
         }
         
         [Test]
         public void GetCampaignByIdTest()
         {
-            var name = $"Campaign name";
-            var description = $"Campaign description";
-            var campaignCode = $"Campaign code";
+            var campaign = CreateCampaign();
+            var createCampaignResult = instance.CreateCampaign(campaign);
+            var campaignToRetrieveId = createCampaignResult.Id;
+
+            var getCampaignResult = instance.GetCampaignById(campaignToRetrieveId);
+
+            Assert.AreEqual(campaign.Name, getCampaignResult.Name);
+            Assert.AreEqual(campaign.Description, getCampaignResult.Description);
+            Assert.AreEqual(campaign.CampaignCode, getCampaignResult.CampaignCode);
+            Assert.AreEqual(campaign.Color, getCampaignResult.Color);
+            Assert.AreEqual(campaign.Favorite, getCampaignResult.Favorite);
+        }
+
+        private Campaign CreateCampaign()
+        {
+            var name = "CampaignName";
+            var description = "CampaignDescription";
+            var campaignCode = "CampaignCode";
             var color = "0000ff";
             var favorite = false;
 
             var campaign = new Campaign(name, description, campaignCode, color, favorite);
 
-            var helperResponse = instance.CreateCampaign(campaign);
-            Assert.IsInstanceOf<Campaign>(helperResponse);
-
-            var campaignToGetId = helperResponse.Id;
-            var response = instance.GetCampaignById(campaignToGetId);
-
-            Assert.AreEqual(name, response.Name);
-            Assert.AreEqual(description, response.Description);
-            Assert.AreEqual(campaignCode.Replace(" ", ""), response.CampaignCode); // the server removes all spaces from the campaign code
-            Assert.AreEqual(color, response.Color);
-            Assert.AreEqual(favorite, response.Favorite);
+            return campaign;
         }
     }
 }
