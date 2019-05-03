@@ -33,7 +33,7 @@ then
     echo "Branch name $branch_name already exists."
     git checkout $branch_name
 else
-    git chekout -b $branch_name
+    git checkout -b $branch_name
 fi
 
 # Adds the files in the local repository and stages them for commit.
