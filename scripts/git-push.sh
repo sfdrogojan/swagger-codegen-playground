@@ -24,17 +24,9 @@ fi
 
 cd ..
 
-git pull origin master
-
 branch_name="automation-pipeline"
 
-if [ `git branch --list $branch_name` ]
-then
-    echo "Branch name $branch_name already exists."
-    git checkout $branch_name
-else
-    git checkout -b $branch_name
-fi
+git pull origin $branch_name
 
 # Adds the files in the local repository and stages them for commit.
 git add .
