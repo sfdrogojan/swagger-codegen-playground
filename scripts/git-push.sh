@@ -1,30 +1,9 @@
 #!/bin/sh
-# ref: https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
-#
-# Usage example: /bin/sh ./git_push.sh wing328 swagger-petstore-perl "minor update"
-
-git_user_id=$1
-git_repo_id=$2
-release_note=$3
-
-if [ "$git_user_id" = "" ]; then
-    git_user_id="GIT_USER_ID"
-    echo "[INFO] No command line input provided. Set \$git_user_id to $git_user_id"
-fi
-
-if [ "$git_repo_id" = "" ]; then
-    git_repo_id="GIT_REPO_ID"
-    echo "[INFO] No command line input provided. Set \$git_repo_id to $git_repo_id"
-fi
-
-if [ "$release_note" = "" ]; then
-    release_note="Automation pipeline update"
-    echo "[INFO] No command line input provided. Set \$release_note to $release_note"
-fi
 
 cd ..
 
 branch_name="automation-pipeline"
+release_note="Automation pipeline script update"
 
 git pull origin $branch_name
 
@@ -38,16 +17,15 @@ git commit -m "$release_note"
 git_remote=`git remote`
 if [ "$git_remote" = "" ]; then # git remote not defined
 
-    if [ "$GIT_TOKEN" = "" ]; then
+    if [ "$Automation_Pipeline_GIT_Token" = "" ]; then
         echo "[INFO] \$GIT_TOKEN (environment variable) is not set. Using the git credential in your environment."
-        git remote add origin https://github.com/${git_user_id}/${git_repo_id}.git
+        git remote add origin https://github.com/${GIT_USER_ID}/${GIT_REPO_ID}.git
     else
-        git remote add origin https://${git_user_id}:${Automation_Pipeline_GIT_Token}@github.com/${git_user_id}/${git_repo_id}.git
+        git remote add origin https://${GIT_USER_ID}:${Automation_Pipeline_GIT_Token}@github.com/${GIT_USER_ID}/${GIT_REPO_ID}.git
     fi
 
 fi
 
-# Pushes (Forces) the changes in the local repository up to the remote repository
+# Pushes the changes in the local repository up to the remote repository
 echo "Git pushing to https://github.com/${GIT_USER_ID}/${GIT_REPO_ID}.git"
 git push origin $branch_name 2>&1 | grep -v 'To https'
-
