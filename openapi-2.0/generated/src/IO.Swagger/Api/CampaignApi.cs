@@ -47,6 +47,27 @@ namespace IO.Swagger.Api
         /// <returns>ApiResponse of Campaign</returns>
         ApiResponse<Campaign> CreateCampaignWithHttpInfo (Campaign body = null);
         /// <summary>
+        /// deleteCampaign
+        /// </summary>
+        /// <remarks>
+        /// Deletes a campaign.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the campaign to delete</param>
+        /// <returns></returns>
+        void DeleteCampaignById (decimal? id);
+
+        /// <summary>
+        /// deleteCampaign
+        /// </summary>
+        /// <remarks>
+        /// Deletes a campaign.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the campaign to delete</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> DeleteCampaignByIdWithHttpInfo (decimal? id);
+        /// <summary>
         /// getCampaign
         /// </summary>
         /// <remarks>
@@ -90,6 +111,27 @@ namespace IO.Swagger.Api
         /// <param name="body">JSON Parameters (optional)</param>
         /// <returns>Task of ApiResponse (Campaign)</returns>
         System.Threading.Tasks.Task<ApiResponse<Campaign>> CreateCampaignAsyncWithHttpInfo (Campaign body = null);
+        /// <summary>
+        /// deleteCampaign
+        /// </summary>
+        /// <remarks>
+        /// Deletes a campaign.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the campaign to delete</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task DeleteCampaignByIdAsync (decimal? id);
+
+        /// <summary>
+        /// deleteCampaign
+        /// </summary>
+        /// <remarks>
+        /// Deletes a campaign.
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the campaign to delete</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteCampaignByIdAsyncWithHttpInfo (decimal? id);
         /// <summary>
         /// getCampaign
         /// </summary>
@@ -372,6 +414,135 @@ namespace IO.Swagger.Api
             return new ApiResponse<Campaign>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
                 (Campaign) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(Campaign)));
+        }
+
+        /// <summary>
+        /// deleteCampaign Deletes a campaign.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the campaign to delete</param>
+        /// <returns></returns>
+        public void DeleteCampaignById (decimal? id)
+        {
+             DeleteCampaignByIdWithHttpInfo(id);
+        }
+
+        /// <summary>
+        /// deleteCampaign Deletes a campaign.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the campaign to delete</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> DeleteCampaignByIdWithHttpInfo (decimal? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling CampaignApi->DeleteCampaignById");
+
+            var localVarPath = "/hub/v1/campaigns/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("DeleteCampaignById", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        /// <summary>
+        /// deleteCampaign Deletes a campaign.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the campaign to delete</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task DeleteCampaignByIdAsync (decimal? id)
+        {
+             await DeleteCampaignByIdAsyncWithHttpInfo(id);
+
+        }
+
+        /// <summary>
+        /// deleteCampaign Deletes a campaign.
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">The ID of the campaign to delete</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteCampaignByIdAsyncWithHttpInfo (decimal? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling CampaignApi->DeleteCampaignById");
+
+            var localVarPath = "/hub/v1/campaigns/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("DeleteCampaignById", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
         }
 
         /// <summary>
