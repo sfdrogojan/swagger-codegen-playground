@@ -29,8 +29,6 @@ if [ "$branch_exists_on_remote" = "" ]; then
     echo "[INFO] Branch does not exist on remote. Checking local."
     if [ "$branch_exists_on_local" = "" ]; then
         echo "[INFO] Branch does not exist on local. Creating branch $branch_name"
-        git checkout master
-        git pull origin
         git checkout -b $branch_name
     fi
 else
