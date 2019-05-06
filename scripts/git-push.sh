@@ -19,8 +19,9 @@ if [ "$git_remote" = "" ]; then # git remote not defined
     else
         git remote add origin https://${GIT_USER_ID}:${Automation_Pipeline_GIT_Token}@github.com/${GIT_USER_ID}/${GIT_REPO_ID}.git
     fi
-
 fi
+
+git fetch
 
 # Check destination branch
 branch_exists_on_remote=`git ls-remote --heads https://github.com/${GIT_USER_ID}/${GIT_REPO_ID} | grep $branch_name`
@@ -33,7 +34,6 @@ if [ "$branch_exists_on_remote" = "" ]; then
     fi
 else
     echo "[INFO] Branch exists on remote"
-    git fetch
     git checkout $branch_name
     git pull origin $branch_name
 fi
