@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# Change path to the root folder of the generated code.
-#cd ../openapi-2.0
-#cd ..
-
 branch_name="automation-pipeline"
 release_note="Automation pipeline script update"
 git_branch=`git symbolic-ref --short HEAD`
