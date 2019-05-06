@@ -68,7 +68,7 @@ namespace IO.Swagger.Api
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DeleteAssetByIdWithHttpInfo (decimal? id);
         /// <summary>
-        /// getAssetById
+        /// getAssetById2
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -79,7 +79,7 @@ namespace IO.Swagger.Api
         Asset GetAssetById (decimal? id);
 
         /// <summary>
-        /// getAssetById
+        /// getAssetById2
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -156,7 +156,7 @@ namespace IO.Swagger.Api
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteAssetByIdAsyncWithHttpInfo (decimal? id);
         /// <summary>
-        /// getAssetById
+        /// getAssetById2
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -167,7 +167,7 @@ namespace IO.Swagger.Api
         System.Threading.Tasks.Task<Asset> GetAssetByIdAsync (decimal? id);
 
         /// <summary>
-        /// getAssetById
+        /// getAssetById2
         /// </summary>
         /// <remarks>
         /// Gets an asset by ID.
@@ -592,7 +592,7 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getAssetById Gets an asset by ID.
+        /// getAssetById2 Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
@@ -604,7 +604,7 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getAssetById Gets an asset by ID.
+        /// getAssetById2 Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
@@ -657,7 +657,7 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getAssetById Gets an asset by ID.
+        /// getAssetById2 Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
@@ -670,7 +670,7 @@ namespace IO.Swagger.Api
         }
 
         /// <summary>
-        /// getAssetById Gets an asset by ID.
+        /// getAssetById2 Gets an asset by ID.
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
