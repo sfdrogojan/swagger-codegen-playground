@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # Change path to the root folder of the generated code.
-cd ../openapi-2.0
+cd ..#/openapi-2.0
 
-branch_name="automation-pipeline-test-remote"
+branch_name="automation-pipeline"
 release_note="Automation pipeline script update"
 git_branch=`git symbolic-ref --short HEAD`
 current_branch=${git_branch}
@@ -21,14 +21,20 @@ if [ "$git_remote" = "" ]; then # git remote not defined
 
 fi
 
-branch_exists=`git ls-remote --heads https://github.com/${GIT_USER_ID}/${GIT_REPO_ID} | grep $branch_name`
-if [ "$branch_exists" = "" ]; then
-    echo "[INFO] Branch does not exist. Creating branch $branch_name"
-    git checkout master
-    git pull origin master
-    git checkout -b $branch_name
+# Check destination branch
+branch_exists_on_remote=`git ls-remote --heads https://github.com/${GIT_USER_ID}/${GIT_REPO_ID} | grep $branch_name`
+branch_exists_on_local=`git rev-parse --verify --quiet $branch_name`
+if [ "$branch_exists_on_remote" = "" ]; then
+    echo "[INFO] Branch does not exist on remote. Checking local."
+    if [ "$branch_exists_on_local" = "" ]; then
+        echo "[INFO] Branch does not exist on local. Creating branch $branch_name"
+        git checkout master
+        git pull origin
+        git checkout -b $branch_name
+    fi
 else
-    echo "[INFO] Branch exists"
+    echo "[INFO] Branch exists on remote"
+    git fetch
     git checkout $branch_name
     git pull origin $branch_name
 fi
