@@ -48,3 +48,4 @@ echo "Git pushing to https://github.com/${GIT_USER_ID}/${GIT_REPO_ID}.git"
 git push origin $branch_name 2>&1 | grep -v 'To https'
 
 git checkout $current_branch
+git pull origin $branch_name
