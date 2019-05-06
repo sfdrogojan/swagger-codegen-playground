@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAsset**](AssetApi.md#createasset) | **POST** /asset/v1/content/assets | createAsset
 [**DeleteAssetById**](AssetApi.md#deleteassetbyid) | **DELETE** /asset/v1/content/assets/{id} | deleteAsset
-[**GetAssetById**](AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getAssetById2
+[**GetAssetById**](AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getAssetById
 [**PartiallyUpdateAsset**](AssetApi.md#partiallyupdateasset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
 
 
@@ -135,7 +135,7 @@ No authorization required
 # **GetAssetById**
 > Asset GetAssetById (decimal? id)
 
-getAssetById2
+getAssetById
 
 Gets an asset by ID.
 
@@ -158,7 +158,7 @@ namespace Example
 
             try
             {
-                // getAssetById2
+                // getAssetById
                 Asset result = apiInstance.GetAssetById(id);
                 Debug.WriteLine(result);
             }
