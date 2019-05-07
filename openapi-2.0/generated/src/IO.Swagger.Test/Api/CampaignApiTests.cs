@@ -89,7 +89,7 @@ namespace IO.Swagger.Test
             finally
             {
                 var createCampaignResultId = createCampaignResult.Id;
-                //instance.DeleteCampaignById(createCampaignResultId);
+                instance.DeleteCampaignById(createCampaignResultId);
             }
         }
 
