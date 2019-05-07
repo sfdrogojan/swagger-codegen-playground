@@ -12,10 +12,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
-namespace IO.Swagger.Api
+namespace Salesforce.MarketingCloud.Api
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
@@ -29,7 +29,7 @@ namespace IO.Swagger.Api
         /// <remarks>
         /// Gets an asset by ID.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Asset</returns>
         Asset AssetV1ContentAssetsIdGet (BigDecimal id);
@@ -40,7 +40,7 @@ namespace IO.Swagger.Api
         /// <remarks>
         /// Gets an asset by ID.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>ApiResponse of Asset</returns>
         ApiResponse<Asset> AssetV1ContentAssetsIdGetWithHttpInfo (BigDecimal id);
@@ -50,7 +50,7 @@ namespace IO.Swagger.Api
         /// <remarks>
         /// Updates part of an asset.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body"> (optional)</param>
         /// <returns>Asset</returns>
@@ -62,7 +62,7 @@ namespace IO.Swagger.Api
         /// <remarks>
         /// Updates part of an asset.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Asset</returns>
@@ -75,7 +75,7 @@ namespace IO.Swagger.Api
         /// <remarks>
         /// Gets an asset by ID.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Task of Asset</returns>
         System.Threading.Tasks.Task<Asset> AssetV1ContentAssetsIdGetAsync (BigDecimal id);
@@ -86,7 +86,7 @@ namespace IO.Swagger.Api
         /// <remarks>
         /// Gets an asset by ID.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Task of ApiResponse (Asset)</returns>
         System.Threading.Tasks.Task<ApiResponse<Asset>> AssetV1ContentAssetsIdGetAsyncWithHttpInfo (BigDecimal id);
@@ -96,7 +96,7 @@ namespace IO.Swagger.Api
         /// <remarks>
         /// Updates part of an asset.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of Asset</returns>
@@ -108,7 +108,7 @@ namespace IO.Swagger.Api
         /// <remarks>
         /// Updates part of an asset.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse (Asset)</returns>
@@ -121,7 +121,7 @@ namespace IO.Swagger.Api
     /// </summary>
         public partial class AssetApi : IAssetApi
     {
-        private IO.Swagger.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
+        private Salesforce.MarketingCloud.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssetApi"/> class.
@@ -129,9 +129,9 @@ namespace IO.Swagger.Api
         /// <returns></returns>
         public AssetApi(String basePath)
         {
-            this.Configuration = new IO.Swagger.Client.Configuration { BasePath = basePath };
+            this.Configuration = new Salesforce.MarketingCloud.Client.Configuration { BasePath = basePath };
 
-            ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
+            ExceptionFactory = Salesforce.MarketingCloud.Client.Configuration.DefaultExceptionFactory;
         }
 
         /// <summary>
@@ -140,14 +140,14 @@ namespace IO.Swagger.Api
         /// </summary>
         /// <param name="configuration">An instance of Configuration</param>
         /// <returns></returns>
-        public AssetApi(IO.Swagger.Client.Configuration configuration = null)
+        public AssetApi(Salesforce.MarketingCloud.Client.Configuration configuration = null)
         {
             if (configuration == null) // use the default one in Configuration
-                this.Configuration = IO.Swagger.Client.Configuration.Default;
+                this.Configuration = Salesforce.MarketingCloud.Client.Configuration.Default;
             else
                 this.Configuration = configuration;
 
-            ExceptionFactory = IO.Swagger.Client.Configuration.DefaultExceptionFactory;
+            ExceptionFactory = Salesforce.MarketingCloud.Client.Configuration.DefaultExceptionFactory;
         }
 
         /// <summary>
@@ -173,12 +173,12 @@ namespace IO.Swagger.Api
         /// Gets or sets the configuration object
         /// </summary>
         /// <value>An instance of the Configuration</value>
-        public IO.Swagger.Client.Configuration Configuration {get; set;}
+        public Salesforce.MarketingCloud.Client.Configuration Configuration {get; set;}
 
         /// <summary>
         /// Provides a factory method hook for the creation of exceptions.
         /// </summary>
-        public IO.Swagger.Client.ExceptionFactory ExceptionFactory
+        public Salesforce.MarketingCloud.Client.ExceptionFactory ExceptionFactory
         {
             get
             {
@@ -216,7 +216,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// getObjectById Gets an asset by ID.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Asset</returns>
         public Asset AssetV1ContentAssetsIdGet (BigDecimal id)
@@ -228,7 +228,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// getObjectById Gets an asset by ID.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>ApiResponse of Asset</returns>
         public ApiResponse< Asset > AssetV1ContentAssetsIdGetWithHttpInfo (BigDecimal id)
@@ -282,7 +282,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// getObjectById Gets an asset by ID.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Task of Asset</returns>
         public async System.Threading.Tasks.Task<Asset> AssetV1ContentAssetsIdGetAsync (BigDecimal id)
@@ -295,7 +295,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// getObjectById Gets an asset by ID.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset</param>
         /// <returns>Task of ApiResponse (Asset)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Asset>> AssetV1ContentAssetsIdGetAsyncWithHttpInfo (BigDecimal id)
@@ -349,7 +349,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// patchAsset Updates part of an asset.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body"> (optional)</param>
         /// <returns>Asset</returns>
@@ -362,7 +362,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// patchAsset Updates part of an asset.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Asset</returns>
@@ -426,7 +426,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// patchAsset Updates part of an asset.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of Asset</returns>
@@ -440,7 +440,7 @@ namespace IO.Swagger.Api
         /// <summary>
         /// patchAsset Updates part of an asset.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the asset to update</param>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse (Asset)</returns>

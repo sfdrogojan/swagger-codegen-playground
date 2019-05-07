@@ -15,8 +15,8 @@ Contact: mc_sdk@salesforce.com
     <ProjectGuid>{AD148B0E-B75E-4717-B791-95004B4DF3FC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IO.Swagger</RootNamespace>
-    <AssemblyName>IO.Swagger</AssemblyName>
+    <RootNamespace>Salesforce.MarketingCloud</RootNamespace>
+    <AssemblyName>Salesforce.MarketingCloud</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

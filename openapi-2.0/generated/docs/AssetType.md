@@ -1,4 +1,4 @@
-# IO.Swagger.Model.AssetType
+# Salesforce.MarketingCloud.Model.AssetType
 ## Properties
 
 Name | Type | Description | Notes

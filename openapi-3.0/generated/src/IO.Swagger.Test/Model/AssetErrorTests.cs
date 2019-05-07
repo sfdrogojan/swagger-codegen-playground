@@ -14,13 +14,13 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Collections.Generic;
-using IO.Swagger.Api;
-using IO.Swagger.Model;
-using IO.Swagger.Client;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Model;
+using Salesforce.MarketingCloud.Client;
 using System.Reflection;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Test
+namespace Salesforce.MarketingCloud.Test
 {
     /// <summary>
     ///  Class for testing AssetError

@@ -6,7 +6,7 @@ to get you started with the basic plumbing so you can put in your own logic.  It
 your changes applied.
 
 ## What's Swagger?
-The goal of Swagger™ is to define a standard, language-agnostic interface to REST APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined via Swagger, a consumer can understand and interact with the remote service with a minimal amount of implementation logic. Similar to what interfaces have done for lower-level programming, Swagger removes the guesswork in calling the service.
+The goal of Swaggerï¿½ is to define a standard, language-agnostic interface to REST APIs which allows both humans and computers to discover and understand the capabilities of the service without access to source code, documentation, or through network traffic inspection. When properly defined via Swagger, a consumer can understand and interact with the remote service with a minimal amount of implementation logic. Similar to what interfaces have done for lower-level programming, Swagger removes the guesswork in calling the service.
 
 
 Check out [OpenAPI-Spec](https://github.com/OAI/OpenAPI-Specification) for additional information about the Swagger project, including additional libraries with support for other languages and more. 
@@ -21,7 +21,7 @@ At this point, you've likely generated a client setup.  It will include somethin
 |-- src
 |--- main
 |---- java
-|----- io.swagger.codegen.CsharpGenerator.java // generator file
+|----- salesforce.marketingcloud.codegen.CsharpGenerator.java // generator file
 |---- resources
 |----- csharp // template files
 |----- META-INF
@@ -46,7 +46,7 @@ mvn package
 In your generator project.  A single jar file will be produced in `target`.  You can now use that with codegen:
 
 ```
-java -cp /path/to/swagger-codegen-cli.jar:/path/to/your.jar io.swagger.codegen.Codegen -l csharp -i /path/to/swagger.yaml -o ./test
+java -cp /path/to/swagger-codegen-cli.jar:/path/to/your.jar salesforce.marketingcloud.codegen.Codegen -l csharp -i /path/to/swagger.yaml -o ./test
 ```
 
 Now your templates are available to the client generator and you can write output values
@@ -67,7 +67,7 @@ the object you have available during client generation:
 # -DdebugOperations prints operations passed to the template engine
 # -DdebugSupportingFiles prints additional data passed to the template engine
 
-java -DdebugOperations -cp /path/to/swagger-codegen-cli.jar:/path/to/your.jar io.swagger.codegen.Codegen -l csharp -i /path/to/swagger.yaml -o ./test
+java -DdebugOperations -cp /path/to/swagger-codegen-cli.jar:/path/to/your.jar salesforce.marketingcloud.codegen.Codegen -l csharp -i /path/to/swagger.yaml -o ./test
 ```
 
 Will, for example, output the debug info for operations.  You can use this info

@@ -6,10 +6,10 @@ if not exist "..\build-artifacts\nuget.exe" powershell -Command "(new-object Sys
 
 pushd "..\openapi-2.0\generated"
 
-SET SOLUTIONPATH = IO.Swagger.sln
+SET SOLUTIONPATH = Salesforce.MarketingCloud.sln
 ..\..\build-artifacts\nuget.exe restore %SOLUTIONPATH%
 
-%MSBUILDPATH%\MSBuild.exe IO.Swagger.sln -tv:14.0 /p:Configuration=Release /p:Platform="Any CPU"
+%MSBUILDPATH%\MSBuild.exe Salesforce.MarketingCloud.sln -tv:14.0 /p:Configuration=Release /p:Platform="Any CPU"
 
 if %errorlevel% neq 0 exit %errorlevel%
 
