@@ -7,13 +7,12 @@ import java.io.File;
 
 public class CsharpGenerator extends CSharpClientCodegen {
 
-    String packageFolder = sourceFolder + File.separator + packageName;
-    String authenticatorsPackageDir = packageFolder + File.separator + "Authentication";
-
     @Override
     public void processOpts() {
         super.processOpts();
 
+        String packageFolder = sourceFolder + File.separator + packageName;
+        String authenticatorsPackageDir = packageFolder + File.separator + "Authentication";
         String modelPackageDir = packageFolder + File.separator + this.modelPackage;
 
         this.supportingFiles.add(new SupportingFile("OAuth2Authenticator.mustache", authenticatorsPackageDir, "OAuth2Authenticator.cs"));
