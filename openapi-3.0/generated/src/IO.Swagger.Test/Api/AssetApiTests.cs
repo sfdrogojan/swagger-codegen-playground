@@ -16,11 +16,11 @@ using System.Reflection;
 using RestSharp;
 using NUnit.Framework;
 
-using IO.Swagger.Client;
-using IO.Swagger.Api;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Model;
 
-namespace IO.Swagger.Test
+namespace Salesforce.MarketingCloud.Test
 {
     /// <summary>
     ///  Class for testing AssetApi

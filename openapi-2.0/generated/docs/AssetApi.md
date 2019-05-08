@@ -1,4 +1,4 @@
-# IO.Swagger.Api.AssetApi
+# Salesforce.MarketingCloud.Api.AssetApi
 
 All URIs are relative to *https://www.exacttargetapis.com*
 
@@ -22,9 +22,9 @@ Creates a new asset.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
 namespace Example
 {
@@ -83,9 +83,9 @@ Deletes an asset.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
 namespace Example
 {
@@ -143,9 +143,9 @@ Gets an asset by ID.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
 namespace Example
 {
@@ -204,9 +204,9 @@ Updates part of an asset.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
 namespace Example
 {

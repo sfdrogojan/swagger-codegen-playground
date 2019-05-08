@@ -1,4 +1,4 @@
-# IO.Swagger.Api.CampaignApi
+# Salesforce.MarketingCloud.Api.CampaignApi
 
 All URIs are relative to *https://www.exacttargetapis.com*
 
@@ -21,9 +21,9 @@ Creates a campaign.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
 namespace Example
 {
@@ -82,9 +82,9 @@ Deletes a campaign.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
 namespace Example
 {
@@ -142,9 +142,9 @@ Retrieves a campaign.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
 namespace Example
 {

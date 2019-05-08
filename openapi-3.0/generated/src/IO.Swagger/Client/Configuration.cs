@@ -15,7 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace IO.Swagger.Client
+namespace Salesforce.MarketingCloud.Client
 {
     /// <summary>
     /// Represents a set of configuration settings
@@ -417,7 +417,7 @@ namespace IO.Swagger.Client
         /// </summary>
         public static String ToDebugReport()
         {
-            String report = "C# SDK (IO.Swagger) Debug Report:\n";
+            String report = "C# SDK (Salesforce.MarketingCloud) Debug Report:\n";
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
             report += "    Version of the API: 1.0.0\n";

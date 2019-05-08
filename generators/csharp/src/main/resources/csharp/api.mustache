@@ -103,7 +103,7 @@ namespace {{packageName}}.{{apiPackage}}
             var authService = new AuthService(this.Configuration, apiClient, cacheService);
 
             this.Configuration.ApiClient.RestClient.Authenticator =
-                new IO.Swagger.Authentication.OAuth2Authenticator(authService);
+                new {{packageName}}.Authentication.OAuth2Authenticator(authService);
 
             ExceptionFactory = {{packageName}}.Client.Configuration.DefaultExceptionFactory;
         }

@@ -19,9 +19,9 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = IO.Swagger.Client.SwaggerDateConverter;
+using SwaggerDateConverter = Salesforce.MarketingCloud.Client.SwaggerDateConverter;
 
-namespace IO.Swagger.Model
+namespace Salesforce.MarketingCloud.Model
 {
     /// <summary>
     /// AssetError

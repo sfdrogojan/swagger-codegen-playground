@@ -25,7 +25,7 @@ To run the Swagger Codegen CLI and generate the C# API client from the Open API 
 
 ## Running the Integration tests
 
-Create a class named ApiTests in the Swagger.IO.Test project. 
+Create a class named ApiTests in the Salesforce.MarketingCloud.Test project. 
 It should have the same content as the ApiTests.cs.template file.
 
 To run the tests, enter valid values for the fields: authBasePath, clientId, clientSecret, accountId.

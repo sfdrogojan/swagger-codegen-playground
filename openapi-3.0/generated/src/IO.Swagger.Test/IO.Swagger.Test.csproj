@@ -14,8 +14,8 @@ Contact: mc_sdk@salesforce.com
     <ProjectGuid>{19F1DEBC-DE5E-4517-8062-F000CD499087}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IO.Swagger.Test</RootNamespace>
-    <AssemblyName>IO.Swagger.Test</AssemblyName>
+    <RootNamespace>Salesforce.MarketingCloud.Test</RootNamespace>
+    <AssemblyName>Salesforce.MarketingCloud.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -79,9 +79,9 @@ Contact: mc_sdk@salesforce.com
   </ItemGroup>
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\IO.Swagger\IO.Swagger.csproj">
+    <ProjectReference Include="..\Salesforce.MarketingCloud\Salesforce.MarketingCloud.csproj">
       <Project>{AD148B0E-B75E-4717-B791-95004B4DF3FC}</Project>
-      <Name>IO.Swagger</Name>
+      <Name>Salesforce.MarketingCloud</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

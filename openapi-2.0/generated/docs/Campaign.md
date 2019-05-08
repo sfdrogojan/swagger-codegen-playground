@@ -1,4 +1,4 @@
-# IO.Swagger.Model.Campaign
+# Salesforce.MarketingCloud.Model.Campaign
 ## Properties
 
 Name | Type | Description | Notes

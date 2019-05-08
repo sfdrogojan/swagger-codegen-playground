@@ -1,4 +1,4 @@
-# IO.Swagger.Model.AssetError
+# Salesforce.MarketingCloud.Model.AssetError
 ## Properties
 
 Name | Type | Description | Notes
