@@ -67,8 +67,32 @@ Contact: mc_sdk@salesforce.com
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs"
-             Exclude="obj\**" />
+    <Compile Include="Api\AssetApi.cs" />
+    <Compile Include="Api\CampaignApi.cs" />
+    <Compile Include="Authentication\AuthorizationToken.cs" />
+    <Compile Include="Authentication\AuthService.cs" />
+    <Compile Include="Authentication\CacheService.cs" />
+    <Compile Include="Authentication\DefaultDateTimeProvider.cs" />
+    <Compile Include="Authentication\IAuthService.cs" />
+    <Compile Include="Authentication\ICacheService.cs" />
+    <Compile Include="Authentication\IDateTimeProvider.cs" />
+    <Compile Include="Authentication\OAuth2Authenticator.cs" />
+    <Compile Include="Client\ApiClient.cs" />
+    <Compile Include="Client\ApiException.cs" />
+    <Compile Include="Client\ApiResponse.cs" />
+    <Compile Include="Client\Configuration.cs" />
+    <Compile Include="Client\ExceptionFactory.cs" />
+    <Compile Include="Client\GlobalConfiguration.cs" />
+    <Compile Include="Client\IApiAccessor.cs" />
+    <Compile Include="Client\IReadableConfiguration.cs" />
+    <Compile Include="Client\SwaggerDateConverter.cs" />
+    <Compile Include="Model\AccessTokenRequest.cs" />
+    <Compile Include="Model\AccessTokenResponse.cs" />
+    <Compile Include="Model\ApiError.cs" />
+    <Compile Include="Model\Asset.cs" />
+    <Compile Include="Model\AssetType.cs" />
+    <Compile Include="Model\Campaign.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

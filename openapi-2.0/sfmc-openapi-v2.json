@@ -41,13 +41,13 @@
           "400": {
             "description": "Bad request",
             "schema": {
-              "$ref": "#/definitions/AssetError"
+              "$ref": "#/definitions/ApiError"
             }
           },
           "403": {
             "description": "Permission error",
             "schema": {
-              "$ref": "#/definitions/AssetError"
+              "$ref": "#/definitions/ApiError"
             }
           }
         },
@@ -87,13 +87,13 @@
           "400": {
             "description": "Bad request",
             "schema": {
-              "$ref": "#/definitions/AssetError"
+              "$ref": "#/definitions/ApiError"
             }
           },
           "403": {
             "description": "Permission error",
             "schema": {
-              "$ref": "#/definitions/AssetError"
+              "$ref": "#/definitions/ApiError"
             }
           }
         },
@@ -117,13 +117,13 @@
           "400": {
             "description": "Bad request",
             "schema": {
-              "$ref": "#/definitions/AssetError"
+              "$ref": "#/definitions/ApiError"
             }
           },
           "403": {
             "description": "Permission error",
             "schema": {
-              "$ref": "#/definitions/AssetError"
+              "$ref": "#/definitions/ApiError"
             }
           }
         },
@@ -156,13 +156,13 @@
           "400": {
             "description": "Bad request",
             "schema": {
-              "$ref": "#/definitions/AssetError"
+              "$ref": "#/definitions/ApiError"
             }
           },
           "403": {
             "description": "Permission error",
             "schema": {
-              "$ref": "#/definitions/AssetError"
+              "$ref": "#/definitions/ApiError"
             }
           }
         },
@@ -223,11 +223,42 @@
         "x-md-detail": "getCampaign.htm",
         "x-published": true,
         "operationId": "getCampaignById"
+      },
+      "delete": {
+        "tags": [
+          "campaign"
+        ],
+        "summary": "deleteCampaign",
+        "description": "Deletes a campaign.",
+        "parameters": [{
+          "name": "id",
+          "in": "path",
+          "description": "The ID of the campaign to delete",
+          "required": true,
+          "type": "number"
+        }],
+        "responses": {
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/ApiError"
+            }
+          },
+          "403": {
+            "description": "Permission error",
+            "schema": {
+              "$ref": "#/definitions/ApiError"
+            }
+          }
+        },
+        "x-md-detail": "deleteCampaign.htm",
+        "x-published": true,
+        "operationId": "deleteCampaignById"
     }
     }
   },
   "definitions": {
-    "AssetError": {
+    "ApiError": {
       "type": "object",
       "properties": {
         "Message": {

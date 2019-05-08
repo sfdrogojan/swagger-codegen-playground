@@ -5,6 +5,7 @@ All URIs are relative to *https://www.exacttargetapis.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateCampaign**](CampaignApi.md#createcampaign) | **POST** /hub/v1/campaigns | createCampaign
+[**DeleteCampaignById**](CampaignApi.md#deletecampaignbyid) | **DELETE** /hub/v1/campaigns/{id} | deleteCampaign
 [**GetCampaignById**](CampaignApi.md#getcampaignbyid) | **GET** /hub/v1/campaigns/{id} | getCampaign
 
 
@@ -57,6 +58,66 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Campaign**](Campaign.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="deletecampaignbyid"></a>
+# **DeleteCampaignById**
+> void DeleteCampaignById (decimal? id)
+
+deleteCampaign
+
+Deletes a campaign.
+
+### Example
+```csharp
+using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class DeleteCampaignByIdExample
+    {
+        public void main()
+        {
+            var apiInstance = new CampaignApi();
+            var id = 8.14;  // decimal? | The ID of the campaign to delete
+
+            try
+            {
+                // deleteCampaign
+                apiInstance.DeleteCampaignById(id);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling CampaignApi.DeleteCampaignById: " + e.Message );
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **decimal?**| The ID of the campaign to delete | 
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 
