@@ -82,9 +82,9 @@ Deletes a campaign.
 ```csharp
 using System;
 using System.Diagnostics;
-using IO.Swagger.Api;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using Salesforce.MarketingCloud.Api;
+using Salesforce.MarketingCloud.Client;
+using Salesforce.MarketingCloud.Model;
 
 namespace Example
 {

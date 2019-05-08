@@ -1,4 +1,4 @@
-# IO.Swagger.Model.ApiError
+# Salesforce.MarketingCloud.Model.ApiError
 ## Properties
 
 Name | Type | Description | Notes

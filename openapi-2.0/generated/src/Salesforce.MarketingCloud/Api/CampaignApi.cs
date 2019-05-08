@@ -52,7 +52,7 @@ namespace Salesforce.MarketingCloud.Api
         /// <remarks>
         /// Deletes a campaign.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the campaign to delete</param>
         /// <returns></returns>
         void DeleteCampaignById (decimal? id);
@@ -63,7 +63,7 @@ namespace Salesforce.MarketingCloud.Api
         /// <remarks>
         /// Deletes a campaign.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the campaign to delete</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> DeleteCampaignByIdWithHttpInfo (decimal? id);
@@ -117,7 +117,7 @@ namespace Salesforce.MarketingCloud.Api
         /// <remarks>
         /// Deletes a campaign.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the campaign to delete</param>
         /// <returns>Task of void</returns>
         System.Threading.Tasks.Task DeleteCampaignByIdAsync (decimal? id);
@@ -128,7 +128,7 @@ namespace Salesforce.MarketingCloud.Api
         /// <remarks>
         /// Deletes a campaign.
         /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the campaign to delete</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> DeleteCampaignByIdAsyncWithHttpInfo (decimal? id);
@@ -419,7 +419,7 @@ namespace Salesforce.MarketingCloud.Api
         /// <summary>
         /// deleteCampaign Deletes a campaign.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the campaign to delete</param>
         /// <returns></returns>
         public void DeleteCampaignById (decimal? id)
@@ -430,7 +430,7 @@ namespace Salesforce.MarketingCloud.Api
         /// <summary>
         /// deleteCampaign Deletes a campaign.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the campaign to delete</param>
         /// <returns>ApiResponse of Object(void)</returns>
         public ApiResponse<Object> DeleteCampaignByIdWithHttpInfo (decimal? id)
@@ -483,7 +483,7 @@ namespace Salesforce.MarketingCloud.Api
         /// <summary>
         /// deleteCampaign Deletes a campaign.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the campaign to delete</param>
         /// <returns>Task of void</returns>
         public async System.Threading.Tasks.Task DeleteCampaignByIdAsync (decimal? id)
@@ -495,7 +495,7 @@ namespace Salesforce.MarketingCloud.Api
         /// <summary>
         /// deleteCampaign Deletes a campaign.
         /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <exception cref="Salesforce.MarketingCloud.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">The ID of the campaign to delete</param>
         /// <returns>Task of ApiResponse</returns>
         public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteCampaignByIdAsyncWithHttpInfo (decimal? id)
