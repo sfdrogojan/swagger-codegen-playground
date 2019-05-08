@@ -101,14 +101,15 @@ Class | Method | HTTP request | Description
 *AssetApi* | [**GetAssetById**](docs/AssetApi.md#getassetbyid) | **GET** /asset/v1/content/assets/{id} | getAssetById
 *AssetApi* | [**PartiallyUpdateAsset**](docs/AssetApi.md#partiallyupdateasset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
 *CampaignApi* | [**CreateCampaign**](docs/CampaignApi.md#createcampaign) | **POST** /hub/v1/campaigns | createCampaign
+*CampaignApi* | [**DeleteCampaignById**](docs/CampaignApi.md#deletecampaignbyid) | **DELETE** /hub/v1/campaigns/{id} | deleteCampaign
 *CampaignApi* | [**GetCampaignById**](docs/CampaignApi.md#getcampaignbyid) | **GET** /hub/v1/campaigns/{id} | getCampaign
 
 
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [Model.ApiError](docs/ApiError.md)
  - [Model.Asset](docs/Asset.md)
- - [Model.AssetError](docs/AssetError.md)
  - [Model.AssetType](docs/AssetType.md)
  - [Model.Campaign](docs/Campaign.md)
 

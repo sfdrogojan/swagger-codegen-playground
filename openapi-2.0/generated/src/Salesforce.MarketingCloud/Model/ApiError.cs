@@ -25,18 +25,18 @@ using SwaggerDateConverter = Salesforce.MarketingCloud.Client.SwaggerDateConvert
 namespace Salesforce.MarketingCloud.Model
 {
     /// <summary>
-    /// AssetError
+    /// ApiError
     /// </summary>
     [DataContract]
-    public partial class AssetError :  IEquatable<AssetError>, IValidatableObject
+    public partial class ApiError :  IEquatable<ApiError>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssetError" /> class.
+        /// Initializes a new instance of the <see cref="ApiError" /> class.
         /// </summary>
         /// <param name="message">The error message.</param>
         /// <param name="errorCode">The specific error code.</param>
         /// <param name="documentation">Any specific documentation for the error.</param>
-        public AssetError(string message = default(string), decimal? errorCode = default(decimal?), string documentation = default(string))
+        public ApiError(string message = default(string), decimal? errorCode = default(decimal?), string documentation = default(string))
         {
             this.Message = message;
             this.ErrorCode = errorCode;
@@ -71,7 +71,7 @@ namespace Salesforce.MarketingCloud.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class AssetError {\n");
+            sb.Append("class ApiError {\n");
             sb.Append("  Message: ").Append(Message).Append("\n");
             sb.Append("  ErrorCode: ").Append(ErrorCode).Append("\n");
             sb.Append("  Documentation: ").Append(Documentation).Append("\n");
@@ -95,15 +95,15 @@ namespace Salesforce.MarketingCloud.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as AssetError);
+            return this.Equals(input as ApiError);
         }
 
         /// <summary>
-        /// Returns true if AssetError instances are equal
+        /// Returns true if ApiError instances are equal
         /// </summary>
-        /// <param name="input">Instance of AssetError to be compared</param>
+        /// <param name="input">Instance of ApiError to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AssetError input)
+        public bool Equals(ApiError input)
         {
             if (input == null)
                 return false;

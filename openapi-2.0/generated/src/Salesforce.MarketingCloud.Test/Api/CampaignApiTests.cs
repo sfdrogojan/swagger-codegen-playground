@@ -20,6 +20,7 @@ using NUnit.Framework;
 using Salesforce.MarketingCloud.Client;
 using Salesforce.MarketingCloud.Api;
 using Salesforce.MarketingCloud.Model;
+using Newtonsoft.Json;
 
 namespace Salesforce.MarketingCloud.Test
 {
@@ -41,34 +42,13 @@ namespace Salesforce.MarketingCloud.Test
         [TestFixtureSetUp]
         public void Init()
         {
-            instance = new CampaignApi(authBasePath,
+            instance = new CampaignApi(
+                authBasePath,
                 clientId,
                 clientSecret,
                 accountId);
         }
 
-        /// <summary>
-        /// Clean up after each unit test
-        /// </summary>
-        [TearDown]
-        public void Cleanup()
-        {
-
-        }
-
-        [Test]
-        public void CreateCampaignTest()
-        {
-            var campaign = CreateCampaign();
-            var createCampaignResult = instance.CreateCampaign(campaign);
-
-            Assert.AreEqual(campaign.Name, createCampaignResult.Name);
-            Assert.AreEqual(campaign.Description, createCampaignResult.Description);
-            Assert.AreEqual(campaign.CampaignCode, createCampaignResult.CampaignCode);
-            Assert.AreEqual(campaign.Color, createCampaignResult.Color);
-            Assert.AreEqual(campaign.Favorite, createCampaignResult.Favorite);
-        }
-        
         [Test]
         public void GetCampaignByIdTest()
         {
@@ -78,11 +58,62 @@ namespace Salesforce.MarketingCloud.Test
 
             var getCampaignResult = instance.GetCampaignById(campaignToRetrieveId);
 
-            Assert.AreEqual(campaign.Name, getCampaignResult.Name);
-            Assert.AreEqual(campaign.Description, getCampaignResult.Description);
-            Assert.AreEqual(campaign.CampaignCode, getCampaignResult.CampaignCode);
-            Assert.AreEqual(campaign.Color, getCampaignResult.Color);
-            Assert.AreEqual(campaign.Favorite, getCampaignResult.Favorite);
+            try
+            {
+                Assert.AreEqual(campaign.Name, getCampaignResult.Name);
+                Assert.AreEqual(campaign.Description, getCampaignResult.Description);
+                Assert.AreEqual(campaign.CampaignCode, getCampaignResult.CampaignCode);
+                Assert.AreEqual(campaign.Color, getCampaignResult.Color);
+                Assert.AreEqual(campaign.Favorite, getCampaignResult.Favorite);
+        }
+            finally
+            {
+                instance.DeleteCampaignById(campaignToRetrieveId);
+            }
+        }
+
+        [Test]
+        public void CreateCampaignTest()
+        {
+            var campaign = CreateCampaign();
+            var createCampaignResult = instance.CreateCampaign(campaign);
+
+            try
+            {
+            Assert.AreEqual(campaign.Name, createCampaignResult.Name);
+            Assert.AreEqual(campaign.Description, createCampaignResult.Description);
+            Assert.AreEqual(campaign.CampaignCode, createCampaignResult.CampaignCode);
+            Assert.AreEqual(campaign.Color, createCampaignResult.Color);
+            Assert.AreEqual(campaign.Favorite, createCampaignResult.Favorite);
+        }
+            finally
+            {
+                var createCampaignResultId = createCampaignResult.Id;
+                instance.DeleteCampaignById(createCampaignResultId);
+            }
+        }
+
+        [Test]
+        public void DeleteCampaignByIdTest()
+        {
+            var campaign = CreateCampaign();
+            var createCampaignResult = instance.CreateCampaign(campaign);
+
+            var campaignToDeleteId = createCampaignResult.Id;
+            instance.DeleteCampaignById(campaignToDeleteId);
+
+            try
+            {
+                instance.GetCampaignById(campaignToDeleteId);
+                Assert.Fail("No exception thrown");
+        }
+            catch (ApiException e)
+            {
+                var deserializedException = JsonConvert.DeserializeObject<ApiError>(e.ErrorContent);
+
+                Assert.AreEqual(400, e.ErrorCode);
+                Assert.AreEqual("Campaign does not exist", deserializedException.Message);
+            }
         }
 
         private Campaign CreateCampaign()

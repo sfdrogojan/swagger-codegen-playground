@@ -67,32 +67,6 @@ namespace Salesforce.MarketingCloud.Test
         }
 
         [Test]
-        public void PartiallyUpdateAssetTest()
-        {
-            var asset = CreateAsset();
-            var createAssetResult = instance.CreateAsset(asset);
-            var assetToPartiallyUpdateId = createAssetResult.Id;
-
-            createAssetResult.Description = $"AssetDescription {Guid.NewGuid()}";
-            var partiallyUpdateAssetResult = instance.PartiallyUpdateAsset(assetToPartiallyUpdateId, createAssetResult);
-
-            try
-            {
-                Assert.AreEqual(createAssetResult.Description, partiallyUpdateAssetResult.Description);
-
-                Assert.AreEqual(asset.CustomerKey, partiallyUpdateAssetResult.CustomerKey);
-                Assert.AreEqual(asset.AssetType.Id, partiallyUpdateAssetResult.AssetType.Id);
-                Assert.AreEqual(asset.AssetType.Name, partiallyUpdateAssetResult.AssetType.Name);
-                Assert.AreEqual(asset.AssetType.DisplayName, partiallyUpdateAssetResult.AssetType.DisplayName);
-                Assert.AreEqual(asset.Name, partiallyUpdateAssetResult.Name);
-            }
-            finally
-            {
-                instance.DeleteAssetById(assetToPartiallyUpdateId);
-            }
-        }
-
-        [Test]
         public void CreateAssetTest()
         {
             var asset = CreateAsset();
@@ -120,8 +94,6 @@ namespace Salesforce.MarketingCloud.Test
             var asset = CreateAsset();
             var createAssetResult = instance.CreateAsset(asset);
 
-            Assert.IsInstanceOf<Asset>(createAssetResult);
-
             var assetToDeleteId = createAssetResult.Id;
             instance.DeleteAssetById(assetToDeleteId);
 
@@ -143,12 +115,36 @@ namespace Salesforce.MarketingCloud.Test
             var asset = CreateAsset();
             var createAssetResult = instance.CreateAsset(asset);
 
-            Assert.IsInstanceOf<Asset>(createAssetResult);
-
             var assetToDeleteId = createAssetResult.Id;
             instance.DeleteAssetById(assetToDeleteId);
 
             Assert.DoesNotThrow(() => instance.DeleteAssetById(assetToDeleteId));
+        }
+
+        [Test]
+        public void PartiallyUpdateAssetTest()
+        {
+            var asset = CreateAsset();
+            var createAssetResult = instance.CreateAsset(asset);
+            var assetToPartiallyUpdateId = createAssetResult.Id;
+
+            createAssetResult.Description = $"AssetDescription {Guid.NewGuid()}";
+            var partiallyUpdateAssetResult = instance.PartiallyUpdateAsset(assetToPartiallyUpdateId, createAssetResult);
+
+            try
+            {
+                Assert.AreEqual(createAssetResult.Description, partiallyUpdateAssetResult.Description);
+
+                Assert.AreEqual(asset.CustomerKey, partiallyUpdateAssetResult.CustomerKey);
+                Assert.AreEqual(asset.AssetType.Id, partiallyUpdateAssetResult.AssetType.Id);
+                Assert.AreEqual(asset.AssetType.Name, partiallyUpdateAssetResult.AssetType.Name);
+                Assert.AreEqual(asset.AssetType.DisplayName, partiallyUpdateAssetResult.AssetType.DisplayName);
+                Assert.AreEqual(asset.Name, partiallyUpdateAssetResult.Name);
+            }
+            finally
+            {
+                instance.DeleteAssetById(assetToPartiallyUpdateId);
+            }
         }
 
         private Asset CreateAsset()
