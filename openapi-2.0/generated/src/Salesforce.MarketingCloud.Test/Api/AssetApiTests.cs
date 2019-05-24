@@ -105,7 +105,7 @@ namespace Salesforce.MarketingCloud.Test
             catch (ApiException e)
             {
                 Assert.AreEqual(404, e.ErrorCode);
-                Assert.AreEqual("Error calling GetAssetById: ", e.Message);
+                Assert.AreEqual("Error calling GetAssetById", e.Message);
             }
         }
 

@@ -14,7 +14,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using Salesforce.MarketingCloud.Exceptions;
+using UnauthorizedAccessException = Salesforce.MarketingCloud.Exceptions.UnauthorizedAccessException;
 
 namespace Salesforce.MarketingCloud.Client
 {
@@ -50,18 +53,32 @@ namespace Salesforce.MarketingCloud.Client
         /// </summary>
         public static readonly ExceptionFactory DefaultExceptionFactory = (methodName, response) =>
         {
-            var status = (int)response.StatusCode;
-            if (status >= 400)
+            var statusCode = (int)response.StatusCode;
+            var exceptionMessage = $"Error calling {methodName}";
+
+            if (statusCode >= 400)
             {
-                return new ApiException(status,
-                    string.Format("Error calling {0}: {1}", methodName, response.Content),
-                    response.Content);
+                switch (response.StatusCode)
+                {
+                    case HttpStatusCode.Unauthorized:
+                        return new AuthenticationFailureException(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.Forbidden:
+                        return new UnauthorizedAccessException(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.InternalServerError:
+                        return new InternalServerErrorException(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.NotFound:
+                        return new ResourceNotFoundException(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.BadRequest:
+                        return new BadRequest(statusCode, exceptionMessage, response.Content);
+                    default:
+                        return new ApiException(statusCode, exceptionMessage, response.Content);
+                }
             }
-            if (status == 0)
+            if (statusCode == 0)
             {
-                return new ApiException(status,
-                    string.Format("Error calling {0}: {1}", methodName, response.ErrorMessage), response.ErrorMessage);
+                return new ApiException(statusCode, exceptionMessage, response.ErrorMessage);
             }
+
             return null;
         };
 
