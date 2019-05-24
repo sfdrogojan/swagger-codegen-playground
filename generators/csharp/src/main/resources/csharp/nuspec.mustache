@@ -2,18 +2,18 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <!-- The identifier that must be unique within the hosting gallery -->
-        <id>$id$</id>
+        <id>{{packageName}}</id>
         <title>{{packageTitle}}</title>
 
         <!-- The package version number that is used when resolving dependencies -->
-        <version>$version$</version>
+        <version>{{packageVersion}}</version>
 
         <!-- Authors contain text that appears directly on the gallery -->
-        <authors>$author$</authors>
+        <authors>{{packageAuthors}}</authors>
 
         <!-- Owners are typically nuget.org identities that allow gallery
              users to earily find other packages by the same owners.  -->
-        <owners>$author$</owners>
+        <owners>{{packageAuthors}}</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <developmentDependency>false</developmentDependency>
 
@@ -23,9 +23,7 @@
         {{#termsOfService}}
         <copyright>{{termsOfService}}</copyright>
         {{/termsOfService}}
-        {{#licenseUrl}}
-        <licenseUrl>{{licenseUrl}}</licenseUrl>
-        {{/licenseUrl}}
+        <license type="expression">Apache-2.0</license>
 
         <!-- Dependencies are automatically installed when the package is installed -->
         <dependencies>
