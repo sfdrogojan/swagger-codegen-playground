@@ -8,6 +8,7 @@ using Salesforce.MarketingCloud.Model;
 using NSubstitute;
 using NUnit.Framework;
 using RestSharp;
+using AuthenticationFailureException = Salesforce.MarketingCloud.Exceptions.AuthenticationFailureException; 
 
 namespace Salesforce.MarketingCloud.UnitTests
 {
@@ -129,7 +130,7 @@ namespace Salesforce.MarketingCloud.UnitTests
 
             var authService = new AuthService(configurationStub, apiClientMock, cacheServiceStub);
 
-            Assert.Throws<ApiException>(() => authService.GetAuthorizationToken());
+            Assert.Throws<AuthenticationFailureException>(() => authService.GetAuthorizationToken());
         }
 
         [Test]
@@ -206,7 +207,7 @@ namespace Salesforce.MarketingCloud.UnitTests
 
             var authService = new AuthService(configurationStub, apiClientStub, cacheServiceStub);
 
-            Assert.Throws<ApiException>(() => authService.GetAuthorizationToken());
+            Assert.Throws<AuthenticationFailureException>(() => authService.GetAuthorizationToken());
         }
 
         [Test]

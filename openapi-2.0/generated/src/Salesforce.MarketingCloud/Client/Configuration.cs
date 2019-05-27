@@ -60,23 +60,29 @@ namespace Salesforce.MarketingCloud.Client
             {
                 switch (response.StatusCode)
                 {
-                    case HttpStatusCode.Unauthorized:
+                    case HttpStatusCode.BadRequest: //400
+                        return new BadRequestException(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.Unauthorized: //401
                         return new AuthenticationFailureException(statusCode, exceptionMessage, response.Content);
-                    case HttpStatusCode.Forbidden:
+                    case HttpStatusCode.Forbidden: //403
                         return new UnauthorizedAccessException(statusCode, exceptionMessage, response.Content);
-                    case HttpStatusCode.InternalServerError:
-                        return new InternalServerErrorException(statusCode, exceptionMessage, response.Content);
-                    case HttpStatusCode.NotFound:
+                    case HttpStatusCode.NotFound: //404
                         return new ResourceNotFoundException(statusCode, exceptionMessage, response.Content);
-                    case HttpStatusCode.BadRequest:
-                        return new BadRequest(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.InternalServerError: //500
+                        return new InternalServerErrorException(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.BadGateway: //502
+                        return new BadGatewayException(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.ServiceUnavailable: //503
+                        return new ServiceUnavailableException(statusCode, exceptionMessage, response.Content);
+                    case HttpStatusCode.GatewayTimeout: //504
+                        return new GatewayTimeoutException(statusCode, exceptionMessage, response.Content);
                     default:
                         return new ApiException(statusCode, exceptionMessage, response.Content);
                 }
             }
             if (statusCode == 0)
             {
-                return new ApiException(statusCode, exceptionMessage, response.ErrorMessage);
+                return new ServerUnreachableException(statusCode, exceptionMessage, response.ErrorMessage);
             }
 
             return null;
@@ -133,7 +139,7 @@ namespace Salesforce.MarketingCloud.Client
         {
             UserAgent = "Swagger-Codegen/1.0.0/csharp";
             BasePath = "https://www.exacttargetapis.com";
-            DefaultHeader = new ConcurrentDictionary<string, string>();
+            DefaultHeader = GetClientDevEnvironment();
             ApiKey = new ConcurrentDictionary<string, string>();
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();
 
@@ -472,6 +478,18 @@ namespace Salesforce.MarketingCloud.Client
             report += "    SDK Package Version: 1.0.0\n";
 
             return report;
+        }
+
+        public static Dictionary<string, string> GetClientDevEnvironment()
+        {
+            var clientDevEnvironment = new Dictionary<string, string>
+            {
+                {"OS", System.Environment.OSVersion.ToString()},
+                {"NET-Framework-Version", System.Environment.Version.ToString()},
+                {"SDK-Package-Version", Version}
+            };
+
+            return clientDevEnvironment;
         }
 
         /// <summary>

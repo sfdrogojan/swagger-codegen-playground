@@ -51,8 +51,8 @@ namespace Salesforce.MarketingCloud.Authentication
                 Method.POST,
                 new List<KeyValuePair<string, string>>(),
                 serializedAuthRequestBody,
-                new Dictionary<string, string>(),
-                new Dictionary<string, string>(),
+                Configuration.GetClientDevEnvironment(),
+            	new Dictionary<string, string>(),
                 new Dictionary<string, FileParameter>(),
                 new Dictionary<string, string>(),
                 "application/json");
