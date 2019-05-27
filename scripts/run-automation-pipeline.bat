@@ -4,7 +4,8 @@ CALL build-custom-csharp-generator.bat
 
 CALL generate-csharp-api-client.bat
 
-CALL build-solution.bat
+REM CALL build-solution.bat
+CALL build-solution-core.bat
 
 CALL run-unit-tests.bat
 
