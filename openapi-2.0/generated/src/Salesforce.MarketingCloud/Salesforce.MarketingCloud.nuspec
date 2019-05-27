@@ -36,6 +36,7 @@
         <!-- A readme.txt will be displayed when the package is installed -->
         <file src="..\..\README.md" target="" />
         <file src="..\..\docs\**\*.*" target="docs" />
+        <file src="bin\Release\Salesforce.MarketingCloud.dll" target="lib/net45" />
 
     </files>
 </package>

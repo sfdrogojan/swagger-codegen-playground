@@ -46,6 +46,7 @@
         {{#generatePropertyChanged}}
         <file src="..\..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" target="build" />
         {{/generatePropertyChanged}}
+        <file src="bin\Release\{{packageName}}.dll" target="lib/net45" />
 
     </files>
 </package>
