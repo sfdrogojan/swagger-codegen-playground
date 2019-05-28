@@ -61,7 +61,15 @@ namespace Salesforce.MarketingCloud.Authentication
             if (exceptionFactory != null)
             {
                 Exception exception = exceptionFactory("GetAuthorizationToken", authRequestResponse);
-                if (exception != null) throw exception;
+                if (exception != null)
+                {
+                    if (Configuration.useErrorLogger)
+                    {
+                        Configuration.log.Error(exception.Message, exception);
+                    }
+
+                    throw exception;
+                }
             }
 
             var response =

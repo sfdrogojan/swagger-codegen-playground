@@ -518,7 +518,15 @@ namespace Salesforce.MarketingCloud.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("DeleteAssetById", localVarResponse);
-                if (exception != null) throw exception;
+                if (exception != null)
+                {
+                    if (Configuration.useErrorLogger)
+                    {
+                        Configuration.log.Error(exception.Message);
+                    }
+
+                    throw exception;
+                }
             }
 
             return new ApiResponse<Object>(localVarStatusCode,
@@ -648,7 +656,15 @@ namespace Salesforce.MarketingCloud.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("GetAssetById", localVarResponse);
-                if (exception != null) throw exception;
+                if (exception != null)
+                {
+                    if (Configuration.useErrorLogger)
+                    {
+                        Configuration.log.Error(exception.Message);
+                    }
+
+                    throw exception;
+                }
             }
 
             return new ApiResponse<Asset>(localVarStatusCode,
@@ -789,7 +805,15 @@ namespace Salesforce.MarketingCloud.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("PartiallyUpdateAsset", localVarResponse);
-                if (exception != null) throw exception;
+                if (exception != null)
+                {
+                    if (Configuration.useErrorLogger)
+                    {
+                        Configuration.log.Error(exception.Message);
+                    }
+
+                    throw exception;
+                }
             }
 
             return new ApiResponse<Asset>(localVarStatusCode,

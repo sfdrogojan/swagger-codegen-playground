@@ -9,6 +9,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Reflection;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using RestSharp;
 using Salesforce.MarketingCloud.Exceptions;
 using UnauthorizedAccessException = Salesforce.MarketingCloud.Exceptions.UnauthorizedAccessException;
 
@@ -45,6 +47,10 @@ namespace Salesforce.MarketingCloud.Client
 
         #region Static Members
 
+        internal static readonly bool useErrorLogger = true;
+
+        internal static readonly log4net.ILog log = ExceptionLogger.GetLogger();
+
         private static readonly object GlobalConfigSync = new { };
         private static Configuration _globalConfiguration;
 
@@ -55,38 +61,65 @@ namespace Salesforce.MarketingCloud.Client
         {
             var statusCode = (int)response.StatusCode;
             var exceptionMessage = $"Error calling {methodName}";
-
+            
             if (statusCode >= 400)
             {
+                var responseContent = response.Content;
+                var requestId = getRequestIdFromResponse(response);
+
                 switch (response.StatusCode)
                 {
                     case HttpStatusCode.BadRequest: //400
-                        return new BadRequestException(statusCode, exceptionMessage, response.Content);
+                        return new BadRequestException(requestId, statusCode, exceptionMessage, responseContent);
                     case HttpStatusCode.Unauthorized: //401
-                        return new AuthenticationFailureException(statusCode, exceptionMessage, response.Content);
+                        return new AuthenticationFailureException(requestId, statusCode, exceptionMessage, responseContent);
                     case HttpStatusCode.Forbidden: //403
-                        return new UnauthorizedAccessException(statusCode, exceptionMessage, response.Content);
+                        return new UnauthorizedAccessException(requestId, statusCode, exceptionMessage, responseContent);
                     case HttpStatusCode.NotFound: //404
-                        return new ResourceNotFoundException(statusCode, exceptionMessage, response.Content);
+                        return new ResourceNotFoundException(requestId, statusCode, exceptionMessage, responseContent);
                     case HttpStatusCode.InternalServerError: //500
-                        return new InternalServerErrorException(statusCode, exceptionMessage, response.Content);
+                        return new InternalServerErrorException(requestId, statusCode, exceptionMessage, responseContent);
                     case HttpStatusCode.BadGateway: //502
-                        return new BadGatewayException(statusCode, exceptionMessage, response.Content);
+                        return new BadGatewayException(requestId, statusCode, exceptionMessage, responseContent);
                     case HttpStatusCode.ServiceUnavailable: //503
-                        return new ServiceUnavailableException(statusCode, exceptionMessage, response.Content);
+                        return new ServiceUnavailableException(requestId, statusCode, exceptionMessage, responseContent);
                     case HttpStatusCode.GatewayTimeout: //504
-                        return new GatewayTimeoutException(statusCode, exceptionMessage, response.Content);
+                        return new GatewayTimeoutException(requestId, statusCode, exceptionMessage, responseContent);
                     default:
-                        return new ApiException(statusCode, exceptionMessage, response.Content);
+                        return new ApiException(requestId, statusCode, exceptionMessage, responseContent);
                 }
             }
             if (statusCode == 0)
             {
-                return new ServerUnreachableException(statusCode, exceptionMessage, response.ErrorMessage);
+                var responseErrorMesage = response.ErrorMessage;
+
+                return new ServerUnreachableException(statusCode, exceptionMessage, responseErrorMesage);
             }
 
             return null;
         };
+
+        /// <summary>
+        /// Gets the request ID from the response.
+        /// </summary>
+        /// <value>Request ID.</value>
+
+        private static string getRequestIdFromResponse(IRestResponse response)
+        {
+            foreach (var item in response.Headers)
+            {
+                var stringifiedItem = item.ToString();
+                stringifiedItem = stringifiedItem.Substring(0, stringifiedItem.Length);
+
+                var splitResult = stringifiedItem.Split('=');
+                if (splitResult[0].Equals("X-Mashery-Message-ID"))
+                {
+                    return splitResult[1];
+                }
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Gets or sets the default Configuration.
@@ -229,7 +262,6 @@ namespace Salesforce.MarketingCloud.Client
         }
 
         #endregion Constructors
-
 
         #region Properties
 

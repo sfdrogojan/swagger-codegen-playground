@@ -79,6 +79,7 @@ Contact: mc_sdk@salesforce.com
     <Compile Include="**\*.cs" Exclude="obj\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MsBuildToolsPath)\Microsoft.CSharp.targets" />

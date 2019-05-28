@@ -18,6 +18,12 @@ namespace Salesforce.MarketingCloud.Client
     public class ApiException : Exception
     {
         /// <summary>
+        /// Gets or sets the request ID
+        /// </summary>
+        /// <value>The request ID.</value>
+        public string RequestId { get; set; }
+
+        /// <summary>
         /// Gets or sets the error code (HTTP status code)
         /// </summary>
         /// <value>The error code (HTTP status code).</value>
@@ -50,8 +56,9 @@ namespace Salesforce.MarketingCloud.Client
         /// <param name="errorCode">HTTP status code.</param>
         /// <param name="message">Error message.</param>
         /// <param name="errorContent">Error content.</param>
-        public ApiException(int errorCode, string message, dynamic errorContent = null) : base(message)
+        public ApiException(string requestId, int errorCode, string message, dynamic errorContent = null) : base(message)
         {
+            this.RequestId = requestId;
             this.ErrorCode = errorCode;
             this.ErrorContent = errorContent;
         }
