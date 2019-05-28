@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
+using RestSharp.Authenticators;
 using Salesforce.MarketingCloud.Authentication;
 using Salesforce.MarketingCloud.Client;
 using Salesforce.MarketingCloud.Model;

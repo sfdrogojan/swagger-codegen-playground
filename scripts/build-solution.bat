@@ -11,6 +11,6 @@ SET SOLUTIONPATH = Salesforce.MarketingCloud.sln
 
 %MSBUILDPATH%\MSBuild.exe Salesforce.MarketingCloud.sln -tv:14.0 /p:Configuration=Release /p:Platform="Any CPU"
 
-if %errorlevel% neq 0 exit %errorlevel%
-
 popd
+
+if %errorlevel% neq 0 exit %errorlevel%

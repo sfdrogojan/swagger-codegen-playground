@@ -10,6 +10,7 @@
 
 using System.Net;
 using RestSharp;
+using RestSharp.Authenticators;
 
 namespace Salesforce.MarketingCloud.Authentication
 {

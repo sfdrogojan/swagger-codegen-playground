@@ -32,7 +32,7 @@ namespace Salesforce.MarketingCloud.Test
         /// <summary>
         /// Setup only once before all the tests
         /// </summary>
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Init()
         {
             instance = new AssetApi(

@@ -3,6 +3,7 @@ using Salesforce.MarketingCloud.Authentication;
 using NSubstitute;
 using NUnit.Framework;
 using RestSharp;
+using RestSharp.Authenticators;
 using OAuth2Authenticator = Salesforce.MarketingCloud.Authentication.OAuth2Authenticator;
 
 namespace Salesforce.MarketingCloud.UnitTests
