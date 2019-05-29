@@ -1,5 +1,8 @@
 language: csharp
 mono: none
-dotnet: 2.2.202
+sudo: required
+dist: xenial
+dotnet: 2.2
+before_script: cd scripts
 script:
-  - ./scripts/run-automation-pipeline.bat
+  - run-automation-pipeline.bat
