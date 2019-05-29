@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\cbetiuc\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\cbetiuc\.Rider2018.2\system\resharper-host\Local\Transient\ReSharperHost\v182\SolutionCaches\_Salesforce.MarketingCloud.-1227821303.00" t="ExcludeRecursive" />
+    <e p="C:\Users\cbetiuc\SDKs\swagger-codegen-playground\openapi-2.0\generated" t="IncludeFlat">
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Salesforce.MarketingCloud.sln" t="IncludeFlat" />
+      <e p="src\Salesforce.MarketingCloud" t="IncludeRecursive">
+        <e p="Api" t="Include">
+          <e p="AssetApi.cs" t="Include" />
+          <e p="CampaignApi.cs" t="Include" />
+        </e>
+        <e p="Authentication" t="Include">
+          <e p="AuthorizationToken.cs" t="Include" />
+          <e p="AuthService.cs" t="Include" />
+          <e p="CacheService.cs" t="Include" />
+          <e p="DefaultDateTimeProvider.cs" t="Include" />
+          <e p="IAuthService.cs" t="Include" />
+          <e p="ICacheService.cs" t="Include" />
+          <e p="IDateTimeProvider.cs" t="Include" />
+          <e p="OAuth2Authenticator.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Client" t="Include">
+          <e p="ApiClient.cs" t="Include" />
+          <e p="ApiException.cs" t="Include" />
+          <e p="ApiResponse.cs" t="Include" />
+          <e p="Configuration.cs" t="Include" />
+          <e p="ExceptionFactory.cs" t="Include" />
+          <e p="GlobalConfiguration.cs" t="Include" />
+          <e p="IApiAccessor.cs" t="Include" />
+          <e p="IReadableConfiguration.cs" t="Include" />
+          <e p="SwaggerDateConverter.cs" t="Include" />
+        </e>
+        <e p="Exceptions" t="Include">
+          <e p="AuthenticationFailureException.cs" t="Include" />
+          <e p="BadGatewayException.cs" t="Include" />
+          <e p="BadRequestException.cs" t="Include" />
+          <e p="GatewayTimeoutException.cs" t="Include" />
+          <e p="InternalServerErrorException.cs" t="Include" />
+          <e p="ResourceNotFoundException.cs" t="Include" />
+          <e p="ServiceUnavailableException.cs" t="Include" />
+          <e p="UnauthorizedAccessException.cs" t="Include" />
+        </e>
+        <e p="Model" t="Include">
+          <e p="AccessTokenRequest.cs" t="Include" />
+          <e p="AccessTokenResponse.cs" t="Include" />
+          <e p="ApiError.cs" t="Include" />
+          <e p="Asset.cs" t="Include" />
+          <e p="AssetType.cs" t="Include" />
+          <e p="Campaign.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Salesforce.MarketingCloud.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="src\Salesforce.MarketingCloud.Test" t="IncludeRecursive">
+        <e p="Api" t="Include">
+          <e p="ApiTests.cs" t="Include" />
+          <e p="ApiTests.cs.template" t="Include" />
+          <e p="AssetApiTests.cs" t="Include" />
+          <e p="CampaignApiTests.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Model" t="Include">
+          <e p="ApiErrorTests.cs" t="Include" />
+          <e p="AssetTests.cs" t="Include" />
+          <e p="AssetTypeTests.cs" t="Include" />
+          <e p="CampaignTests.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Salesforce.MarketingCloud.Test.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="src\Salesforce.MarketingCloud.UnitTests" t="IncludeRecursive">
+        <e p="AuthServiceTests.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CacheServiceTests.cs" t="Include" />
+        <e p="ExceptionFactoryTests.cs" t="Include" />
+        <e p="OAuth2AuthenticatorTests.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Salesforce.MarketingCloud.UnitTests.csproj" t="IncludeRecursive" />
+        <e p="SettableDateTimeProvider.cs" t="Include" />
+      </e>
+    </e>
+  </component>
+</project>
