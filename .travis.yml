@@ -1,4 +1,4 @@
-language: csharp
+language: java
 mono: none
 sudo: required
 dist: xenial
