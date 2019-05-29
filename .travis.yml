@@ -1,5 +1,4 @@
 language: csharp
-os: windows
 mono: none
 sudo: required
 dist: xenial
@@ -14,5 +13,6 @@ before_script:
   - chmod -R +x scripts
   - cd scripts
 script:
-  - /bin/sh ./run-automation-pipeline.sh
+  # - /bin/sh ./run-automation-pipeline.sh
   # - cmd.exe /C run-automation-pipeline.bat
+  - ./run-automation-pipeline.bat
