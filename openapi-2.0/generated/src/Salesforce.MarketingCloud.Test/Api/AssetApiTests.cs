@@ -25,7 +25,7 @@ namespace Salesforce.MarketingCloud.Test
     /// Please update the test case below to test the API endpoint.
     /// </remarks>
     [TestFixture]
-    public class AssetApiTests : ApiTests
+    public class AssetApiTests
     {
         private AssetApi instance;
 
@@ -35,11 +35,11 @@ namespace Salesforce.MarketingCloud.Test
         [OneTimeSetUp]
         public void Init()
         {
-            instance = new AssetApi(
-                authBasePath, 
-                clientId, 
-                clientSecret, 
-                accountId);
+            //instance = new AssetApi(
+            //    authBasePath, 
+            //    clientId, 
+            //    clientSecret, 
+            //    accountId);
         }
    
         [Test]

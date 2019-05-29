@@ -23,5 +23,5 @@
 #!docs/README.md
 
 # src/**/Salesforce.MarketingCloud.csproj
-# src/**/Salesforce.MarketingCloud.Test.csproj
+src/**/Salesforce.MarketingCloud.Test.csproj
 Salesforce.MarketingCloud.sln

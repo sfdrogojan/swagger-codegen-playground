@@ -32,7 +32,7 @@ namespace Salesforce.MarketingCloud.Test
     /// Please update the test case below to test the API endpoint.
     /// </remarks>
     [TestFixture]
-    public class CampaignApiTests : ApiTests
+    public class CampaignApiTests
     {
         private CampaignApi instance;
 
@@ -42,11 +42,11 @@ namespace Salesforce.MarketingCloud.Test
         [OneTimeSetUp]
         public void Init()
         {
-            instance = new CampaignApi(
-                authBasePath,
-                clientId,
-                clientSecret,
-                accountId);
+            //instance = new CampaignApi(
+            //    authBasePath,
+            //    clientId,
+            //    clientSecret,
+            //    accountId);
         }
 
         [Test]
