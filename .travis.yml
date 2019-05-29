@@ -3,6 +3,8 @@ mono: none
 sudo: required
 dist: xenial
 dotnet: 2.2
-before_script: cd scripts
+before_script: 
+  - chmod -R +x scripts
+  - cd scripts
 script:
   - ./run-automation-pipeline.bat
