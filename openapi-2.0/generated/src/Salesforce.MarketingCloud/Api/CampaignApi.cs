@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
+using RestSharp.Authenticators;
 using Salesforce.MarketingCloud.Authentication;
 using Salesforce.MarketingCloud.Client;
 using Salesforce.MarketingCloud.Model;
@@ -338,7 +339,21 @@ namespace Salesforce.MarketingCloud.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("CreateCampaign", localVarResponse);
-                if (exception != null) throw exception;
+                if (exception != null)
+                {
+                    if (Configuration.useErrorLogger)
+                    {
+                        var apiException = (ApiException)exception;
+
+                        string requestId = $"RequestId: {apiException.RequestId}";
+                        string thrownException = $"Exception thrown in the SDK: {apiException.ToString()}";
+                        string extraInfo = requestId + Environment.NewLine + thrownException;
+
+                        Configuration.log.Error(extraInfo);
+                    }
+
+                    throw exception;
+                }
             }
 
             return new ApiResponse<Campaign>(localVarStatusCode,

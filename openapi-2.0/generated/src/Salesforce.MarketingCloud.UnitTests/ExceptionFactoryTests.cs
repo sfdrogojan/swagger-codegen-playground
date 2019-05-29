@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using NSubstitute;
@@ -133,6 +136,64 @@ namespace Salesforce.MarketingCloud.UnitTests
             Assert.AreEqual("Error calling ApiMethod", exception.Message);
             Assert.AreEqual("Server unreachable", exception.ErrorContent);
             Assert.IsInstanceOf<ServerUnreachableException>(exception);
+        }
+
+        [Test]
+        public void GetRequestIdFromResponse_WhenResponseContainsRequestId_ReturnsRequestId()
+        {
+            var headerField1 = GetHeaderField("X-Mashery-Responder", "91-t08");
+            var headerField2 = GetHeaderField("X-Mashery-Message-ID", "b201e5a8-36f1-4a67-b77f-2acc304a2f6e");
+            var headerField3 = GetHeaderField("Server", "Web server type");
+            var headerField4 = GetHeaderField("Referrer-Policy", "Policy-type");
+
+            var headerFieldsList = new List<Parameter>
+            {
+                headerField1,
+                headerField2,
+                headerField3,
+                headerField4
+            };
+
+            var requestResponse = CreateRequestResponse(headerFieldsList);
+
+            Assert.AreEqual("b201e5a8-36f1-4a67-b77f-2acc304a2f6e", Configuration.GetRequestIdFromResponse(requestResponse));
+        }
+
+        [Test]
+        public void GetRequestIdFromResponse_WhenResponseDoesNotContainRequestId_ReturnsNull()
+        {
+            var headerField1 = GetHeaderField("X-Mashery-Responder", "91-t08");
+            var headerField2 = GetHeaderField("Referrer-Policy", "Policy-type");
+            var headerField3 = GetHeaderField("Server", "Web server type");
+
+            var headerFieldsList = new List<Parameter>
+            {
+                headerField1,
+                headerField2,
+                headerField3,
+            };
+
+            var requestResponse = CreateRequestResponse(headerFieldsList);
+
+            Assert.AreEqual(null, Configuration.GetRequestIdFromResponse(requestResponse));
+        }
+
+        private Parameter GetHeaderField(string name, string value)
+        {
+            return new Parameter()
+            {
+                Name = name,
+                Value = value
+            };
+        }
+
+        private IRestResponse CreateRequestResponse(List<Parameter> headerFieldsList)
+        {
+            IRestResponse requestResponse = Substitute.For<IRestResponse>();
+
+            requestResponse.Headers.Returns(headerFieldsList);
+
+            return requestResponse;
         }
 
         private IRestResponse CreateRequestResponse(HttpStatusCode responseHttpStatusCode, string responseContent)

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
+using Newtonsoft.Json.Linq;
 using Salesforce.MarketingCloud.Client;
 using Salesforce.MarketingCloud.Model;
 using RestSharp;
@@ -65,7 +68,13 @@ namespace Salesforce.MarketingCloud.Authentication
                 {
                     if (Configuration.useErrorLogger)
                     {
-                        Configuration.log.Error(exception.Message, exception);
+                        var apiException = (ApiException)exception;
+
+                        string requestId = $"RequestId: {apiException.RequestId}";
+                        string thrownException = $"Exception thrown in the SDK: {apiException.ToString()}";
+                        string extraInfo = requestId + Environment.NewLine + thrownException; 
+
+                        Configuration.log.Error(extraInfo);
                     }
 
                     throw exception;

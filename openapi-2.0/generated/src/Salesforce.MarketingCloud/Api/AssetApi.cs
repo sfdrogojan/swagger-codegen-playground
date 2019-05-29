@@ -384,7 +384,21 @@ namespace Salesforce.MarketingCloud.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("CreateAsset", localVarResponse);
-                if (exception != null) throw exception;
+                if (exception != null)
+                {
+                    if (Configuration.useErrorLogger)
+                    {
+                        var apiException = (ApiException)exception;
+
+                        string requestId = $"RequestId: {apiException.RequestId}";
+                        string thrownException = $"Exception thrown in the SDK: {apiException.ToString()}";
+                        string extraInfo = requestId + Environment.NewLine + thrownException;
+
+                        Configuration.log.Error(extraInfo);
+                    }
+
+                    throw exception;
+                }
             }
 
             return new ApiResponse<Asset>(localVarStatusCode,

@@ -4,7 +4,7 @@ namespace Salesforce.MarketingCloud.Exceptions
 {
     public class BadGatewayException : ApiException
     {
-        public BadGatewayException(string requestId, int errorCode, string message, dynamic errorContent = null) : base(errorCode, message)
+        public BadGatewayException(string requestId, int errorCode, string message, dynamic errorContent = null) : base(requestId, errorCode, message)
         {
             this.ErrorContent = errorContent;
         }

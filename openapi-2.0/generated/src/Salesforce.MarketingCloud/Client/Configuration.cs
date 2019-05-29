@@ -65,7 +65,7 @@ namespace Salesforce.MarketingCloud.Client
             if (statusCode >= 400)
             {
                 var responseContent = response.Content;
-                var requestId = getRequestIdFromResponse(response);
+                var requestId = GetRequestIdFromResponse(response);
 
                 switch (response.StatusCode)
                 {
@@ -104,7 +104,7 @@ namespace Salesforce.MarketingCloud.Client
         /// </summary>
         /// <value>Request ID.</value>
 
-        private static string getRequestIdFromResponse(IRestResponse response)
+        internal static string GetRequestIdFromResponse(IRestResponse response)
         {
             foreach (var item in response.Headers)
             {
