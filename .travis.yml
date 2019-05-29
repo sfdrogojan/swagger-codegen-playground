@@ -1,18 +1,9 @@
 language: csharp
-# os: windows
-
-matrix:
-  include:
-    - dotnet: 2.1.502
-      mono: none
-      env: DOTNETCORE=2  # optional, can be used to take different code paths in your script
-    - mono: latest
-
-# mono:
-#   - latest
-# sudo: required
-# dist: xenial
-# dotnet: 2.2
+os: windows
+mono: none
+sudo: required
+dist: xenial
+dotnet: 2.2
 before_install:
  - wget https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip
  - unzip -qq apache-maven-3.6.0-bin.zip
@@ -23,5 +14,5 @@ before_script:
   - chmod -R +x scripts
   - cd scripts
 script:
-  # - /bin/sh ./run-automation-pipeline.sh
-  - cmd.exe /C run-automation-pipeline.bat
+  - /bin/sh ./run-automation-pipeline.sh
+  # - cmd.exe /C run-automation-pipeline.bat
