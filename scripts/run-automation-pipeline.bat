@@ -8,10 +8,10 @@ CALL build-solution-core.bat
 
 CALL run-unit-tests.bat
 
-CALL run-integration-tests.bat
+REM CALL run-integration-tests.bat
 
 CALL create-nuget-package.bat
 
-bash ./git-push.sh
+REM bash ./git-push.sh
 
 echo "Success!"
