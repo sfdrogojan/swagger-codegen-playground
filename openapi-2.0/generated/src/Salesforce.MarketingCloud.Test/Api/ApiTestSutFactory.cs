@@ -29,6 +29,7 @@ namespace Salesforce.MarketingCloud.Test
                     EnvironmentVariableTarget.Machine);
             if (accountDetailsEnvironmentVariableValue != null)
             {
+                Console.Write($"Found {accountDetailsEnvironmentVariableValue} env variable.");
                 return accountDetailsEnvironmentVariableValue;
             }
 
@@ -37,6 +38,7 @@ namespace Salesforce.MarketingCloud.Test
                     EnvironmentVariableTarget.User);
             if (accountDetailsEnvironmentVariableValue != null)
             {
+                Console.Write($"Found {accountDetailsEnvironmentVariableValue} env variable.");
                 return accountDetailsEnvironmentVariableValue;
             }
 
@@ -45,6 +47,7 @@ namespace Salesforce.MarketingCloud.Test
                     EnvironmentVariableTarget.Process);
             if (accountDetailsEnvironmentVariableValue != null)
             {
+                Console.Write($"Found {accountDetailsEnvironmentVariableValue} env variable.");
                 return accountDetailsEnvironmentVariableValue;
             }
 
