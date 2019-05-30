@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
 
 namespace Salesforce.MarketingCloud.Test
 {
@@ -12,46 +11,39 @@ namespace Salesforce.MarketingCloud.Test
 
         static ApiTestSutFactory()
         {
-            var accountDetailsEnvironmentVariableValue = GetAccountDetailsEnvironmentVariableValue();
-            var accountDetails = JObject.Parse(accountDetailsEnvironmentVariableValue);
-            authBasePath = accountDetails["authBasePath"].Value<string>();
-            clientId = accountDetails["clientId"].Value<string>();
-            clientSecret = accountDetails["clientSecret"].Value<string>();
-            accountId = accountDetails["accountId"].Value<string>();
+            authBasePath = GetAccountDetailsEnvironmentVariableValue("SFMC_AUTH_BASE_PATH");
+            clientId = GetAccountDetailsEnvironmentVariableValue("SFMC_CLIENT_ID");
+            clientSecret = GetAccountDetailsEnvironmentVariableValue("SFMC_CLIENT_SECRET");
+            accountId = GetAccountDetailsEnvironmentVariableValue("SFMC_ACCOUNT_ID");
         }
 
-        private static string GetAccountDetailsEnvironmentVariableValue()
+        private static string GetAccountDetailsEnvironmentVariableValue(string envVariableName)
         {
-            var accountDetailsEnvironmentVariableName = "SFMC_ACCOUNT_DETAILS";
-
             var accountDetailsEnvironmentVariableValue =
-                Environment.GetEnvironmentVariable(accountDetailsEnvironmentVariableName,
+                Environment.GetEnvironmentVariable(envVariableName,
                     EnvironmentVariableTarget.Machine);
             if (accountDetailsEnvironmentVariableValue != null)
             {
-                Console.Write($"Found {accountDetailsEnvironmentVariableValue} env variable.");
                 return accountDetailsEnvironmentVariableValue;
             }
 
             accountDetailsEnvironmentVariableValue =
-                Environment.GetEnvironmentVariable(accountDetailsEnvironmentVariableName,
+                Environment.GetEnvironmentVariable(envVariableName,
                     EnvironmentVariableTarget.User);
             if (accountDetailsEnvironmentVariableValue != null)
             {
-                Console.Write($"Found {accountDetailsEnvironmentVariableValue} env variable.");
                 return accountDetailsEnvironmentVariableValue;
             }
 
             accountDetailsEnvironmentVariableValue =
-                Environment.GetEnvironmentVariable(accountDetailsEnvironmentVariableName,
+                Environment.GetEnvironmentVariable(envVariableName,
                     EnvironmentVariableTarget.Process);
             if (accountDetailsEnvironmentVariableValue != null)
             {
-                Console.Write($"Found {accountDetailsEnvironmentVariableValue} env variable.");
                 return accountDetailsEnvironmentVariableValue;
             }
 
-            throw new NullReferenceException($"Env variable {accountDetailsEnvironmentVariableName} missing.");
+            throw new NullReferenceException($"Env variable {envVariableName} missing.");
         }
 
         internal static T Create()
