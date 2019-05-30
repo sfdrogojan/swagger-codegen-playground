@@ -10,6 +10,7 @@
 
 using System;
 using System.Dynamic;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using Salesforce.MarketingCloud.Api;
 using Salesforce.MarketingCloud.Model;
@@ -25,7 +26,7 @@ namespace Salesforce.MarketingCloud.Test
     /// Please update the test case below to test the API endpoint.
     /// </remarks>
     [TestFixture]
-    public class AssetApiTests
+    public class AssetApiTests //: ApiTests
     {
         private AssetApi instance;
 
@@ -35,13 +36,10 @@ namespace Salesforce.MarketingCloud.Test
         [OneTimeSetUp]
         public void Init()
         {
-            //instance = new AssetApi(
-            //    authBasePath, 
-            //    clientId, 
-            //    clientSecret, 
-            //    accountId);
+            //instance = new AssetApi(authBasePath, clientId, clientSecret, accountId);
+            instance = ApiTestSutFactory<AssetApi>.Create();
         }
-   
+
         [Test]
         public void GetAssetByIdTest()
         {

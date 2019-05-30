@@ -214,7 +214,7 @@ namespace Salesforce.MarketingCloud.Api
         /// Initializes a new instance of the <see cref="AssetApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public AssetApi(String authBasePath, string clientId, string clientSecret, int accountId)
+        public AssetApi(String authBasePath, string clientId, string clientSecret, string accountId)
         {
             this.Configuration = new Salesforce.MarketingCloud.Client.Configuration
             {
@@ -239,7 +239,7 @@ namespace Salesforce.MarketingCloud.Api
         /// Initializes a new instance of the <see cref="AssetApi"/> class.
         /// </summary>
         /// <returns></returns>
-        internal AssetApi(String authBasePath, string clientId, string clientSecret, int accountId, IAuthenticator authenticator)
+        internal AssetApi(String authBasePath, string clientId, string clientSecret, string accountId, IAuthenticator authenticator)
             : this(authBasePath, clientId, clientSecret, accountId)
         {
             this.Configuration.ApiClient.RestClient.Authenticator = authenticator;
