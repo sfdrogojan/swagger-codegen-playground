@@ -25,9 +25,9 @@ namespace Salesforce.MarketingCloud.Model
         public string GrantType { get; set; }
 
         [DataMember(Name = "account_id")]
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
 
-        public AccessTokenRequest(string clientId, string clientSecret, int accountId)
+        public AccessTokenRequest(string clientId, string clientSecret, string accountId)
         {
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;

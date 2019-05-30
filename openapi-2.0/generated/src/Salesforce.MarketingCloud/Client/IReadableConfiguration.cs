@@ -104,7 +104,7 @@ namespace Salesforce.MarketingCloud.Client
         /// <summary>
         /// Gets the account id.
         /// </summary>
-        int AccountId { get; }
+        string AccountId { get; }
 
         /// <summary>
         /// Gets the base authentication url.

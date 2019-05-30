@@ -5,6 +5,6 @@
         protected readonly string authBasePath = "AUTH_TSE";
         protected readonly string clientId = "clientId";
         protected readonly string clientSecret = "clientSecret";
-        protected readonly int accountId = 0;
+        protected readonly string accountId = "";
     }
 }

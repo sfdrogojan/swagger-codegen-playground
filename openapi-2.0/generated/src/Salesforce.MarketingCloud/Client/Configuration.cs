@@ -401,7 +401,7 @@ namespace Salesforce.MarketingCloud.Client
         /// <summary>
         /// Gets or sets the account id.
         /// </summary>
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
 
         /// <summary>
         /// Gets or sets the base authentication url.

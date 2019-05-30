@@ -8,6 +8,7 @@ using RestSharp.Portable;
 {{/netStandard}}
 {{^netStandard}}
 using RestSharp;
+using RestSharp.Authenticators;
 {{/netStandard}}
 using {{packageName}}.Authentication;
 using {{packageName}}.Client;
@@ -87,7 +88,7 @@ namespace {{packageName}}.{{apiPackage}}
         /// Initializes a new instance of the <see cref="{{classname}}"/> class.
         /// </summary>
         /// <returns></returns>
-        public {{classname}}(String authBasePath, string clientId, string clientSecret, int accountId)
+        public {{classname}}(String authBasePath, string clientId, string clientSecret, string accountId)
         {
             this.Configuration = new {{packageName}}.Client.Configuration
             {
@@ -112,7 +113,7 @@ namespace {{packageName}}.{{apiPackage}}
         /// Initializes a new instance of the <see cref="{{classname}}"/> class.
         /// </summary>
         /// <returns></returns>
-        internal {{classname}}(String authBasePath, string clientId, string clientSecret, int accountId, IAuthenticator authenticator)
+        internal {{classname}}(String authBasePath, string clientId, string clientSecret, string accountId, IAuthenticator authenticator)
             : this(authBasePath, clientId, clientSecret, accountId)
         {
             this.Configuration.ApiClient.RestClient.Authenticator = authenticator;
