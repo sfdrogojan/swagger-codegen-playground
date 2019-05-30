@@ -12,14 +12,7 @@ namespace Salesforce.MarketingCloud.Test
 
         static ApiTestSutFactory()
         {
-            var accountDetailsEnvironmentVariableName = "SFMC_ACCOUNT_DETAILS";
-            var accountDetailsEnvironmentVariableValue =
-                Environment.GetEnvironmentVariable(accountDetailsEnvironmentVariableName,
-                    EnvironmentVariableTarget.Machine);
-            if (accountDetailsEnvironmentVariableValue == null)
-            {
-                throw new NullReferenceException($"System Env variable {accountDetailsEnvironmentVariableName} missing.");
-            }
+            var accountDetailsEnvironmentVariableValue = GetAccountDetailsEnvironmentVariableValue();
             var accountDetails = JObject.Parse(accountDetailsEnvironmentVariableValue);
             authBasePath = accountDetails["authBasePath"].Value<string>();
             clientId = accountDetails["clientId"].Value<string>();
@@ -27,9 +20,40 @@ namespace Salesforce.MarketingCloud.Test
             accountId = accountDetails["accountId"].Value<string>();
         }
 
+        private static string GetAccountDetailsEnvironmentVariableValue()
+        {
+            var accountDetailsEnvironmentVariableName = "SFMC_ACCOUNT_DETAILS";
+
+            var accountDetailsEnvironmentVariableValue =
+                Environment.GetEnvironmentVariable(accountDetailsEnvironmentVariableName,
+                    EnvironmentVariableTarget.Machine);
+            if (accountDetailsEnvironmentVariableValue != null)
+            {
+                return accountDetailsEnvironmentVariableValue;
+            }
+
+            accountDetailsEnvironmentVariableValue =
+                Environment.GetEnvironmentVariable(accountDetailsEnvironmentVariableName,
+                    EnvironmentVariableTarget.User);
+            if (accountDetailsEnvironmentVariableValue != null)
+            {
+                return accountDetailsEnvironmentVariableValue;
+            }
+
+            accountDetailsEnvironmentVariableValue =
+                Environment.GetEnvironmentVariable(accountDetailsEnvironmentVariableName,
+                    EnvironmentVariableTarget.Process);
+            if (accountDetailsEnvironmentVariableValue != null)
+            {
+                return accountDetailsEnvironmentVariableValue;
+            }
+
+            throw new NullReferenceException($"Env variable {accountDetailsEnvironmentVariableName} missing.");
+        }
+
         internal static T Create()
         {
-            return (T)Activator.CreateInstance(typeof(T), new object[] { authBasePath, clientId, clientSecret, accountId });
+            return (T)Activator.CreateInstance(typeof(T), authBasePath, clientId, clientSecret, accountId);
         }
     }
 }
