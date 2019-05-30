@@ -3,6 +3,8 @@ mono: none
 sudo: required
 dist: xenial
 dotnet: 2.2
+jdk:
+  - oraclejdk8
 before_install:
  - wget https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip
  - unzip -qq apache-maven-3.6.0-bin.zip
@@ -13,6 +15,4 @@ before_script:
   - chmod -R +x scripts
   - cd scripts
 script:
-  # - /bin/sh ./run-automation-pipeline.sh
-  # - cmd.exe /C run-automation-pipeline.bat
-  - ./run-automation-pipeline.bat
+  - /bin/sh ./run-automation-pipeline.sh

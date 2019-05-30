@@ -3,7 +3,7 @@ set -e
 
 bash build-custom-csharp-generator.sh
 
-# bash generate-csharp-api-client.sh
+bash generate-csharp-api-client.sh
 
 bash build-solution-core.sh
 
