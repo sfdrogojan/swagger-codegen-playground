@@ -9,7 +9,7 @@ bash build-solution-core.sh
 
 bash run-unit-tests.sh
 
-# bash run-integration-tests.sh
+bash run-integration-tests.sh
 
 bash create-nuget-package.sh
 
