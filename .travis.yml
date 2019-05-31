@@ -5,14 +5,15 @@ dist: xenial
 dotnet: 2.2
 jdk:
   - oraclejdk8
-before_install:
- - wget https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip
- - unzip -qq apache-maven-3.6.0-bin.zip
- - export M2_HOME=$PWD/apache-maven-3.6.0
- - export PATH=$M2_HOME/bin:$PATH
+# before_install:
+#  - wget https://archive.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.zip
+#  - unzip -qq apache-maven-3.6.0-bin.zip
+#  - export M2_HOME=$PWD/apache-maven-3.6.0
+#  - export PATH=$M2_HOME/bin:$PATH
 before_script:
   - chmod -R +x cli 
   - chmod -R +x scripts
   - cd scripts
 script:
-  - /bin/sh ./run-automation-pipeline.sh
+  # - /bin/sh ./run-automation-pipeline.sh
+  - /bin/sh ./install-hub.sh
