@@ -16,4 +16,4 @@ before_script:
   - cd scripts
 script:
   # - /bin/sh ./run-automation-pipeline.sh
-  - /bin/sh ./install-hub.sh
+  - /bin/sh ./create-pull-request-linux.sh
