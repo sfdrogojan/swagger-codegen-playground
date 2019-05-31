@@ -7,6 +7,13 @@ export PATH=$HUB_PATH:$PATH
 
 hub version
 
+git fetch
+
+git_branch=`git symbolic-ref --short HEAD`
+branch_name=${git_branch}
+echo "Current branch name is: $branch_name"
+git checkout dev2
+
 hub pull-request -m "Automation pipeline update"
 
 exit $?
