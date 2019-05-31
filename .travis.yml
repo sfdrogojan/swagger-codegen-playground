@@ -16,5 +16,5 @@ before_script:
   - cd scripts
 script:
   # - /bin/sh ./run-automation-pipeline.sh
-after_success:
   - /bin/sh ./create-pull-request-linux.sh
+# after_success:
