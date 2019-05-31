@@ -13,6 +13,7 @@ git_branch=`git symbolic-ref --short HEAD`
 branch_name=${git_branch}
 echo "Current branch name is: $branch_name"
 git checkout dev2
+git pull origin dev2
 
 hub pull-request -m "Automation pipeline update"
 
