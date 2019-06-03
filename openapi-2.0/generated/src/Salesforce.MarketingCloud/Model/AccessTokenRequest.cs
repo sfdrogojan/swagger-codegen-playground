@@ -27,12 +27,16 @@ namespace Salesforce.MarketingCloud.Model
         [DataMember(Name = "account_id")]
         public string AccountId { get; set; }
 
-        public AccessTokenRequest(string clientId, string clientSecret, string accountId)
+        [DataMember(Name = "scope")]
+        public string Scope { get; set; }
+
+        public AccessTokenRequest(string clientId, string clientSecret, string accountId, string scope)
         {
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;
             this.GrantType = "client_credentials";
             this.AccountId = accountId;
+            this.Scope = scope;
         }
     }
 }
