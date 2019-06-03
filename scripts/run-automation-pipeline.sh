@@ -13,4 +13,6 @@ bash run-integration-tests.sh
 
 bash create-nuget-package.sh
 
-# bash ./git-push.sh
+bash git-push-chsarp-api-client.sh
+
+bash create-pull-request.sh
