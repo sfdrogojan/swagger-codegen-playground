@@ -45,7 +45,7 @@ namespace Salesforce.MarketingCloud.Authentication
         {
             var serializedAuthRequestBody =
                 apiClient.Serialize(new AccessTokenRequest(configuration.ClientId,
-                    configuration.ClientSecret, configuration.AccountId));
+                    configuration.ClientSecret, configuration.AccountId, configuration.Scope));
 
             IRestResponse authRequestResponse = (IRestResponse) apiClient.CallApi("/v2/token",
                 Method.POST,

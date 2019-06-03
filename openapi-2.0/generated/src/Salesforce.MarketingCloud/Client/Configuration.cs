@@ -404,6 +404,11 @@ namespace Salesforce.MarketingCloud.Client
         public string AccountId { get; set; }
 
         /// <summary>
+        /// Gets or sets the scope.
+        /// </summary>
+        public string Scope { get; set; }
+
+        /// <summary>
         /// Gets or sets the base authentication url.
         /// </summary>
         public string AuthenticationInstanceUrl { get; set; }

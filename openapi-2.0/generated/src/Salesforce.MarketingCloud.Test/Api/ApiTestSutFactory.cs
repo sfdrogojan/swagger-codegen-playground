@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 
 namespace Salesforce.MarketingCloud.Test
 {
@@ -8,6 +9,7 @@ namespace Salesforce.MarketingCloud.Test
         private static string clientId;
         private static string clientSecret;
         private static string accountId;
+        private static string scope;
 
         static ApiTestSutFactory()
         {
@@ -15,6 +17,7 @@ namespace Salesforce.MarketingCloud.Test
             clientId = GetAccountDetailsEnvironmentVariableValue("SFMC_CLIENT_ID");
             clientSecret = GetAccountDetailsEnvironmentVariableValue("SFMC_CLIENT_SECRET");
             accountId = GetAccountDetailsEnvironmentVariableValue("SFMC_ACCOUNT_ID");
+            scope = GetAccountDetailsEnvironmentVariableValue("SFMC_SCOPE");
         }
 
         private static string GetAccountDetailsEnvironmentVariableValue(string envVariableName)
@@ -48,7 +51,7 @@ namespace Salesforce.MarketingCloud.Test
 
         internal static T Create()
         {
-            return (T)Activator.CreateInstance(typeof(T), authBasePath, clientId, clientSecret, accountId);
+            return (T)Activator.CreateInstance(typeof(T), authBasePath, clientId, clientSecret, accountId, scope);
         }
     }
 }

@@ -214,14 +214,15 @@ namespace Salesforce.MarketingCloud.Api
         /// Initializes a new instance of the <see cref="AssetApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public AssetApi(String authBasePath, string clientId, string clientSecret, string accountId)
+        public AssetApi(String authBasePath, string clientId, string clientSecret, string accountId, string scope)
         {
             this.Configuration = new Salesforce.MarketingCloud.Client.Configuration
             {
                 AuthenticationInstanceUrl = authBasePath,
                 ClientId = clientId,
                 ClientSecret = clientSecret,
-                AccountId = accountId
+                AccountId = accountId,
+                Scope = scope
             };
 
             var defaultDateTimeProvider = new DefaultDateTimeProvider();
@@ -239,8 +240,8 @@ namespace Salesforce.MarketingCloud.Api
         /// Initializes a new instance of the <see cref="AssetApi"/> class.
         /// </summary>
         /// <returns></returns>
-        internal AssetApi(String authBasePath, string clientId, string clientSecret, string accountId, IAuthenticator authenticator)
-            : this(authBasePath, clientId, clientSecret, accountId)
+        internal AssetApi(String authBasePath, string clientId, string clientSecret, string accountId, string scope, IAuthenticator authenticator)
+            : this(authBasePath, clientId, clientSecret, accountId, scope)
         {
             this.Configuration.ApiClient.RestClient.Authenticator = authenticator;
         }

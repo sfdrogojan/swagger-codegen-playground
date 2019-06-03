@@ -29,5 +29,8 @@ namespace Salesforce.MarketingCloud.Model
 
         [DataMember(Name = "token_type")]
         public string TokenType { get; set; }
+
+        [DataMember(Name = "scope")]
+        public string Scope { get; set; }
     }
 }
