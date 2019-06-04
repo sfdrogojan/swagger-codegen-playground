@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "www.exacttargetapis.com"
+      "url": "https://www.exacttargetapis.com"
     }
   ],
   "paths": {
