@@ -482,14 +482,12 @@ namespace Salesforce.MarketingCloud.Client
 
         public static Dictionary<string, string> GetClientDevEnvironment()
         {
-            var clientDevEnvironment = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
-                {"OS", System.Environment.OSVersion.ToString()},
-                {"NET-Framework-Version", System.Environment.Version.ToString()},
+                {"OS", Environment.OSVersion.ToString()},
+                {"NET-Framework-Version", Environment.Version.ToString()},
                 {"SDK-Package-Version", Version}
             };
-
-            return clientDevEnvironment;
         }
 
         /// <summary>
